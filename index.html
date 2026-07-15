@@ -1,2958 +1,1259 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Our Home Guide 🏠</title>
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-        <style>
-            * {
-                box-sizing: border-box;
-                margin: 0;
-                padding: 0;
-            }
-
-            :root {
-                --cream: #FFF8F0;
-                --green: #4A9B6F;
-                --green-light: #D4EDDE;
-                --green-dark: #2E7050;
-                --orange: #F28B3B;
-                --orange-light: #FDE8D4;
-                --yellow: #F5C842;
-                --yellow-light: #FEF5D2;
-                --blue: #3B82F6;
-                --blue-light: #DBEAFE;
-                --purple: #8B5CF6;
-                --purple-light: #EDE9FE;
-                --pink: #EC4899;
-                --pink-light: #FCE7F3;
-                --text-dark: #2D2D2D;
-                --text-mid: #555;
-                --text-soft: #888;
-                --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-                --radius: 20px;
-                --radius-sm: 12px;
-            }
-
-            body {
-                font-family: 'Nunito', sans-serif;
-                background: var(--cream);
-                color: var(--text-dark);
-                min-height: 100vh;
-                padding-bottom: 80px;
-            }
-
-            /* ── HEADER ── */
-            .header {
-                background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
-                padding: 28px 20px 20px;
-                text-align: center;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .header::before {
-                content: '';
-                position: absolute;
-                top: -40px;
-                right: -40px;
-                width: 160px;
-                height: 160px;
-                background: rgba(255, 255, 255, 0.07);
-                border-radius: 50%;
-            }
-
-            .header::after {
-                content: '';
-                position: absolute;
-                bottom: -30px;
-                left: -20px;
-                width: 120px;
-                height: 120px;
-                background: rgba(255, 255, 255, 0.05);
-                border-radius: 50%;
-            }
-
-            .header h1 {
-                font-size: 26px;
-                font-weight: 900;
-                color: #fff;
-            }
-
-            .header .subtitle {
-                font-size: 14px;
-                color: rgba(255, 255, 255, 0.8);
-                margin-top: 4px;
-                font-weight: 600;
-            }
-
-            .header .emoji-row {
-                font-size: 28px;
-                margin-bottom: 10px;
-            }
-
-            /* ── MAIN NAV ── */
-            .main-nav {
-                display: flex;
-                background: #fff;
-                border-bottom: 2px solid #F0EDE8;
-                position: sticky;
-                top: 0;
-                z-index: 100;
-            }
-
-            .main-nav-btn {
-                flex: 1;
-                padding: 14px 8px;
-                border: none;
-                background: none;
-                font-family: 'Nunito', sans-serif;
-                font-size: 13px;
-                font-weight: 700;
-                color: var(--text-soft);
-                cursor: pointer;
-                text-align: center;
-                border-bottom: 3px solid transparent;
-                transition: all 0.2s;
-            }
-
-            .main-nav-btn.active {
-                color: var(--green-dark);
-                border-bottom-color: var(--green);
-            }
-
-            .main-nav-btn .nav-icon {
-                font-size: 18px;
-                display: block;
-                margin-bottom: 2px;
-            }
-
-            .main-nav-btn.locked {
-                opacity: 0.4;
-                pointer-events: none;
-            }
-
-            /* ── SECTIONS ── */
-            .section {
-                display: none;
-                padding: 20px 16px;
-            }
-
-            .section.active {
-                display: block;
-            }
-
-            .coming-soon {
-                text-align: center;
-                padding: 60px 20px;
-            }
-
-            .coming-soon .big-emoji {
-                font-size: 60px;
-                display: block;
-                margin-bottom: 16px;
-            }
-
-            .coming-soon h2 {
-                font-size: 22px;
-                font-weight: 800;
-                color: var(--text-mid);
-                margin-bottom: 8px;
-            }
-
-            .coming-soon p {
-                font-size: 14px;
-                line-height: 1.6;
-                color: var(--text-soft);
-            }
-
-            .section-title {
-                font-size: 22px;
-                font-weight: 900;
-                color: var(--text-dark);
-                margin-bottom: 4px;
-            }
-
-            .section-title-id {
-                font-size: 13px;
-                color: var(--text-soft);
-                font-weight: 600;
-                margin-bottom: 20px;
-            }
-
-            /* ── PREF BANNER ── */
-            .pref-card {
-                background: var(--orange-light);
-                border: 2px solid #F5C9A0;
-                border-radius: var(--radius-sm);
-                padding: 14px 16px;
-                margin-bottom: 20px;
-            }
-
-            .pref-card h3 {
-                font-size: 13px;
-                font-weight: 800;
-                color: var(--orange);
-                margin-bottom: 10px;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-            }
-
-            .pref-item {
-                display: flex;
-                gap: 10px;
-                margin-bottom: 8px;
-                align-items: flex-start;
-            }
-
-            .pref-item .icon {
-                font-size: 18px;
-                flex-shrink: 0;
-                margin-top: 1px;
-            }
-
-            .pref-item .text {
-                font-size: 13px;
-                line-height: 1.5;
-            }
-
-            .pref-item .text strong {
-                color: var(--text-dark);
-                font-weight: 700;
-            }
-
-            .pref-item .text .id {
-                color: var(--text-soft);
-                font-size: 12px;
-                font-style: italic;
-                display: block;
-            }
-
-            /* ── RULE BANNER (dinner) ── */
-            .rule-banner {
-                border-radius: var(--radius-sm);
-                padding: 12px 14px;
-                margin-bottom: 16px;
-                font-size: 13px;
-                font-weight: 600;
-                line-height: 1.5;
-            }
-
-            .rule-banner.green {
-                background: var(--green-light);
-                border: 2px solid #A7D7BC;
-                color: var(--green-dark);
-            }
-
-            .rule-banner.blue {
-                background: var(--blue-light);
-                border: 2px solid #BFDBFE;
-                color: #1E40AF;
-            }
-
-            .rule-banner b {
-                font-weight: 900;
-            }
-
-            /* ── MEAL TABS (Breakfast/Lunch/Dinner) ── */
-            .meal-tabs {
-                display: flex;
-                gap: 8px;
-                margin-bottom: 20px;
-                overflow-x: auto;
-                scrollbar-width: none;
-                padding-bottom: 4px;
-            }
-
-            .meal-tabs::-webkit-scrollbar {
-                display: none;
-            }
-
-            .meal-tab {
-                flex-shrink: 0;
-                padding: 10px 18px;
-                border-radius: 50px;
-                border: 2px solid #E8E3DC;
-                background: #fff;
-                font-family: 'Nunito', sans-serif;
-                font-size: 14px;
-                font-weight: 700;
-                color: var(--text-soft);
-                cursor: pointer;
-                transition: all 0.2s;
-            }
-
-            .meal-tab.active {
-                background: var(--green);
-                border-color: var(--green);
-                color: #fff;
-            }
-
-            /* ── SUB-TABS (cuisine / category) ── */
-            .sub-tabs {
-                display: flex;
-                gap: 6px;
-                margin-bottom: 16px;
-                overflow-x: auto;
-                scrollbar-width: none;
-                padding-bottom: 2px;
-            }
-
-            .sub-tabs::-webkit-scrollbar {
-                display: none;
-            }
-
-            .sub-tab {
-                flex-shrink: 0;
-                padding: 7px 14px;
-                border-radius: 50px;
-                border: 2px solid #E8E3DC;
-                background: #fff;
-                font-family: 'Nunito', sans-serif;
-                font-size: 12px;
-                font-weight: 700;
-                color: var(--text-soft);
-                cursor: pointer;
-                transition: all 0.2s;
-            }
-
-            .sub-tab.active {
-                background: var(--text-dark);
-                border-color: var(--text-dark);
-                color: #fff;
-            }
-
-            /* ── RECIPE GRID ── */
-            .recipe-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 14px;
-            }
-
-            @media (max-width:360px) {
-                .recipe-grid {
-                    grid-template-columns: 1fr;
-                }
-            }
-
-            /* ── RECIPE CARD ── */
-            .recipe-card {
-                background: #fff;
-                border-radius: var(--radius);
-                overflow: hidden;
-                box-shadow: var(--shadow);
-                cursor: pointer;
-                position: relative;
-                text-decoration: none;
-                display: block;
-                color: inherit;
-                -webkit-tap-highlight-color: transparent;
-                transition: transform 0.15s;
-            }
-
-            .recipe-card:active {
-                transform: scale(0.97);
-            }
-
-            /* ── IMAGE ── */
-            .img-wrap {
-                position: relative;
-                width: 100%;
-                height: 130px;
-                overflow: hidden;
-            }
-
-            .img-bg {
-                position: absolute;
-                inset: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 44px;
-                background: linear-gradient(135deg, #E8F5EE 0%, #C8E6D6 100%);
-            }
-
-            .img-bg.blue-bg {
-                background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
-            }
-
-            .img-bg.yellow-bg {
-                background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
-            }
-
-            .img-bg.pink-bg {
-                background: linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%);
-            }
-
-            .img-bg.purple-bg {
-                background: linear-gradient(135deg, #EDE9FE 0%, #DDD6FE 100%);
-            }
-
-            .img-bg.orange-bg {
-                background: linear-gradient(135deg, #FDE8D4 0%, #FBC89A 100%);
-            }
-
-            .img-photo {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                opacity: 0;
-                transition: opacity 0.5s ease;
-                z-index: 1;
-            }
-
-            .img-photo.loaded {
-                opacity: 1;
-            }
-
-            /* ── BADGES ── */
-            .badge {
-                position: absolute;
-                top: 8px;
-                left: 8px;
-                z-index: 10;
-                font-size: 10px;
-                font-weight: 800;
-                padding: 3px 8px;
-                border-radius: 50px;
-                white-space: nowrap;
-            }
-
-            .badge-person {
-                background: rgba(0, 0, 0, 0.6);
-                color: #fff;
-            }
-
-            .badge-weekend {
-                background: linear-gradient(135deg, #F59E0B, #F97316);
-                color: #fff;
-            }
-
-            .badge-cat {
-                background: rgba(0, 0, 0, 0.55);
-                color: #fff;
-                backdrop-filter: blur(4px);
-            }
-
-            /* ── CARD BODY ── */
-            .recipe-body {
-                padding: 10px 12px 12px;
-            }
-
-            .recipe-name {
-                font-size: 14px;
-                font-weight: 800;
-                color: var(--text-dark);
-                margin-bottom: 1px;
-                line-height: 1.3;
-            }
-
-            .recipe-name-id {
-                font-size: 11px;
-                color: var(--text-soft);
-                font-style: italic;
-                margin-bottom: 5px;
-                display: block;
-                font-weight: 600;
-            }
-
-            .recipe-desc {
-                font-size: 12px;
-                color: var(--text-mid);
-                line-height: 1.4;
-                margin-bottom: 8px;
-            }
-
-            .recipe-tags {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 4px;
-                margin-bottom: 8px;
-            }
-
-            .tag {
-                font-size: 10px;
-                font-weight: 700;
-                padding: 3px 8px;
-                border-radius: 50px;
-            }
-
-            .tag-green {
-                background: var(--green-light);
-                color: var(--green-dark);
-            }
-
-            .tag-orange {
-                background: var(--orange-light);
-                color: #C46D25;
-            }
-
-            .tag-yellow {
-                background: var(--yellow-light);
-                color: #8A6D0A;
-            }
-
-            .tag-blue {
-                background: var(--blue-light);
-                color: #1D4ED8;
-            }
-
-            .tag-purple {
-                background: var(--purple-light);
-                color: var(--purple);
-            }
-
-            .tag-pink {
-                background: var(--pink-light);
-                color: #BE185D;
-            }
-
-            .recipe-btn {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 5px;
-                width: 100%;
-                padding: 9px;
-                border: none;
-                border-radius: 10px;
-                font-family: 'Nunito', sans-serif;
-                font-size: 12px;
-                font-weight: 800;
-                background: var(--green);
-                color: #fff;
-            }
-
-            .is-weekend .recipe-btn {
-                background: linear-gradient(135deg, #F59E0B, #F97316);
-            }
-
-            /* ── VARIANT CHIPS ── */
-            .variants {
-                margin-top: 8px;
-                display: flex;
-                flex-wrap: wrap;
-                gap: 5px;
-            }
-
-            .variant-chip {
-                font-size: 11px;
-                font-weight: 700;
-                padding: 4px 10px;
-                border-radius: 50px;
-                background: var(--green-light);
-                color: var(--green-dark);
-                text-decoration: none;
-                display: inline-block;
-                border: 1.5px solid #A7D7BC;
-                -webkit-tap-highlight-color: transparent;
-            }
-
-            .variant-chip.yt {
-                background: var(--pink-light);
-                color: #BE185D;
-                border-color: #F9A8D4;
-            }
-
-            .variant-chip.blue {
-                background: var(--blue-light);
-                color: #1D4ED8;
-                border-color: #BFDBFE;
-            }
-
-            /* ── MEAL & SUB PANELS ── */
-            .meal-panel {
-                display: none;
-            }
-
-            .meal-panel.active {
-                display: block;
-            }
-
-            .sub-panel {
-                display: none;
-            }
-
-            .sub-panel.active {
-                display: block;
-            }
-
-            .meal-label {
-                font-size: 12px;
-                font-weight: 800;
-                color: var(--text-soft);
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                margin-bottom: 12px;
-            }
-
-            /* ── WEEKEND NOTE ── */
-            .weekend-note {
-                display: flex;
-                gap: 10px;
-                align-items: center;
-                background: #FFF7ED;
-                border: 2px solid #FDE68A;
-                border-radius: var(--radius-sm);
-                padding: 10px 14px;
-                margin-bottom: 16px;
-                font-size: 13px;
-                color: #92400E;
-                font-weight: 600;
-                line-height: 1.4;
-            }
-
-            /* ══════════════════════════════
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Home Guide 🏠</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FFF8F0;
+    --green: #4A9B6F;
+    --green-light: #D4EDDE;
+    --green-dark: #2E7050;
+    --orange: #F28B3B;
+    --orange-light: #FDE8D4;
+    --yellow: #F5C842;
+    --yellow-light: #FEF5D2;
+    --blue: #3B82F6;
+    --blue-light: #DBEAFE;
+    --purple: #8B5CF6;
+    --purple-light: #EDE9FE;
+    --pink: #EC4899;
+    --pink-light: #FCE7F3;
+    --text-dark: #2D2D2D;
+    --text-mid: #555;
+    --text-soft: #888;
+    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+    padding: 28px 20px 20px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .header::before { content:''; position:absolute; top:-40px; right:-40px; width:160px; height:160px; background:rgba(255,255,255,0.07); border-radius:50%; }
+  .header::after  { content:''; position:absolute; bottom:-30px; left:-20px; width:120px; height:120px; background:rgba(255,255,255,0.05); border-radius:50%; }
+  .header h1 { font-size:26px; font-weight:900; color:#fff; }
+  .header .subtitle { font-size:14px; color:rgba(255,255,255,0.8); margin-top:4px; font-weight:600; }
+  .header .emoji-row { font-size:28px; margin-bottom:10px; }
+
+  /* ── MAIN NAV ── */
+  .main-nav {
+    display:flex; background:#fff;
+    border-bottom:2px solid #F0EDE8;
+    position:sticky; top:0; z-index:100;
+  }
+  .main-nav-btn {
+    flex:1; padding:14px 8px; border:none; background:none;
+    font-family:'Nunito',sans-serif; font-size:13px; font-weight:700;
+    color:var(--text-soft); cursor:pointer; text-align:center;
+    border-bottom:3px solid transparent; transition:all 0.2s;
+  }
+  .main-nav-btn.active { color:var(--green-dark); border-bottom-color:var(--green); }
+  .main-nav-btn .nav-icon { font-size:18px; display:block; margin-bottom:2px; }
+  .main-nav-btn.locked { opacity:0.4; pointer-events:none; }
+
+  /* ── SECTIONS ── */
+  .section { display:none; padding:20px 16px; }
+  .section.active { display:block; }
+
+  .coming-soon { text-align:center; padding:60px 20px; }
+  .coming-soon .big-emoji { font-size:60px; display:block; margin-bottom:16px; }
+  .coming-soon h2 { font-size:22px; font-weight:800; color:var(--text-mid); margin-bottom:8px; }
+  .coming-soon p { font-size:14px; line-height:1.6; color:var(--text-soft); }
+
+  .section-title { font-size:22px; font-weight:900; color:var(--text-dark); margin-bottom:4px; }
+  .section-title-id { font-size:13px; color:var(--text-soft); font-weight:600; margin-bottom:20px; }
+
+  /* ── PREF BANNER ── */
+  .pref-card {
+    background:var(--orange-light); border:2px solid #F5C9A0;
+    border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:20px;
+  }
+  .pref-card h3 { font-size:13px; font-weight:800; color:var(--orange); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px; }
+  .pref-item { display:flex; gap:10px; margin-bottom:8px; align-items:flex-start; }
+  .pref-item .icon { font-size:18px; flex-shrink:0; margin-top:1px; }
+  .pref-item .text { font-size:13px; line-height:1.5; }
+  .pref-item .text strong { color:var(--text-dark); font-weight:700; }
+  .pref-item .text .id { color:var(--text-soft); font-size:12px; font-style:italic; display:block; }
+
+  /* ── RULE BANNER (dinner) ── */
+  .rule-banner {
+    border-radius:var(--radius-sm); padding:12px 14px; margin-bottom:16px;
+    font-size:13px; font-weight:600; line-height:1.5;
+  }
+  .rule-banner.green { background:var(--green-light); border:2px solid #A7D7BC; color:var(--green-dark); }
+  .rule-banner.blue  { background:var(--blue-light);  border:2px solid #BFDBFE; color:#1E40AF; }
+  .rule-banner b { font-weight:900; }
+
+  /* ── MEAL TABS (Breakfast/Lunch/Dinner) ── */
+  .meal-tabs {
+    display:flex; gap:8px; margin-bottom:20px;
+    overflow-x:auto; scrollbar-width:none; padding-bottom:4px;
+  }
+  .meal-tabs::-webkit-scrollbar { display:none; }
+  .meal-tab {
+    flex-shrink:0; padding:10px 18px; border-radius:50px;
+    border:2px solid #E8E3DC; background:#fff;
+    font-family:'Nunito',sans-serif; font-size:14px; font-weight:700;
+    color:var(--text-soft); cursor:pointer; transition:all 0.2s;
+  }
+  .meal-tab.active { background:var(--green); border-color:var(--green); color:#fff; }
+
+  /* ── SUB-TABS (cuisine / category) ── */
+  .sub-tabs {
+    display:flex; gap:6px; margin-bottom:16px;
+    overflow-x:auto; scrollbar-width:none; padding-bottom:2px;
+  }
+  .sub-tabs::-webkit-scrollbar { display:none; }
+  .sub-tab {
+    flex-shrink:0; padding:7px 14px; border-radius:50px;
+    border:2px solid #E8E3DC; background:#fff;
+    font-family:'Nunito',sans-serif; font-size:12px; font-weight:700;
+    color:var(--text-soft); cursor:pointer; transition:all 0.2s;
+  }
+  .sub-tab.active { background:var(--text-dark); border-color:var(--text-dark); color:#fff; }
+
+  /* ── RECIPE GRID ── */
+  .recipe-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:360px) { .recipe-grid { grid-template-columns:1fr; } }
+
+  /* ── RECIPE CARD ── */
+  .recipe-card {
+    background:#fff; border-radius:var(--radius); overflow:hidden;
+    box-shadow:var(--shadow); cursor:pointer; position:relative;
+    text-decoration:none; display:block; color:inherit;
+    -webkit-tap-highlight-color:transparent; transition:transform 0.15s;
+  }
+  .recipe-card:active { transform:scale(0.97); }
+
+  /* ── IMAGE ── */
+  .img-wrap { position:relative; width:100%; height:130px; overflow:hidden; }
+  .img-bg {
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center; font-size:44px;
+    background:linear-gradient(135deg,#E8F5EE 0%,#C8E6D6 100%);
+  }
+  .img-bg.blue-bg   { background:linear-gradient(135deg,#DBEAFE 0%,#BFDBFE 100%); }
+  .img-bg.yellow-bg { background:linear-gradient(135deg,#FEF3C7 0%,#FDE68A 100%); }
+  .img-bg.pink-bg   { background:linear-gradient(135deg,#FCE7F3 0%,#FBCFE8 100%); }
+  .img-bg.purple-bg { background:linear-gradient(135deg,#EDE9FE 0%,#DDD6FE 100%); }
+  .img-bg.orange-bg { background:linear-gradient(135deg,#FDE8D4 0%,#FBC89A 100%); }
+  .img-photo {
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    opacity:0; transition:opacity 0.5s ease; z-index:1;
+  }
+  .img-photo.loaded { opacity:1; }
+
+  /* ── BADGES ── */
+  .badge {
+    position:absolute; top:8px; left:8px; z-index:10;
+    font-size:10px; font-weight:800; padding:3px 8px; border-radius:50px; white-space:nowrap;
+  }
+  .badge-person  { background:rgba(0,0,0,0.6); color:#fff; }
+  .badge-weekend { background:linear-gradient(135deg,#F59E0B,#F97316); color:#fff; }
+  .badge-cat     { background:rgba(0,0,0,0.55); color:#fff; backdrop-filter:blur(4px); }
+
+  /* ── CARD BODY ── */
+  .recipe-body { padding:10px 12px 12px; }
+  .recipe-name { font-size:14px; font-weight:800; color:var(--text-dark); margin-bottom:1px; line-height:1.3; }
+  .recipe-name-id { font-size:11px; color:var(--text-soft); font-style:italic; margin-bottom:5px; display:block; font-weight:600; }
+  .recipe-desc { font-size:12px; color:var(--text-mid); line-height:1.4; margin-bottom:8px; }
+  .recipe-tags { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:8px; }
+  .tag { font-size:10px; font-weight:700; padding:3px 8px; border-radius:50px; }
+  .tag-green  { background:var(--green-light);  color:var(--green-dark); }
+  .tag-orange { background:var(--orange-light); color:#C46D25; }
+  .tag-yellow { background:var(--yellow-light); color:#8A6D0A; }
+  .tag-blue   { background:var(--blue-light);   color:#1D4ED8; }
+  .tag-purple { background:var(--purple-light); color:var(--purple); }
+  .tag-pink   { background:var(--pink-light);   color:#BE185D; }
+
+  .recipe-btn {
+    display:flex; align-items:center; justify-content:center; gap:5px;
+    width:100%; padding:9px; border:none; border-radius:10px;
+    font-family:'Nunito',sans-serif; font-size:12px; font-weight:800;
+    background:var(--green); color:#fff;
+  }
+  .is-weekend .recipe-btn { background:linear-gradient(135deg,#F59E0B,#F97316); }
+
+  /* ── VARIANT CHIPS ── */
+  .variants { margin-top:8px; display:flex; flex-wrap:wrap; gap:5px; }
+  .variant-chip {
+    font-size:11px; font-weight:700; padding:4px 10px; border-radius:50px;
+    background:var(--green-light); color:var(--green-dark);
+    text-decoration:none; display:inline-block;
+    border:1.5px solid #A7D7BC;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .variant-chip.yt { background:var(--pink-light); color:#BE185D; border-color:#F9A8D4; }
+  .variant-chip.blue { background:var(--blue-light); color:#1D4ED8; border-color:#BFDBFE; }
+
+  /* ── MEAL & SUB PANELS ── */
+  .meal-panel { display:none; }
+  .meal-panel.active { display:block; }
+  .sub-panel { display:none; }
+  .sub-panel.active { display:block; }
+  .meal-label { font-size:12px; font-weight:800; color:var(--text-soft); text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; }
+
+  /* ── WEEKEND NOTE ── */
+  .weekend-note {
+    display:flex; gap:10px; align-items:center;
+    background:#FFF7ED; border:2px solid #FDE68A;
+    border-radius:var(--radius-sm); padding:10px 14px; margin-bottom:16px;
+    font-size:13px; color:#92400E; font-weight:600; line-height:1.4;
+  }
+
+  /* ══════════════════════════════
      TIMETABLE STYLES
   ══════════════════════════════ */
-            /* TODAY BANNER */
-            .today-banner {
-                background: linear-gradient(135deg, var(--green-dark), var(--green));
-                border-radius: var(--radius);
-                padding: 16px 18px;
-                margin-bottom: 16px;
-            }
 
-            .today-date {
-                font-size: 18px;
-                font-weight: 900;
-                color: #fff;
-            }
+  /* TODAY BANNER */
+  .today-banner {
+    background: linear-gradient(135deg, var(--green-dark), var(--green));
+    border-radius: var(--radius); padding: 16px 18px; margin-bottom: 16px;
+  }
+  .today-date { font-size: 18px; font-weight: 900; color: #fff; }
+  .today-special { font-size: 13px; color: rgba(255,255,255,0.85); margin-top: 4px; font-weight: 600; }
 
-            .today-special {
-                font-size: 13px;
-                color: rgba(255, 255, 255, 0.85);
-                margin-top: 4px;
-                font-weight: 600;
-            }
+  /* DAY TABS */
+  .day-tabs {
+    display: flex; gap: 6px; margin-bottom: 18px;
+    overflow-x: auto; scrollbar-width: none; padding-bottom: 2px;
+  }
+  .day-tabs::-webkit-scrollbar { display: none; }
+  .day-tab {
+    flex: 1; min-width: 40px; padding: 9px 4px;
+    border-radius: 12px; border: 2px solid #E8E3DC; background: #fff;
+    font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 800;
+    color: var(--text-soft); cursor: pointer; transition: all 0.2s; text-align: center;
+  }
+  .day-tab.active { background: var(--green); border-color: var(--green); color: #fff; }
+  .day-tab.today-tab { border-color: var(--green); color: var(--green-dark); }
+  .day-tab.today-tab.active { background: var(--green); color: #fff; }
 
-            /* DAY TABS */
-            .day-tabs {
-                display: flex;
-                gap: 6px;
-                margin-bottom: 18px;
-                overflow-x: auto;
-                scrollbar-width: none;
-                padding-bottom: 2px;
-            }
+  /* DAY PANEL */
+  .day-panel { display: none; }
+  .day-panel.active { display: block; }
 
-            .day-tabs::-webkit-scrollbar {
-                display: none;
-            }
+  /* OFF DAY BADGE */
+  .offday-note {
+    background: var(--yellow-light); border: 2px solid #FDE68A;
+    border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 14px;
+    font-size: 13px; font-weight: 700; color: #92400E;
+  }
 
-            .day-tab {
-                flex: 1;
-                min-width: 40px;
-                padding: 9px 4px;
-                border-radius: 12px;
-                border: 2px solid #E8E3DC;
-                background: #fff;
-                font-family: 'Nunito', sans-serif;
-                font-size: 12px;
-                font-weight: 800;
-                color: var(--text-soft);
-                cursor: pointer;
-                transition: all 0.2s;
-                text-align: center;
-            }
+  /* CHECKLIST CARD */
+  .checklist-card {
+    background: #fff; border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 16px; margin-bottom: 20px;
+  }
+  .checklist-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .checklist-title { font-size: 16px; font-weight: 900; color: var(--text-dark); }
+  .checklist-title span { font-size: 12px; font-weight: 600; color: var(--text-soft); margin-left: 6px; }
+  .reset-btn {
+    font-size: 11px; font-weight: 700; padding: 5px 10px;
+    border-radius: 50px; border: 1.5px solid #E8E3DC; background: #fff;
+    color: var(--text-soft); cursor: pointer; font-family: 'Nunito', sans-serif;
+    transition: all 0.2s;
+  }
+  .reset-btn:active { background: #F5F0EA; }
 
-            .day-tab.active {
-                background: var(--green);
-                border-color: var(--green);
-                color: #fff;
-            }
+  .check-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 9px 0; border-bottom: 1px solid #F5F0EA;
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-item input[type=checkbox] { display: none; }
+  .check-box {
+    flex-shrink: 0; width: 22px; height: 22px; border-radius: 6px;
+    border: 2.5px solid #D0C8C0; background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.2s; margin-top: 1px;
+  }
+  .check-box.checked { background: var(--green); border-color: var(--green); }
+  .check-box.checked::after { content: '✓'; color: #fff; font-size: 13px; font-weight: 900; }
+  .check-text { flex: 1; }
+  .check-time { font-size: 11px; font-weight: 700; color: var(--text-soft); margin-bottom: 1px; }
+  .check-label { font-size: 13px; font-weight: 700; color: var(--text-dark); line-height: 1.35; }
+  .check-label.done { text-decoration: line-through; color: var(--text-soft); }
+  .check-label-id { font-size: 11px; color: #bbb; font-style: italic; font-weight: 600; }
 
-            .day-tab.today-tab {
-                border-color: var(--green);
-                color: var(--green-dark);
-            }
+  /* Ghost (not in schedule) check items */
+  .check-item-ghost { background: #FFFBEB; border-radius: 8px; padding: 8px 6px; margin: 2px 0; }
+  .check-box-ghost { border-color: #FCD34D; background: #FFFBEB; }
+  .check-box-ghost.checked { background: var(--yellow); border-color: var(--yellow); }
+  .check-box-ghost.checked::after { content: '✓'; color: #fff; font-size: 13px; font-weight: 900; }
+  .check-ghost-note { font-size: 11px; color: #B45309; font-weight: 700; margin-top: 3px; }
 
-            .day-tab.today-tab.active {
-                background: var(--green);
-                color: #fff;
-            }
+  /* TASK TYPE TAGS */
+  .task-type {
+    display: inline-block; font-size: 10px; font-weight: 800;
+    padding: 2px 7px; border-radius: 50px; margin-left: 5px; vertical-align: middle;
+  }
+  .type-baby    { background: var(--pink-light); color: var(--pink); }
+  .type-weekly  { background: var(--blue-light); color: var(--blue); }
+  .type-monthly { background: var(--purple-light); color: var(--purple); }
+  .type-offday  { background: var(--yellow-light); color: #92400E; }
 
-            /* DAY PANEL */
-            .day-panel {
-                display: none;
-            }
+  /* PROGRESS BAR */
+  .progress-wrap { margin-bottom: 14px; }
+  .progress-label { font-size: 12px; font-weight: 700; color: var(--text-soft); margin-bottom: 6px; display:flex; justify-content:space-between; }
+  .progress-bar { height: 8px; background: #F0EDE8; border-radius: 50px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--green); border-radius: 50px; transition: width 0.3s ease; }
 
-            .day-panel.active {
-                display: block;
-            }
+  /* TIMELINE */
+  .timeline-section { margin-bottom: 20px; }
+  .timeline-period {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 900; color: var(--text-mid);
+    text-transform: uppercase; letter-spacing: 0.8px;
+    margin-bottom: 10px; padding-bottom: 6px;
+    border-bottom: 2px solid #F0EDE8;
+  }
+  .timeline-item {
+    display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start;
+  }
+  .tl-time-col { flex-shrink: 0; width: 54px; text-align: right; }
+  .tl-time { font-size: 11px; font-weight: 800; color: var(--text-soft); white-space: nowrap; }
+  .tl-line-col { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; width: 16px; }
+  .tl-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--green); flex-shrink: 0; margin-top: 3px; }
+  .tl-dot.baby-dot { background: var(--pink); }
+  .tl-dot.weekly-dot { background: var(--blue); }
+  .tl-vline { width: 2px; flex: 1; background: #E8E3DC; min-height: 12px; }
+  .tl-card {
+    flex: 1; background: #fff; border-radius: var(--radius-sm);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 10px 12px; margin-bottom: 2px;
+  }
+  .tl-card.weekly-card { border-left: 3px solid var(--blue); }
+  .tl-card.baby-card   { border-left: 3px solid var(--pink); }
+  .tl-card.monthly-card { border-left: 3px solid var(--purple); }
+  .tl-emoji { font-size: 16px; margin-bottom: 3px; }
+  .tl-title { font-size: 13px; font-weight: 800; color: var(--text-dark); margin-bottom: 3px; }
+  .tl-title-id { font-size: 11px; color: var(--text-soft); font-style: italic; font-weight: 600; }
+  .tl-note { font-size: 11px; color: var(--text-mid); margin-top: 5px; line-height: 1.4; }
+  .tl-note li { margin-left: 12px; list-style: disc; }
 
-            /* OFF DAY BADGE */
-            .offday-note {
-                background: var(--yellow-light);
-                border: 2px solid #FDE68A;
-                border-radius: var(--radius-sm);
-                padding: 10px 14px;
-                margin-bottom: 14px;
-                font-size: 13px;
-                font-weight: 700;
-                color: #92400E;
-            }
-
-            /* CHECKLIST CARD */
-            .checklist-card {
-                background: #fff;
-                border-radius: var(--radius);
-                box-shadow: var(--shadow);
-                padding: 16px;
-                margin-bottom: 20px;
-            }
-
-            .checklist-header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 14px;
-            }
-
-            .checklist-title {
-                font-size: 16px;
-                font-weight: 900;
-                color: var(--text-dark);
-            }
-
-            .checklist-title span {
-                font-size: 12px;
-                font-weight: 600;
-                color: var(--text-soft);
-                margin-left: 6px;
-            }
-
-            .reset-btn {
-                font-size: 11px;
-                font-weight: 700;
-                padding: 5px 10px;
-                border-radius: 50px;
-                border: 1.5px solid #E8E3DC;
-                background: #fff;
-                color: var(--text-soft);
-                cursor: pointer;
-                font-family: 'Nunito', sans-serif;
-                transition: all 0.2s;
-            }
-
-            .reset-btn:active {
-                background: #F5F0EA;
-            }
-
-            .check-item {
-                display: flex;
-                align-items: flex-start;
-                gap: 10px;
-                padding: 9px 0;
-                border-bottom: 1px solid #F5F0EA;
-            }
-
-            .check-item:last-child {
-                border-bottom: none;
-            }
-
-            .check-item input[type=checkbox] {
-                display: none;
-            }
-
-            .check-box {
-                flex-shrink: 0;
-                width: 22px;
-                height: 22px;
-                border-radius: 6px;
-                border: 2.5px solid #D0C8C0;
-                background: #fff;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: all 0.2s;
-                margin-top: 1px;
-            }
-
-            .check-box.checked {
-                background: var(--green);
-                border-color: var(--green);
-            }
-
-            .check-box.checked::after {
-                content: '✓';
-                color: #fff;
-                font-size: 13px;
-                font-weight: 900;
-            }
-
-            .check-text {
-                flex: 1;
-            }
-
-            .check-time {
-                font-size: 11px;
-                font-weight: 700;
-                color: var(--text-soft);
-                margin-bottom: 1px;
-            }
-
-            .check-label {
-                font-size: 13px;
-                font-weight: 700;
-                color: var(--text-dark);
-                line-height: 1.35;
-            }
-
-            .check-label.done {
-                text-decoration: line-through;
-                color: var(--text-soft);
-            }
-
-            .check-label-id {
-                font-size: 11px;
-                color: #bbb;
-                font-style: italic;
-                font-weight: 600;
-            }
-
-            /* Ghost (not in schedule) check items */
-            .check-item-ghost {
-                background: #FFFBEB;
-                border-radius: 8px;
-                padding: 8px 6px;
-                margin: 2px 0;
-            }
-
-            .check-box-ghost {
-                border-color: #FCD34D;
-                background: #FFFBEB;
-            }
-
-            .check-box-ghost.checked {
-                background: var(--yellow);
-                border-color: var(--yellow);
-            }
-
-            .check-box-ghost.checked::after {
-                content: '✓';
-                color: #fff;
-                font-size: 13px;
-                font-weight: 900;
-            }
-
-            .check-ghost-note {
-                font-size: 11px;
-                color: #B45309;
-                font-weight: 700;
-                margin-top: 3px;
-            }
-
-            /* TASK TYPE TAGS */
-            .task-type {
-                display: inline-block;
-                font-size: 10px;
-                font-weight: 800;
-                padding: 2px 7px;
-                border-radius: 50px;
-                margin-left: 5px;
-                vertical-align: middle;
-            }
-
-            .type-baby {
-                background: var(--pink-light);
-                color: var(--pink);
-            }
-
-            .type-weekly {
-                background: var(--blue-light);
-                color: var(--blue);
-            }
-
-            .type-monthly {
-                background: var(--purple-light);
-                color: var(--purple);
-            }
-
-            .type-offday {
-                background: var(--yellow-light);
-                color: #92400E;
-            }
-
-            /* PROGRESS BAR */
-            .progress-wrap {
-                margin-bottom: 14px;
-            }
-
-            .progress-label {
-                font-size: 12px;
-                font-weight: 700;
-                color: var(--text-soft);
-                margin-bottom: 6px;
-                display: flex;
-                justify-content: space-between;
-            }
-
-            .progress-bar {
-                height: 8px;
-                background: #F0EDE8;
-                border-radius: 50px;
-                overflow: hidden;
-            }
-
-            .progress-fill {
-                height: 100%;
-                background: var(--green);
-                border-radius: 50px;
-                transition: width 0.3s ease;
-            }
-
-            /* TIMELINE */
-            .timeline-section {
-                margin-bottom: 20px;
-            }
-
-            .timeline-period {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                font-size: 13px;
-                font-weight: 900;
-                color: var(--text-mid);
-                text-transform: uppercase;
-                letter-spacing: 0.8px;
-                margin-bottom: 10px;
-                padding-bottom: 6px;
-                border-bottom: 2px solid #F0EDE8;
-            }
-
-            .timeline-item {
-                display: flex;
-                gap: 12px;
-                margin-bottom: 10px;
-                align-items: flex-start;
-            }
-
-            .tl-time-col {
-                flex-shrink: 0;
-                width: 54px;
-                text-align: right;
-            }
-
-            .tl-time {
-                font-size: 11px;
-                font-weight: 800;
-                color: var(--text-soft);
-                white-space: nowrap;
-            }
-
-            .tl-line-col {
-                flex-shrink: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                width: 16px;
-            }
-
-            .tl-dot {
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                background: var(--green);
-                flex-shrink: 0;
-                margin-top: 3px;
-            }
-
-            .tl-dot.baby-dot {
-                background: var(--pink);
-            }
-
-            .tl-dot.weekly-dot {
-                background: var(--blue);
-            }
-
-            .tl-vline {
-                width: 2px;
-                flex: 1;
-                background: #E8E3DC;
-                min-height: 12px;
-            }
-
-            .tl-card {
-                flex: 1;
-                background: #fff;
-                border-radius: var(--radius-sm);
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-                padding: 10px 12px;
-                margin-bottom: 2px;
-            }
-
-            .tl-card.weekly-card {
-                border-left: 3px solid var(--blue);
-            }
-
-            .tl-card.baby-card {
-                border-left: 3px solid var(--pink);
-            }
-
-            .tl-card.monthly-card {
-                border-left: 3px solid var(--purple);
-            }
-
-            .tl-emoji {
-                font-size: 16px;
-                margin-bottom: 3px;
-            }
-
-            .tl-title {
-                font-size: 13px;
-                font-weight: 800;
-                color: var(--text-dark);
-                margin-bottom: 3px;
-            }
-
-            .tl-title-id {
-                font-size: 11px;
-                color: var(--text-soft);
-                font-style: italic;
-                font-weight: 600;
-            }
-
-            .tl-note {
-                font-size: 11px;
-                color: var(--text-mid);
-                margin-top: 5px;
-                line-height: 1.4;
-            }
-
-            .tl-note li {
-                margin-left: 12px;
-                list-style: disc;
-            }
-
-            /* ══════════════════════════════
+  /* ══════════════════════════════
      HOUSE RULES STYLES
   ══════════════════════════════ */
-            .rules-welcome {
-                display: flex;
-                gap: 12px;
-                align-items: flex-start;
-                background: var(--green-light);
-                border: 2px solid #A7D7BC;
-                border-radius: var(--radius);
-                padding: 16px;
-                margin-bottom: 12px;
-            }
+  .rules-welcome { display:flex; gap:12px; align-items:flex-start; background:var(--green-light); border:2px solid #A7D7BC; border-radius:var(--radius); padding:16px; margin-bottom:12px; }
+  .rules-welcome-emoji { font-size:28px; flex-shrink:0; }
+  .rules-welcome-text { font-size:14px; font-weight:700; color:var(--green-dark); line-height:1.5; }
+  .rules-welcome-text strong { font-weight:900; }
+  .rules-id { display:block; font-size:12px; font-style:italic; color:var(--green-dark); opacity:0.75; margin-top:4px; font-weight:600; }
+  .rules-ask-note { background:#fff; border:2px solid #E8E3DC; border-radius:var(--radius-sm); padding:12px 14px; margin-bottom:20px; font-size:13px; font-weight:600; color:var(--text-mid); line-height:1.5; }
+  .rules-ask-note em { font-size:11px; color:var(--text-soft); }
+  .accordion { margin-bottom:10px; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
+  .acc-header { width:100%; display:flex; align-items:center; gap:12px; padding:15px 16px; background:#fff; border:none; cursor:pointer; font-family:'Nunito',sans-serif; text-align:left; transition:background 0.15s; }
+  .acc-header:active { background:#F5F0EA; }
+  .acc-header-baby { background:var(--pink-light); }
+  .acc-header-baby:active { background:#F9C8E0; }
+  .acc-icon { font-size:22px; flex-shrink:0; }
+  .acc-title { flex:1; font-size:15px; font-weight:900; color:var(--text-dark); line-height:1.3; }
+  .acc-title-id { font-size:11px; font-weight:600; color:var(--text-soft); font-style:italic; }
+  .acc-chevron { font-size:12px; color:var(--text-soft); flex-shrink:0; }
+  .acc-body { background:#fff; padding:4px 14px 14px; }
+  .rule-item { display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border-radius:var(--radius-sm); margin-bottom:6px; }
+  .rule-item.do   { background:#F6FBF8; }
+  .rule-item.dont { background:#FEF5F5; }
+  .rule-dot { flex-shrink:0; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:900; margin-top:1px; }
+  .do-dot   { background:var(--green-light); color:var(--green-dark); }
+  .dont-dot { background:#FEE2E2; color:#DC2626; }
+  .rule-text { font-size:13px; font-weight:600; color:var(--text-dark); line-height:1.45; }
+  .rule-text strong { font-weight:900; }
+  .rule-text .rule-id { display:block; font-size:11px; color:var(--text-soft); font-style:italic; margin-top:3px; font-weight:600; }
+  .rules-baby-note { background:var(--pink-light); border-radius:var(--radius-sm); padding:10px 12px; margin-bottom:8px; font-size:12px; font-weight:700; color:#9D174D; line-height:1.5; }
+  .rules-baby-note em { font-size:11px; font-weight:600; }
+  .rules-promise { display:flex; gap:12px; align-items:flex-start; background:var(--yellow-light); border:2px solid #FDE68A; border-radius:var(--radius); padding:16px; margin-top:20px; }
+  .rules-promise-emoji { font-size:28px; flex-shrink:0; }
+  .rules-promise-text { font-size:14px; font-weight:700; color:#92400E; line-height:1.5; }
+  .rules-promise-text strong { font-weight:900; }
+</style>
+</head>
+<body>
 
-            .rules-welcome-emoji {
-                font-size: 28px;
-                flex-shrink: 0;
-            }
+<div class="header">
+  <div class="emoji-row">🏠</div>
+  <h1>Our Home Guide</h1>
+  <div class="subtitle">Panduan Rumah Kita</div>
+</div>
 
-            .rules-welcome-text {
-                font-size: 14px;
-                font-weight: 700;
-                color: var(--green-dark);
-                line-height: 1.5;
-            }
+<nav class="main-nav">
+  <button class="main-nav-btn active" onclick="showSection('recipes',this)">
+    <span class="nav-icon">🍳</span>Recipes
+  </button>
+  <button class="main-nav-btn locked">
+    <span class="nav-icon">📅</span>Timetable
+  </button>
+  <button class="main-nav-btn locked">
+    <span class="nav-icon">📜</span>House Rules
+  </button>
+</nav>
 
-            .rules-welcome-text strong {
-                font-weight: 900;
-            }
+<!-- ═══════ RECIPES SECTION ═══════ -->
+<div class="section active" id="section-recipes">
 
-            .rules-id {
-                display: block;
-                font-size: 12px;
-                font-style: italic;
-                color: var(--green-dark);
-                opacity: 0.75;
-                margin-top: 4px;
-                font-weight: 600;
-            }
+  <div style="margin-bottom:16px;">
+    <div class="section-title">🍽️ Recipe Options</div>
+    <div class="section-title-id">Pilihan Resep Masakan</div>
+  </div>
 
-            .rules-ask-note {
-                background: #fff;
-                border: 2px solid #E8E3DC;
-                border-radius: var(--radius-sm);
-                padding: 12px 14px;
-                margin-bottom: 20px;
-                font-size: 13px;
-                font-weight: 600;
-                color: var(--text-mid);
-                line-height: 1.5;
-            }
+  <!-- PREF BANNER -->
+  <div class="pref-card">
+    <h3>⭐ Household Preferences · Preferensi Keluarga</h3>
+    <div class="pref-item">
+      <span class="icon">🚫</span>
+      <div class="text">
+        <strong>NO peanut butter or mayonnaise · NO beef for Mdm</strong>
+        <span class="id">TIDAK ada selai kacang/mayones · TIDAK ada sapi untuk Ibu</span>
+      </div>
+    </div>
+    <div class="pref-item">
+      <span class="icon">🥗</span>
+      <div class="text">
+        <strong>Light, healthy, not too oily or spicy</strong>
+        <span class="id">Ringan, sehat, tidak terlalu berminyak atau pedas</span>
+      </div>
+    </div>
+    <div class="pref-item">
+      <span class="icon">🥣</span>
+      <div class="text">
+        <strong>Sir likes oats · Mdm likes yoghurt for breakfast</strong>
+        <span class="id">Bapak suka oats · Ibu suka yoghurt untuk sarapan</span>
+      </div>
+    </div>
+    <div class="pref-item">
+      <span class="icon">🍽️</span>
+      <div class="text">
+        <strong>Dinner = 1 Meat/Fish + 1 Vegetable + 1 Soup · Cut fruits after</strong>
+        <span class="id">Makan malam = 1 daging/ikan + 1 sayuran + 1 sup · Potong buah setelahnya</span>
+      </div>
+    </div>
+  </div>
 
-            .rules-ask-note em {
-                font-size: 11px;
-                color: var(--text-soft);
-            }
+  <!-- MEAL TABS -->
+  <div class="meal-tabs">
+    <button class="meal-tab active" onclick="showMeal('breakfast',this)">☀️ Breakfast</button>
+    <button class="meal-tab" onclick="showMeal('lunch',this)">🌤️ Lunch</button>
+    <button class="meal-tab" onclick="showMeal('dinner',this)">🌙 Dinner</button>
+  </div>
 
-            .accordion {
-                margin-bottom: 10px;
-                border-radius: var(--radius);
-                overflow: hidden;
-                box-shadow: var(--shadow);
-            }
+  <!-- ═══ BREAKFAST ═══ -->
+  <div class="meal-panel active" id="meal-breakfast">
+    <div class="meal-label">Breakfast · Sarapan</div>
+    <div class="weekend-note">
+      🌅 Cards with an <strong style="color:#B45309">&nbsp;orange badge&nbsp;</strong> are for <strong style="color:#B45309">Weekends only</strong>&nbsp;·&nbsp;<em style="font-weight:400">Badge oranye = Akhir pekan saja</em>
+    </div>
+    <div class="recipe-grid" id="breakfast-grid"></div>
+  </div>
 
-            .acc-header {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                padding: 15px 16px;
-                background: #fff;
-                border: none;
-                cursor: pointer;
-                font-family: 'Nunito', sans-serif;
-                text-align: left;
-                transition: background 0.15s;
-            }
+  <!-- ═══ LUNCH ═══ -->
+  <div class="meal-panel" id="meal-lunch">
+    <div class="meal-label">Lunch · Makan Siang</div>
 
-            .acc-header:active {
-                background: #F5F0EA;
-            }
+    <div class="rule-banner blue">
+      ⏱️ <b>Cook time: ~45–60 mins</b> · Light meal, not too heavy · Balanced: meat + veg + carbs<br>
+      <em style="font-weight:400;font-size:11px;">Waktu masak ~45–60 menit · Makanan ringan · Seimbang: daging + sayur + karbohidrat</em>
+    </div>
 
-            .acc-header-baby {
-                background: var(--pink-light);
-            }
+    <!-- Cuisine sub-tabs -->
+    <div class="sub-tabs" id="lunch-sub-tabs">
+      <button class="sub-tab active" onclick="showSub('lunch','western',this)">🌍 Western</button>
+      <button class="sub-tab" onclick="showSub('lunch','chinese',this)">🥢 Chinese</button>
+      <button class="sub-tab" onclick="showSub('lunch','asian',this)">🌏 Asian</button>
+    </div>
 
-            .acc-header-baby:active {
-                background: #F9C8E0;
-            }
+    <!-- Western -->
+    <div class="sub-panel active" id="lunch-western">
+      <div class="recipe-grid" id="lunch-western-grid"></div>
+    </div>
 
-            .acc-icon {
-                font-size: 22px;
-                flex-shrink: 0;
-            }
+    <!-- Chinese -->
+    <div class="sub-panel" id="lunch-chinese">
+      <div class="recipe-grid" id="lunch-chinese-grid"></div>
+    </div>
 
-            .acc-title {
-                flex: 1;
-                font-size: 15px;
-                font-weight: 900;
-                color: var(--text-dark);
-                line-height: 1.3;
-            }
+    <!-- Asian -->
+    <div class="sub-panel" id="lunch-asian">
+      <div class="recipe-grid" id="lunch-asian-grid"></div>
+    </div>
+  </div>
 
-            .acc-title-id {
-                font-size: 11px;
-                font-weight: 600;
-                color: var(--text-soft);
-                font-style: italic;
-            }
+  <!-- ═══ DINNER ═══ -->
+  <div class="meal-panel" id="meal-dinner">
+    <div class="meal-label">Dinner · Makan Malam</div>
 
-            .acc-chevron {
-                font-size: 12px;
-                color: var(--text-soft);
-                flex-shrink: 0;
-            }
+    <div class="rule-banner green">
+      🍽️ <b>Full dinner = 1 Meat/Fish + 1 Vegetable + 1 Soup (or Tofu/Egg)</b><br>
+      🍊 Remember to <b>cut fruits after dinner!</b><br>
+      <em style="font-weight:400;font-size:11px;">Makan malam lengkap = 1 daging/ikan + 1 sayuran + 1 sup · Potong buah setelah makan malam!</em>
+    </div>
 
-            .acc-body {
-                background: #fff;
-                padding: 4px 14px 14px;
-            }
+    <!-- Dinner sub-tabs -->
+    <div class="sub-tabs" id="dinner-sub-tabs">
+      <button class="sub-tab active" onclick="showSub('dinner','meat',this)">🥩 Meat / Fish</button>
+      <button class="sub-tab" onclick="showSub('dinner','veg',this)">🥦 Vegetables</button>
+      <button class="sub-tab" onclick="showSub('dinner','soup',this)">🍲 Soup & More</button>
+    </div>
 
-            .rule-item {
-                display: flex;
-                gap: 10px;
-                align-items: flex-start;
-                padding: 10px 12px;
-                border-radius: var(--radius-sm);
-                margin-bottom: 6px;
-            }
+    <!-- Meat -->
+    <div class="sub-panel active" id="dinner-meat">
+      <div class="recipe-grid" id="dinner-meat-grid"></div>
+    </div>
 
-            .rule-item.do {
-                background: #F6FBF8;
-            }
+    <!-- Veg -->
+    <div class="sub-panel" id="dinner-veg">
+      <div class="recipe-grid" id="dinner-veg-grid"></div>
+    </div>
 
-            .rule-item.dont {
-                background: #FEF5F5;
-            }
+    <!-- Soup -->
+    <div class="sub-panel" id="dinner-soup">
+      <div class="recipe-grid" id="dinner-soup-grid"></div>
+    </div>
+  </div>
 
-            .rule-dot {
-                flex-shrink: 0;
-                width: 22px;
-                height: 22px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 12px;
-                font-weight: 900;
-                margin-top: 1px;
-            }
+</div><!-- end #section-recipes -->
 
-            .do-dot {
-                background: var(--green-light);
-                color: var(--green-dark);
-            }
+<div class="section" id="section-timetable">
 
-            .dont-dot {
-                background: #FEE2E2;
-                color: #DC2626;
-            }
+  <!-- TODAY BANNER -->
+  <div class="today-banner">
+    <div class="today-date" id="tt-date"></div>
+    <div class="today-special" id="tt-special"></div>
+  </div>
 
-            .rule-text {
-                font-size: 13px;
-                font-weight: 600;
-                color: var(--text-dark);
-                line-height: 1.45;
-            }
+  <!-- DAY TABS -->
+  <div class="day-tabs" id="day-tabs">
+    <button class="day-tab" data-day="0" onclick="switchDay(0,this)">Mon</button>
+    <button class="day-tab" data-day="1" onclick="switchDay(1,this)">Tue</button>
+    <button class="day-tab" data-day="2" onclick="switchDay(2,this)">Wed</button>
+    <button class="day-tab" data-day="3" onclick="switchDay(3,this)">Thu</button>
+    <button class="day-tab" data-day="4" onclick="switchDay(4,this)">Fri</button>
+    <button class="day-tab" data-day="5" onclick="switchDay(5,this)">Sat</button>
+    <button class="day-tab" data-day="6" onclick="switchDay(6,this)">Sun</button>
+  </div>
 
-            .rule-text strong {
-                font-weight: 900;
-            }
+  <!-- DAY PANELS (one per day) -->
+  <div id="tt-panels"></div>
 
-            .rule-text .rule-id {
-                display: block;
-                font-size: 11px;
-                color: var(--text-soft);
-                font-style: italic;
-                margin-top: 3px;
-                font-weight: 600;
-            }
+</div>
 
-            .rules-baby-note {
-                background: var(--pink-light);
-                border-radius: var(--radius-sm);
-                padding: 10px 12px;
-                margin-bottom: 8px;
-                font-size: 12px;
-                font-weight: 700;
-                color: #9D174D;
-                line-height: 1.5;
-            }
+<div class="section" id="section-rules">
 
-            .rules-baby-note em {
-                font-size: 11px;
-                font-weight: 600;
-            }
+  <!-- Opening message -->
+  <div class="rules-welcome">
+    <div class="rules-welcome-emoji">🤝</div>
+    <div class="rules-welcome-text">
+      <strong>We hope to build a good and respectful working relationship together.</strong>
+      <span class="rules-id">Kami berharap bisa membangun hubungan kerja yang baik dan saling menghargai.</span>
+    </div>
+  </div>
+  <div class="rules-ask-note">
+    💬 If you are not sure about anything, please always ask. We will guide and support you.<br>
+    <em>Jika tidak yakin, silakan selalu bertanya. Kami akan membimbing Anda.</em>
+  </div>
 
-            .rules-promise {
-                display: flex;
-                gap: 12px;
-                align-items: flex-start;
-                background: var(--yellow-light);
-                border: 2px solid #FDE68A;
-                border-radius: var(--radius);
-                padding: 16px;
-                margin-top: 20px;
-            }
-
-            .rules-promise-emoji {
-                font-size: 28px;
-                flex-shrink: 0;
-            }
-
-            .rules-promise-text {
-                font-size: 14px;
-                font-weight: 700;
-                color: #92400E;
-                line-height: 1.5;
-            }
-
-            .rules-promise-text strong {
-                font-weight: 900;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="header">
-            <div class="emoji-row">🏠</div>
-            <h1>Our Home Guide</h1>
-            <div class="subtitle">Panduan Rumah Kita</div>
+  <!-- Accordions -->
+  <div class="accordion" id="acc-honesty">
+    <button class="acc-header" onclick="toggleAcc('honesty')">
+      <span class="acc-icon">🤝</span>
+      <span class="acc-title">Honesty &amp; Communication<br><span class="acc-title-id">Kejujuran &amp; Komunikasi</span></span>
+      <span class="acc-chevron" id="chev-honesty">▼</span>
+    </button>
+    <div class="acc-body" id="body-honesty">
+      <div class="rule-item do">
+        <span class="rule-dot do-dot">✓</span>
+        <div class="rule-text">
+          We work based on <strong>trust</strong>. If you are not sure, please ask.
+          <span class="rule-id">Kami bekerja berdasarkan kepercayaan. Jika tidak yakin, silakan bertanya.</span>
         </div>
-        <nav class="main-nav">
-            <button class="main-nav-btn active" onclick="showSection('recipes',this)">
-                <span class="nav-icon">🍳</span>Recipes </button>
-            <button class="main-nav-btn locked">
-                <span class="nav-icon">📅</span>Timetable </button>
-            <button class="main-nav-btn locked">
-                <span class="nav-icon">📜</span>House Rules </button>
-        </nav>
-        <!-- ═══════ RECIPES SECTION ═══════ -->
-        <div class="section active" id="section-recipes">
-            <div style="margin-bottom:16px;">
-                <div class="section-title">🍽️ Recipe Options</div>
-                <div class="section-title-id">Pilihan Resep Masakan</div>
-            </div>
-            <!-- PREF BANNER -->
-            <div class="pref-card">
-                <h3>⭐ Household Preferences · Preferensi Keluarga</h3>
-                <div class="pref-item">
-                    <span class="icon">🚫</span>
-                    <div class="text">
-                        <strong>NO peanut butter or mayonnaise · NO beef for Mdm</strong>
-                        <span class="id">TIDAK ada selai kacang/mayones · TIDAK ada sapi untuk Ibu</span>
-                    </div>
-                </div>
-                <div class="pref-item">
-                    <span class="icon">🥗</span>
-                    <div class="text">
-                        <strong>Light, healthy, not too oily or spicy</strong>
-                        <span class="id">Ringan, sehat, tidak terlalu berminyak atau pedas</span>
-                    </div>
-                </div>
-                <div class="pref-item">
-                    <span class="icon">🥣</span>
-                    <div class="text">
-                        <strong>Sir likes oats · Mdm likes yoghurt for breakfast</strong>
-                        <span class="id">Bapak suka oats · Ibu suka yoghurt untuk sarapan</span>
-                    </div>
-                </div>
-                <div class="pref-item">
-                    <span class="icon">🍽️</span>
-                    <div class="text">
-                        <strong>Dinner = 1 Meat/Fish + 1 Vegetable + 1 Soup · Cut fruits after</strong>
-                        <span class="id">Makan malam = 1 daging/ikan + 1 sayuran + 1 sup · Potong buah setelahnya</span>
-                    </div>
-                </div>
-            </div>
-            <!-- MEAL TABS -->
-            <div class="meal-tabs">
-                <button class="meal-tab active" onclick="showMeal('breakfast',this)">☀️ Breakfast</button>
-                <button class="meal-tab" onclick="showMeal('lunch',this)">🌤️ Lunch</button>
-                <button class="meal-tab" onclick="showMeal('dinner',this)">🌙 Dinner</button>
-            </div>
-            <!-- ═══ BREAKFAST ═══ -->
-            <div class="meal-panel active" id="meal-breakfast">
-                <div class="meal-label">Breakfast · Sarapan</div>
-                <div class="weekend-note"> 🌅 Cards with an <strong style="color:#B45309">&nbsp;orange badge&nbsp;</strong> are for <strong style="color:#B45309">Weekends only</strong>&nbsp;·&nbsp; <em style="font-weight:400">Badge oranye = Akhir pekan saja</em>
-                </div>
-                <div class="recipe-grid" id="breakfast-grid"></div>
-            </div>
-            <!-- ═══ LUNCH ═══ -->
-            <div class="meal-panel" id="meal-lunch">
-                <div class="meal-label">Lunch · Makan Siang</div>
-                <div class="rule-banner blue"> ⏱️ <b>Cook time: ~45–60 mins</b> · Light meal, not too heavy · Balanced: meat + veg + carbs <br>
-                    <em style="font-weight:400;font-size:11px;">Waktu masak ~45–60 menit · Makanan ringan · Seimbang: daging + sayur + karbohidrat</em>
-                </div>
-                <!-- Cuisine sub-tabs -->
-                <div class="sub-tabs" id="lunch-sub-tabs">
-                    <button class="sub-tab active" onclick="showSub('lunch','western',this)">🌍 Western</button>
-                    <button class="sub-tab" onclick="showSub('lunch','chinese',this)">🥢 Chinese</button>
-                    <button class="sub-tab" onclick="showSub('lunch','asian',this)">🌏 Asian</button>
-                </div>
-                <!-- Western -->
-                <div class="sub-panel active" id="lunch-western">
-                    <div class="recipe-grid" id="lunch-western-grid"></div>
-                </div>
-                <!-- Chinese -->
-                <div class="sub-panel" id="lunch-chinese">
-                    <div class="recipe-grid" id="lunch-chinese-grid"></div>
-                </div>
-                <!-- Asian -->
-                <div class="sub-panel" id="lunch-asian">
-                    <div class="recipe-grid" id="lunch-asian-grid"></div>
-                </div>
-            </div>
-            <!-- ═══ DINNER ═══ -->
-            <div class="meal-panel" id="meal-dinner">
-                <div class="meal-label">Dinner · Makan Malam</div>
-                <div class="rule-banner green"> 🍽️ <b>Full dinner = 1 Meat/Fish + 1 Vegetable + 1 Soup (or Tofu/Egg)</b>
-                    <br> 🍊 Remember to <b>cut fruits after dinner!</b>
-                    <br>
-                    <em style="font-weight:400;font-size:11px;">Makan malam lengkap = 1 daging/ikan + 1 sayuran + 1 sup · Potong buah setelah makan malam!</em>
-                </div>
-                <!-- Dinner sub-tabs -->
-                <div class="sub-tabs" id="dinner-sub-tabs">
-                    <button class="sub-tab active" onclick="showSub('dinner','meat',this)">🥩 Meat / Fish</button>
-                    <button class="sub-tab" onclick="showSub('dinner','veg',this)">🥦 Vegetables</button>
-                    <button class="sub-tab" onclick="showSub('dinner','soup',this)">🍲 Soup & More</button>
-                </div>
-                <!-- Meat -->
-                <div class="sub-panel active" id="dinner-meat">
-                    <div class="recipe-grid" id="dinner-meat-grid"></div>
-                </div>
-                <!-- Veg -->
-                <div class="sub-panel" id="dinner-veg">
-                    <div class="recipe-grid" id="dinner-veg-grid"></div>
-                </div>
-                <!-- Soup -->
-                <div class="sub-panel" id="dinner-soup">
-                    <div class="recipe-grid" id="dinner-soup-grid"></div>
-                </div>
-            </div>
+      </div>
+      <div class="rule-item dont">
+        <span class="rule-dot dont-dot">✕</span>
+        <div class="rule-text">
+          Do <strong>not</strong> use Sir / Mdm's things without permission.
+          <span class="rule-id">Jangan menggunakan barang Sir/Ma'am tanpa izin (kecuali kami bilang boleh).</span>
         </div>
-        <!-- end #section-recipes -->
-        <div class="section" id="section-timetable">
-            <!-- TODAY BANNER -->
-            <div class="today-banner">
-                <div class="today-date" id="tt-date"></div>
-                <div class="today-special" id="tt-special"></div>
-            </div>
-            <!-- DAY TABS -->
-            <div class="day-tabs" id="day-tabs">
-                <button class="day-tab" data-day="0" onclick="switchDay(0,this)">Mon</button>
-                <button class="day-tab" data-day="1" onclick="switchDay(1,this)">Tue</button>
-                <button class="day-tab" data-day="2" onclick="switchDay(2,this)">Wed</button>
-                <button class="day-tab" data-day="3" onclick="switchDay(3,this)">Thu</button>
-                <button class="day-tab" data-day="4" onclick="switchDay(4,this)">Fri</button>
-                <button class="day-tab" data-day="5" onclick="switchDay(5,this)">Sat</button>
-                <button class="day-tab" data-day="6" onclick="switchDay(6,this)">Sun</button>
-            </div>
-            <!-- DAY PANELS (one per day) -->
-            <div id="tt-panels"></div>
+      </div>
+      <div class="rule-item dont">
+        <span class="rule-dot dont-dot">✕</span>
+        <div class="rule-text">
+          <strong>No</strong> lying, stealing, or borrowing money from others.
+          <span class="rule-id">Tidak boleh berbohong, mencuri, atau meminjam uang dari orang lain.</span>
         </div>
-        <div class="section" id="section-rules">
-            <!-- Opening message -->
-            <div class="rules-welcome">
-                <div class="rules-welcome-emoji">🤝</div>
-                <div class="rules-welcome-text">
-                    <strong>We hope to build a good and respectful working relationship together.</strong>
-                    <span class="rules-id">Kami berharap bisa membangun hubungan kerja yang baik dan saling menghargai.</span>
-                </div>
-            </div>
-            <div class="rules-ask-note"> 💬 If you are not sure about anything, please always ask. We will guide and support you. <br>
-                <em>Jika tidak yakin, silakan selalu bertanya. Kami akan membimbing Anda.</em>
-            </div>
-            <!-- Accordions -->
-            <div class="accordion" id="acc-honesty">
-                <button class="acc-header" onclick="toggleAcc('honesty')">
-                    <span class="acc-icon">🤝</span>
-                    <span class="acc-title">Honesty &amp; Communication <br>
-                        <span class="acc-title-id">Kejujuran &amp; Komunikasi</span>
-                    </span>
-                    <span class="acc-chevron" id="chev-honesty">▼</span>
-                </button>
-                <div class="acc-body" id="body-honesty">
-                    <div class="rule-item do">
-                        <span class="rule-dot do-dot">✓</span>
-                        <div class="rule-text"> We work based on <strong>trust</strong>. If you are not sure, please ask. <span class="rule-id">Kami bekerja berdasarkan kepercayaan. Jika tidak yakin, silakan bertanya.</span>
-                        </div>
-                    </div>
-                    <div class="rule-item dont">
-                        <span class="rule-dot dont-dot">✕</span>
-                        <div class="rule-text"> Do <strong>not</strong> use Sir / Mdm's things without permission. <span class="rule-id">Jangan menggunakan barang Sir/Ma'am tanpa izin (kecuali kami bilang boleh).</span>
-                        </div>
-                    </div>
-                    <div class="rule-item dont">
-                        <span class="rule-dot dont-dot">✕</span>
-                        <div class="rule-text">
-                            <strong>No</strong> lying, stealing, or borrowing money from others. <span class="rule-id">Tidak boleh berbohong, mencuri, atau meminjam uang dari orang lain.</span>
-                        </div>
-                    </div>
-                    <div class="rule-item do">
-                        <span class="rule-dot do-dot">✓</span>
-                        <div class="rule-text"> Follow all <strong>work permit rules</strong>. <span class="rule-id">Ikuti semua peraturan izin kerja.</span>
-                        </div>
-                    </div>
-                    <div class="rule-item dont">
-                        <span class="rule-dot dont-dot">✕</span>
-                        <div class="rule-text"> Do <strong>not</strong> leave the house without permission. Inform us before going out. <span class="rule-id">Jangan keluar rumah tanpa izin. Mohon beri tahu kami sebelum keluar.</span>
-                        </div>
-                    </div>
-                    <div class="rule-item do">
-                        <span class="rule-dot do-dot">✓</span>
-                        <div class="rule-text"> Tell us <strong>immediately</strong> if anything is broken or damaged. <span class="rule-id">Segera beri tahu kami jika ada barang yang rusak atau pecah.</span>
-                        </div>
-                    </div>
-                    <div class="rule-item do">
-                        <span class="rule-dot do-dot">✓</span>
-                        <div class="rule-text"> If you feel <strong>unwell</strong>, please tell us immediately. <span class="rule-id">Jika Anda merasa tidak sehat, segera beri tahu kami.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion" id="acc-phone">
-                <button class="acc-header" onclick="toggleAcc('phone')">
-                    <span class="acc-icon">📱</span>
-                    <span class="acc-title">Phone &amp; Privacy <br>
-                        <span class="acc-title-id">HP &amp; Privasi</span>
-                    </span>
-                    <span class="acc-chevron" id="chev-phone">▼</span>
-                </button>
-                <div class="acc-body" id="body-phone" style="display:none">
-                    <div class="rule-item do">
-                        <span class="rule-dot do-dot">✓</span>
-                        <div class="rule-text"> Family <strong>safety and privacy</strong> is the most important. <span class="rule-id">Keamanan dan privasi keluarga kami adalah yang paling penting.</span>
-                        </div>
-                    </div>
-                    <div class="rule-item do">
-                        <span class="rule-dot do-dot">✓</span>
-                        <div class="rule-text"> Use your personal phone during <strong>rest time only</strong> (except emergency). <span class="rule-id">Gunakan HP pribadi hanya saat waktu istirahat (kecuali darurat).</span>
-                        </div>
-                    </div>
-                    <div class="rule-item dont">
-                        <span class="rule-dot dont-dot">✕</span>
-                        <div class="rule-text"> During working hours, use phone <strong>only for work</strong>. <span class="rule-id">Saat jam kerja, gunakan HP hanya untuk keperluan kerja.</span>
-                        </div>
-                    </div>
-                    <div class="rule-item dont">
-                        <span class="rule-dot dont-dot">✕</span>
-                        <div class="rule-text"> Do <strong>not</strong> share our home address with anyone. <span class="rule-id">Jangan membagikan alamat rumah kami kepada siapa pun.</span>
-                        </div>
-                    </div>
-                    <div class="rule-item dont">
-                        <span class="rule-dot dont-dot">✕</span>
-                        <div class="rule-text">
-                            <strong>No visitors</strong> are allowed. <span class="rule-id">Tidak boleh menerima tamu.</span>
-                        </div>
-                    </div>
-                    <div class="rule-item dont">
-                        <span class="rule-dot dont-dot">✕</span>
-                        <div class="rule-text"> Do <strong>not</strong> post anything about our house, family, or baby on social media. <span class="rule-id">Jangan memposting apa pun tentang rumah, keluarga, atau bayi kami di media sosial.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion" id="acc-hygiene">
-                <button class="acc-header" onclick="toggleAcc('hygiene')">
-                    <span class="acc-icon">🧼</span>
-                    <span class="acc-title">Hygiene <br>
-                        <span class="acc-title-id">Kebersihan</span>
-                    </span>
-                    <span class="acc-chevron" id="chev-hygiene">▼</span>
-                </button>
-                <div class="acc-body" id="body-hygiene" style="display:none">
-                    <div class="rule-item do">
-                        <span class="rule-dot do-dot">✓</span>
-                        <div class="rule-text"> Always <strong>wash your hands with soap</strong> before handling food or the baby. <span class="rule-id">Selalu cuci tangan dengan sabun sebelum menangani makanan atau bayi.</span>
-                        </div>
-                    </div>
-                    <div class="rule-item do">
-                        <span class="rule-dot do-dot">✓</span>
-                        <div class="rule-text">
-                            <strong>Bathe and brush your teeth</strong> in the morning and at night. <span class="rule-id">Mohon mandi dan sikat gigi pagi dan malam.</span>
-                        </div>
-                    </div>
-                    <div class="rule-item do">
-                        <span class="rule-dot do-dot">✓</span>
-                        <div class="rule-text"> Keep your <strong>nails short</strong> and hair neat. <strong>Tie your hair</strong> when working. <span class="rule-id">Jaga kuku tetap pendek dan rambut rapi. Ikat rambut saat bekerja.</span>
-                        </div>
-                    </div>
-                    <div class="rule-item do">
-                        <span class="rule-dot do-dot">✓</span>
-                        <div class="rule-text"> When you come home from outside, <strong>wash your hands and feet first</strong>. <span class="rule-id">Setelah pulang dari luar, cuci tangan dan kaki terlebih dahulu.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion" id="acc-baby">
-                <button class="acc-header acc-header-baby" onclick="toggleAcc('baby')">
-                    <span class="acc-icon">👶</span>
-                    <span class="acc-title">Baby Care <br>
-                        <span class="acc-title-id">Perawatan Bayi</span>
-                    </span>
-                    <span class="acc-chevron" id="chev-baby">▼</span>
-                </button>
-                <div class="acc-body" id="body-baby" style="display:none">
-                    <div class="rules-baby-note"> 📋 We will guide you more when baby arrives. <br>
-                        <em>Kami akan memberikan arahan lebih lanjut saat bayi lahir.</em>
-                    </div>
-                    <div class="rule-item do">
-                        <span class="rule-dot do-dot">✓</span>
-                        <div class="rule-text">
-                            <strong>Baby safety</strong> is the most important. <span class="rule-id">Keamanan bayi adalah yang paling penting.</span>
-                        </div>
-                    </div>
-                    <div class="rule-item dont">
-                        <span class="rule-dot dont-dot">✕</span>
-                        <div class="rule-text"> Do <strong>not kiss</strong> the baby. <span class="rule-id">Jangan mencium bayi.</span>
-                        </div>
-                    </div>
-                    <div class="rule-item dont">
-                        <span class="rule-dot dont-dot">✕</span>
-                        <div class="rule-text"> Do <strong>not give</strong> the baby anything without permission. <span class="rule-id">Jangan memberikan apa pun kepada bayi tanpa izin.</span>
-                        </div>
-                    </div>
-                    <div class="rule-item dont">
-                        <span class="rule-dot dont-dot">✕</span>
-                        <div class="rule-text">
-                            <strong>Never leave</strong> the baby alone when you are caring for the baby. <span class="rule-id">Jangan pernah meninggalkan bayi sendirian saat Anda menjaganya.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Closing promise -->
-            <div class="rules-promise">
-                <div class="rules-promise-emoji">💛</div>
-                <div class="rules-promise-text">
-                    <strong>If you follow these rules well, we will take good care of you.</strong>
-                    <span class="rules-id">Jika Anda mengikuti aturan ini dengan baik, kami juga akan menjaga Anda dengan baik.</span>
-                </div>
-            </div>
+      </div>
+      <div class="rule-item do">
+        <span class="rule-dot do-dot">✓</span>
+        <div class="rule-text">
+          Follow all <strong>work permit rules</strong>.
+          <span class="rule-id">Ikuti semua peraturan izin kerja.</span>
         </div>
-        <script>
-            /* ═══════════════════════════════════════
+      </div>
+      <div class="rule-item dont">
+        <span class="rule-dot dont-dot">✕</span>
+        <div class="rule-text">
+          Do <strong>not</strong> leave the house without permission. Inform us before going out.
+          <span class="rule-id">Jangan keluar rumah tanpa izin. Mohon beri tahu kami sebelum keluar.</span>
+        </div>
+      </div>
+      <div class="rule-item do">
+        <span class="rule-dot do-dot">✓</span>
+        <div class="rule-text">
+          Tell us <strong>immediately</strong> if anything is broken or damaged.
+          <span class="rule-id">Segera beri tahu kami jika ada barang yang rusak atau pecah.</span>
+        </div>
+      </div>
+      <div class="rule-item do">
+        <span class="rule-dot do-dot">✓</span>
+        <div class="rule-text">
+          If you feel <strong>unwell</strong>, please tell us immediately.
+          <span class="rule-id">Jika Anda merasa tidak sehat, segera beri tahu kami.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion" id="acc-phone">
+    <button class="acc-header" onclick="toggleAcc('phone')">
+      <span class="acc-icon">📱</span>
+      <span class="acc-title">Phone &amp; Privacy<br><span class="acc-title-id">HP &amp; Privasi</span></span>
+      <span class="acc-chevron" id="chev-phone">▼</span>
+    </button>
+    <div class="acc-body" id="body-phone" style="display:none">
+      <div class="rule-item do">
+        <span class="rule-dot do-dot">✓</span>
+        <div class="rule-text">
+          Family <strong>safety and privacy</strong> is the most important.
+          <span class="rule-id">Keamanan dan privasi keluarga kami adalah yang paling penting.</span>
+        </div>
+      </div>
+      <div class="rule-item do">
+        <span class="rule-dot do-dot">✓</span>
+        <div class="rule-text">
+          Use your personal phone during <strong>rest time only</strong> (except emergency).
+          <span class="rule-id">Gunakan HP pribadi hanya saat waktu istirahat (kecuali darurat).</span>
+        </div>
+      </div>
+      <div class="rule-item dont">
+        <span class="rule-dot dont-dot">✕</span>
+        <div class="rule-text">
+          During working hours, use phone <strong>only for work</strong>.
+          <span class="rule-id">Saat jam kerja, gunakan HP hanya untuk keperluan kerja.</span>
+        </div>
+      </div>
+      <div class="rule-item dont">
+        <span class="rule-dot dont-dot">✕</span>
+        <div class="rule-text">
+          Do <strong>not</strong> share our home address with anyone.
+          <span class="rule-id">Jangan membagikan alamat rumah kami kepada siapa pun.</span>
+        </div>
+      </div>
+      <div class="rule-item dont">
+        <span class="rule-dot dont-dot">✕</span>
+        <div class="rule-text">
+          <strong>No visitors</strong> are allowed.
+          <span class="rule-id">Tidak boleh menerima tamu.</span>
+        </div>
+      </div>
+      <div class="rule-item dont">
+        <span class="rule-dot dont-dot">✕</span>
+        <div class="rule-text">
+          Do <strong>not</strong> post anything about our house, family, or baby on social media.
+          <span class="rule-id">Jangan memposting apa pun tentang rumah, keluarga, atau bayi kami di media sosial.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion" id="acc-hygiene">
+    <button class="acc-header" onclick="toggleAcc('hygiene')">
+      <span class="acc-icon">🧼</span>
+      <span class="acc-title">Hygiene<br><span class="acc-title-id">Kebersihan</span></span>
+      <span class="acc-chevron" id="chev-hygiene">▼</span>
+    </button>
+    <div class="acc-body" id="body-hygiene" style="display:none">
+      <div class="rule-item do">
+        <span class="rule-dot do-dot">✓</span>
+        <div class="rule-text">
+          Always <strong>wash your hands with soap</strong> before handling food or the baby.
+          <span class="rule-id">Selalu cuci tangan dengan sabun sebelum menangani makanan atau bayi.</span>
+        </div>
+      </div>
+      <div class="rule-item do">
+        <span class="rule-dot do-dot">✓</span>
+        <div class="rule-text">
+          <strong>Bathe and brush your teeth</strong> in the morning and at night.
+          <span class="rule-id">Mohon mandi dan sikat gigi pagi dan malam.</span>
+        </div>
+      </div>
+      <div class="rule-item do">
+        <span class="rule-dot do-dot">✓</span>
+        <div class="rule-text">
+          Keep your <strong>nails short</strong> and hair neat. <strong>Tie your hair</strong> when working.
+          <span class="rule-id">Jaga kuku tetap pendek dan rambut rapi. Ikat rambut saat bekerja.</span>
+        </div>
+      </div>
+      <div class="rule-item do">
+        <span class="rule-dot do-dot">✓</span>
+        <div class="rule-text">
+          When you come home from outside, <strong>wash your hands and feet first</strong>.
+          <span class="rule-id">Setelah pulang dari luar, cuci tangan dan kaki terlebih dahulu.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion" id="acc-baby">
+    <button class="acc-header acc-header-baby" onclick="toggleAcc('baby')">
+      <span class="acc-icon">👶</span>
+      <span class="acc-title">Baby Care<br><span class="acc-title-id">Perawatan Bayi</span></span>
+      <span class="acc-chevron" id="chev-baby">▼</span>
+    </button>
+    <div class="acc-body" id="body-baby" style="display:none">
+      <div class="rules-baby-note">
+        📋 We will guide you more when baby arrives.<br>
+        <em>Kami akan memberikan arahan lebih lanjut saat bayi lahir.</em>
+      </div>
+      <div class="rule-item do">
+        <span class="rule-dot do-dot">✓</span>
+        <div class="rule-text">
+          <strong>Baby safety</strong> is the most important.
+          <span class="rule-id">Keamanan bayi adalah yang paling penting.</span>
+        </div>
+      </div>
+      <div class="rule-item dont">
+        <span class="rule-dot dont-dot">✕</span>
+        <div class="rule-text">
+          Do <strong>not kiss</strong> the baby.
+          <span class="rule-id">Jangan mencium bayi.</span>
+        </div>
+      </div>
+      <div class="rule-item dont">
+        <span class="rule-dot dont-dot">✕</span>
+        <div class="rule-text">
+          Do <strong>not give</strong> the baby anything without permission.
+          <span class="rule-id">Jangan memberikan apa pun kepada bayi tanpa izin.</span>
+        </div>
+      </div>
+      <div class="rule-item dont">
+        <span class="rule-dot dont-dot">✕</span>
+        <div class="rule-text">
+          <strong>Never leave</strong> the baby alone when you are caring for the baby.
+          <span class="rule-id">Jangan pernah meninggalkan bayi sendirian saat Anda menjaganya.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Closing promise -->
+  <div class="rules-promise">
+    <div class="rules-promise-emoji">💛</div>
+    <div class="rules-promise-text">
+      <strong>If you follow these rules well, we will take good care of you.</strong>
+      <span class="rules-id">Jika Anda mengikuti aturan ini dengan baik, kami juga akan menjaga Anda dengan baik.</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ═══════════════════════════════════════
    DATA
 ═══════════════════════════════════════ */
-            const BREAKFAST = [{
-                emoji: '🥣',
-                weekend: false,
-                badge: {
-                    type: 'person',
-                    text: '👨 For Sir'
-                },
-                name: 'Oats with Fruits & Honey',
-                nameId: 'Oatmeal dengan Buah & Madu',
-                tags: [
-                    ['tag-green', '✅ Healthy'],
-                    ['tag-yellow', '⚡ Easy']
-                ],
-                desc: 'Warm oats with fresh fruit, honey & chia seeds.',
-                descId: 'Oatmeal hangat dengan buah segar, madu & biji chia.',
-                url: 'https://www.amazingraze.com.sg/blogs/health-tips-life-hacks/5-creative-toppings-to-elevate-your-breakfast-oats',
-                bg: ''
-            }, {
-                emoji: '🍓',
-                weekend: false,
-                badge: {
-                    type: 'person',
-                    text: '👩 For Mdm'
-                },
-                name: 'Greek Yoghurt Bowl',
-                nameId: 'Mangkuk Yoghurt Yunani',
-                tags: [
-                    ['tag-green', '✅ Healthy'],
-                    ['tag-yellow', '⚡ No cook']
-                ],
-                desc: 'Creamy yoghurt with fresh fruits, honey & chia seeds.',
-                descId: 'Yoghurt krim dengan buah, madu & biji chia.',
-                url: 'https://www.modernhoney.com/greek-yogurt-breakfast-bowls-toppings/',
-                bg: ''
-            }, {
-                emoji: '🥑',
-                weekend: false,
-                badge: null,
-                name: 'Avocado Toast & Eggs',
-                nameId: 'Roti Panggang Alpukat & Telur',
-                tags: [
-                    ['tag-green', '✅ Healthy'],
-                    ['tag-orange', '🍞 Has bread']
-                ],
-                desc: 'Toasted bread with mashed avocado and your choice of egg.',
-                descId: 'Roti panggang dengan alpukat dan telur sesuai selera.',
-                url: 'https://feelgoodfoodie.net/recipe/avocado-toast-with-egg-3-ways/',
-                bg: ''
-            }, {
-                emoji: '🥪',
-                weekend: false,
-                badge: null,
-                name: 'Tuna & Egg Sandwich',
-                nameId: 'Roti Lapis Tuna & Telur',
-                tags: [
-                    ['tag-orange', '🍞 Has bread'],
-                    ['tag-yellow', '⚡ Quick']
-                ],
-                desc: 'Toasted tuna and egg sandwich. No mayonnaise!',
-                descId: 'Roti lapis tuna dan telur panggang. Tanpa mayo!',
-                url: 'https://marleysmenu.com/tuna-egg-sandwich/',
-                bg: ''
-            }, {
-                emoji: '🥞',
-                weekend: false,
-                badge: null,
-                name: 'Healthy Pancakes',
-                nameId: 'Pancake Sehat',
-                tags: [
-                    ['tag-green', '✅ Healthy'],
-                    ['tag-yellow', '🍓 With fruit']
-                ],
-                desc: 'Homemade pancakes topped with fresh fruit and honey.',
-                descId: 'Pancake buatan sendiri dengan buah segar dan madu.',
-                url: 'https://www.loveandlemons.com/healthy-pancakes/',
-                bg: ''
-            }, {
-                emoji: '🥯',
-                weekend: false,
-                badge: null,
-                name: 'Breakfast Sandwich',
-                nameId: 'Roti Lapis Sarapan',
-                tags: [
-                    ['tag-orange', '🍞 Has bread'],
-                    ['tag-yellow', '⚡ 5 ingredients']
-                ],
-                desc: 'Quick egg and veggie sandwich. Toasted bread.',
-                descId: 'Roti lapis telur dan sayuran. Roti dipanggang.',
-                url: 'https://www.allrecipes.com/article/5-ingredient-breakfast-sandwiches/',
-                bg: ''
-            }, {
-                emoji: '🍞',
-                weekend: true,
-                badge: {
-                    type: 'weekend',
-                    text: '🌅 Weekend Only'
-                },
-                name: 'French Toast',
-                nameId: 'Roti Panggang Prancis',
-                tags: [
-                    ['tag-purple', '🌅 Weekend only'],
-                    ['tag-orange', '🍞 Has bread']
-                ],
-                desc: 'Golden cinnamon French toast. Weekend special treat!',
-                descId: 'Roti panggang keemasan dengan kayu manis. Spesial akhir pekan!',
-                url: 'https://tastesbetterfromscratch.com/classic-french-toast/',
-                bg: 'yellow-bg'
-            }, {
-                emoji: '🍅',
-                weekend: true,
-                badge: {
-                    type: 'weekend',
-                    text: '🌅 Weekend Only'
-                },
-                name: 'Shakshuka',
-                nameId: 'Telur dalam Saus Tomat',
-                tags: [
-                    ['tag-purple', '🌅 Weekend only'],
-                    ['tag-green', '✅ Healthy']
-                ],
-                desc: 'Eggs poached in spiced tomato sauce. Very flavourful!',
-                descId: 'Telur dalam saus tomat berbumbu. Sangat lezat!',
-                url: 'https://whipandwander.com/shakshuka-eggs-poached-in-tomato-sauce-with-sausage-peppers-and-feta/',
-                bg: 'yellow-bg'
-            }, {
-                emoji: '🍳',
-                weekend: true,
-                badge: {
-                    type: 'weekend',
-                    text: '🌅 Weekend Only'
-                },
-                name: 'Full English Breakfast',
-                nameId: 'Sarapan Inggris Lengkap',
-                tags: [
-                    ['tag-purple', '🌅 Weekend only']
-                ],
-                desc: 'Eggs, toast, beans, sausage. Big weekend breakfast!',
-                descId: 'Telur, roti, buncis, sosis. Sarapan besar akhir pekan!',
-                url: 'https://iamafoodblog.com/a-breakdown-of-the-full-english-breakfast/',
-                bg: 'yellow-bg'
-            }];
-            const LUNCH_WESTERN = [{
-                emoji: '🐟',
-                bg: '',
-                name: 'Salmon + Roasted Veg + Rice',
-                nameId: 'Salmon + Sayuran Panggang + Nasi',
-                tags: [
-                    ['tag-green', '✅ Healthy'],
-                    ['tag-orange', '🔥 Oven roasted']
-                ],
-                desc: 'One-pan oven-roasted salmon with colourful vegetables.',
-                descId: 'Salmon dan sayuran panggang satu loyang di oven.',
-                url: 'https://www.theroastedroot.net/one-pan-meal-salmon-and-vegetables/',
-                variants: []
-            }, {
-                emoji: '🌯',
-                bg: 'blue-bg',
-                name: 'Meat & Veg Wrap / Sandwich',
-                nameId: 'Wrap / Roti Lapis Daging & Sayur',
-                tags: [
-                    ['tag-green', '✅ Balanced'],
-                    ['tag-yellow', '⚡ Flexible']
-                ],
-                desc: 'Meat and vegetables in a wrap or sandwich. Light lunch.',
-                descId: 'Daging dan sayuran dalam wrap atau roti lapis. Makan siang ringan.',
-                url: 'https://www.cookedandloved.com/best-wraps-recipes/',
-                variants: [{
-                    label: '🍖 Vietnamese pork wrap',
-                    url: 'https://www.extrapetite.com/2020/04/vietnamese-grilled-pork-recipe-rice-bowls-lettuce-wraps-banh-mi.html',
-                    cls: 'blue'
-                }]
-            }, {
-                emoji: '🍝',
-                bg: 'pink-bg',
-                name: 'Tomato Basil Pork Pasta',
-                nameId: 'Pasta Babi Tomat Basil',
-                tags: [
-                    ['tag-blue', '⚡ Instant Pot'],
-                    ['tag-green', '🌿 One pot']
-                ],
-                desc: 'Creamy tomato basil fusilli pasta. Easy Instant Pot recipe.',
-                descId: 'Pasta fusilli tomat basil krim. Mudah dengan Instant Pot.',
-                url: 'https://www.cookwithmanali.com/instant-pot-creamy-tomato-basil-pasta/',
-                variants: []
-            }, {
-                emoji: '🍤',
-                bg: 'orange-bg',
-                name: 'Prawn Garlic Noodles',
-                nameId: 'Mie Bawang Putih Udang',
-                tags: [
-                    ['tag-orange', '🦐 Prawn'],
-                    ['tag-green', '✅ Healthy']
-                ],
-                desc: 'Asian garlic noodles with juicy prawns. Easy and tasty.',
-                descId: 'Mie bawang putih Asia dengan udang segar. Mudah dan lezat.',
-                url: 'https://www.extrapetite.com/2020/03/easy-asian-garlic-noodles-shrimp-recipe.html',
-                variants: []
-            }, {
-                emoji: '🥗',
-                bg: '',
-                name: 'Chicken / Salmon Salad',
-                nameId: 'Salad Ayam / Salmon',
-                tags: [
-                    ['tag-green', '✅ Very healthy'],
-                    ['tag-yellow', '⚡ Light']
-                ],
-                desc: 'Fresh and filling salad with protein. Great for a light lunch.',
-                descId: 'Salad segar dan mengenyangkan dengan protein. Bagus untuk makan siang ringan.',
-                url: 'https://pinchofyum.com/best-salad-recipes',
-                variants: []
-            }];
-            const LUNCH_CHINESE = [{
-                emoji: '🍚',
-                bg: '',
-                name: 'Yangzhou Fried Rice',
-                nameId: 'Nasi Goreng Yangzhou',
-                tags: [
-                    ['tag-blue', '🥢 Chinese'],
-                    ['tag-green', '✅ Balanced']
-                ],
-                desc: 'Classic Chinese fried rice packed with egg, veg and protein.',
-                descId: 'Nasi goreng Tiongkok klasik dengan telur, sayur dan protein.',
-                url: 'https://www.madewithlau.com/recipes/yangzhou-fried-rice',
-                variants: []
-            }, {
-                emoji: '🍜',
-                bg: 'blue-bg',
-                name: 'Stir-Fry Bee Hoon',
-                nameId: 'Bihun Goreng',
-                tags: [
-                    ['tag-blue', '🥢 Chinese'],
-                    ['tag-yellow', '⚡ Quick']
-                ],
-                desc: 'Stir-fried rice noodles with meat and vegetables.',
-                descId: 'Bihun goreng dengan daging dan sayuran.',
-                url: 'https://www.madewithlau.com/recipes/singapore-noodles',
-                variants: [{
-                    label: '🦐 Prawn & mince',
-                    url: 'https://www.youtube.com/watch?v=41voYs2DxPU',
-                    cls: 'yt'
-                }, {
-                    label: '🍄 Beancurd & mushroom',
-                    url: 'https://www.youtube.com/watch?v=s1G7pxhG33w',
-                    cls: 'yt'
-                }, {
-                    label: '🐷 Pig trotter',
-                    url: 'https://www.youtube.com/watch?v=Hc-6Hs2Qnb8',
-                    cls: 'yt'
-                }, {
-                    label: '🌶️ Tom Yum',
-                    url: 'https://www.youtube.com/watch?v=6tyV0wSFvrg',
-                    cls: 'yt'
-                }]
-            }, {
-                emoji: '🍲',
-                bg: 'pink-bg',
-                name: 'Noodle Soup',
-                nameId: 'Sup Mie',
-                tags: [
-                    ['tag-blue', '🥢 Chinese'],
-                    ['tag-green', '✅ Comforting']
-                ],
-                desc: 'Warm noodle soup with meat. Chicken, prawn or meatball.',
-                descId: 'Sup mie hangat dengan daging. Ayam, udang atau bakso.',
-                url: 'https://www.youtube.com/watch?v=rXfHP6XFUSY',
-                variants: [{
-                    label: '🦐 Prawn Kuey Teow',
-                    url: 'https://www.youtube.com/watch?v=8x7aricygEs',
-                    cls: 'yt'
-                }, {
-                    label: '🥩 Meatball soup',
-                    url: 'https://www.youtube.com/watch?v=ePw5KSFKGz8',
-                    cls: 'yt'
-                }]
-            }, {
-                emoji: '🥣',
-                bg: 'orange-bg',
-                name: 'Porridge / Congee',
-                nameId: 'Bubur / Congee',
-                tags: [
-                    ['tag-blue', '🥢 Chinese'],
-                    ['tag-green', '✅ Light & easy']
-                ],
-                desc: 'Smooth rice porridge with chicken, pork or fish.',
-                descId: 'Bubur beras lembut dengan ayam, babi atau ikan.',
-                url: 'https://www.youtube.com/watch?v=qPQ8Dr5XgS4',
-                variants: [{
-                    label: '🐟 Fish congee',
-                    url: 'https://www.youtube.com/watch?v=TO2pgMMLfsQ',
-                    cls: 'yt'
-                }]
-            }];
-            const LUNCH_ASIAN = [{
-                emoji: '🌿',
-                bg: '',
-                name: 'Thai Basil Chicken + Egg',
-                nameId: 'Ayam Kemangi Thailand + Telur',
-                tags: [
-                    ['tag-orange', '🌏 Asian'],
-                    ['tag-green', '✅ Tasty']
-                ],
-                desc: 'Fragrant Thai basil stir-fried chicken served with egg on rice.',
-                descId: 'Ayam tumis kemangi Thailand dengan telur di atas nasi.',
-                url: 'https://thewoksoflife.com/thai-basil-chicken-pad-krapow/',
-                variants: []
-            }, {
-                emoji: '🍛',
-                bg: 'yellow-bg',
-                name: 'Japanese Curry + Katsu Chicken',
-                nameId: 'Kari Jepang + Ayam Goreng',
-                tags: [
-                    ['tag-orange', '🌏 Japanese'],
-                    ['tag-yellow', '😋 Crowd favourite']
-                ],
-                desc: 'Golden crispy chicken cutlet with rich Japanese curry over rice.',
-                descId: 'Ayam goreng renyah dengan kari Jepang di atas nasi.',
-                url: 'https://japan.recipetineats.com/katsu-curry-japanese-curry-rice-with-chicken-cutlet/',
-                variants: []
-            }];
-            const DINNER_MEAT = [{
-                emoji: '🍗',
-                bg: '',
-                name: 'Stir-Fry Chicken',
-                nameId: 'Ayam Tumis',
-                tags: [
-                    ['tag-green', '✅ Healthy'],
-                    ['tag-yellow', '⚡ Quick']
-                ],
-                desc: 'Tender stir-fried chicken. Choose your sauce below!',
-                descId: 'Ayam tumis empuk. Pilih sausnya di bawah!',
-                url: 'https://www.madewithlau.com/recipes/rainbow-chicken-stir-fry',
-                variants: [{
-                    label: '🦪 Oyster sauce',
-                    url: 'https://www.madewithlau.com/recipes/rainbow-chicken-stir-fry',
-                    cls: ''
-                }, {
-                    label: '🌶️ Kung Pao',
-                    url: 'https://redhousespice.com/kung-pao-chicken/',
-                    cls: ''
-                }, {
-                    label: '🖤 Black pepper',
-                    url: 'https://redhousespice.com/black-pepper-chicken/',
-                    cls: ''
-                }]
-            }, {
-                emoji: '🥩',
-                bg: 'orange-bg',
-                name: 'Sweet & Sour Pork',
-                nameId: 'Babi Asam Manis',
-                tags: [
-                    ['tag-orange', '🐷 Pork'],
-                    ['tag-yellow', '😋 Favourite']
-                ],
-                desc: 'Classic Cantonese sweet and sour pork. Crispy and delicious.',
-                descId: 'Babi asam manis Kanton klasik. Renyah dan lezat.',
-                url: 'https://www.madewithlau.com/recipes/sweet-sour-pork',
-                variants: []
-            }, {
-                emoji: '🐟',
-                bg: 'blue-bg',
-                name: 'Steamed Cod Fish',
-                nameId: 'Ikan Cod Kukus',
-                tags: [
-                    ['tag-green', '✅ Healthy'],
-                    ['tag-blue', '🔪 Steamed']
-                ],
-                desc: 'Cantonese steamed cod with special soy sauce. Light and healthy.',
-                descId: 'Ikan cod kukus Kanton dengan kecap khusus. Ringan dan sehat.',
-                url: 'https://www.foodelicacy.com/cantonese-style-steamed-cod-with-special-soy-sauce/',
-                variants: []
-            }, {
-                emoji: '🐠',
-                bg: '',
-                name: 'Stir-Fry Fish',
-                nameId: 'Ikan Tumis Jahe',
-                tags: [
-                    ['tag-green', '✅ Healthy'],
-                    ['tag-yellow', '⚡ Easy']
-                ],
-                desc: 'Stir-fried fish with ginger and spring onion. Simple Cantonese dish.',
-                descId: 'Ikan tumis dengan jahe dan daun bawang. Masakan Kanton sederhana.',
-                url: 'https://www.youtube.com/watch?v=ZAYq-5xpKVk',
-                variants: []
-            }];
-            const DINNER_VEG = [{
-                emoji: '🥬',
-                bg: '',
-                name: 'Bak Choy',
-                nameId: 'Bak Choy',
-                tags: [
-                    ['tag-green', '✅ Healthy'],
-                    ['tag-yellow', '⚡ Quick']
-                ],
-                desc: 'Stir-fried bak choy with garlic. Simple and nutritious.',
-                descId: 'Bak choy tumis bawang putih. Sederhana dan bergizi.',
-                url: 'https://www.youtube.com/watch?v=6tGVqr0QXh0',
-                variants: []
-            }, {
-                emoji: '🥦',
-                bg: '',
-                name: 'Broccoli Stir-Fry',
-                nameId: 'Brokoli Tumis',
-                tags: [
-                    ['tag-green', '✅ Healthy'],
-                    ['tag-yellow', '⚡ Quick']
-                ],
-                desc: 'Crisp stir-fried broccoli. Great with oyster sauce.',
-                descId: 'Brokoli tumis renyah. Enak dengan saus tiram.',
-                url: 'https://www.madewithlau.com/recipes/broccoli-stir-fry',
-                variants: []
-            }, {
-                emoji: '🫘',
-                bg: 'orange-bg',
-                name: 'Green Beans',
-                nameId: 'Buncis Tumis',
-                tags: [
-                    ['tag-green', '✅ Healthy'],
-                    ['tag-yellow', '⚡ Quick']
-                ],
-                desc: 'Stir-fried green beans with garlic. Crunchy and tasty.',
-                descId: 'Buncis tumis bawang putih. Renyah dan lezat.',
-                url: 'https://www.madewithlau.com/recipes/stir-fried-green-beans',
-                variants: []
-            }, {
-                emoji: '🌱',
-                bg: '',
-                name: 'Dou Miao (Pea Shoots)',
-                nameId: 'Daun Kacang Polong',
-                tags: [
-                    ['tag-green', '✅ Healthy'],
-                    ['tag-yellow', '⚡ Quick']
-                ],
-                desc: 'Tender stir-fried pea shoots. Light and delicious.',
-                descId: 'Pucuk kacang polong tumis empuk. Ringan dan lezat.',
-                url: 'https://www.youtube.com/watch?v=rGEM4zGYEBw',
-                variants: []
-            }, {
-                emoji: '🌿',
-                bg: 'blue-bg',
-                name: 'Bean Sprouts',
-                nameId: 'Tauge Tumis',
-                tags: [
-                    ['tag-green', '✅ Healthy'],
-                    ['tag-yellow', '⚡ Very quick']
-                ],
-                desc: 'Fresh bean sprouts stir-fried with garlic and spring onion.',
-                descId: 'Tauge segar tumis bawang putih dan daun bawang.',
-                url: 'https://www.youtube.com/watch?v=D2_8JTXIf8w',
-                variants: []
-            }];
-            const DINNER_SOUP = [{
-                emoji: '🥕',
-                bg: '',
-                name: 'ABC Soup',
-                nameId: 'Sup ABC',
-                tags: [
-                    ['tag-blue', '⚡ Instant Pot'],
-                    ['tag-green', '✅ Healthy']
-                ],
-                desc: 'Comforting vegetable ABC soup. Easy in the Instant Pot.',
-                descId: 'Sup ABC sayuran yang menyehatkan. Mudah di Instant Pot.',
-                url: 'https://www.hwcmagazine.com/recipe/zippy-veggie-abc-soup/',
-                variants: []
-            }, {
-                emoji: '🌿',
-                bg: '',
-                name: 'Watercress Pork Soup',
-                nameId: 'Sup Babi Kangkung',
-                tags: [
-                    ['tag-blue', '⚡ Instant Pot'],
-                    ['tag-green', '✅ Nourishing']
-                ],
-                desc: 'Nourishing Chinese watercress soup with pork. Instant Pot.',
-                descId: 'Sup kangkung Tiongkok bergizi dengan babi. Instant Pot.',
-                url: 'https://rackoflam.com/chinese-watercress-soup-instant-pot-recipe/',
-                variants: []
-            }, {
-                emoji: '🍈',
-                bg: 'blue-bg',
-                name: 'Wintermelon Soup',
-                nameId: 'Sup Bligo',
-                tags: [
-                    ['tag-blue', '⚡ Instant Pot'],
-                    ['tag-green', '✅ Light']
-                ],
-                desc: 'Light and cooling wintermelon soup. Great in warm weather.',
-                descId: 'Sup bligo yang ringan dan menyejukkan. Bagus di cuaca panas.',
-                url: 'https://www.mamababymandarin.com/instant-pot-winter-melon-soup-recipe/',
-                variants: []
-            }, {
-                emoji: '🌶️',
-                bg: 'orange-bg',
-                name: 'Crispy Chilli Tofu',
-                nameId: 'Tahu Crispy Pedas',
-                tags: [
-                    ['tag-orange', '🌶️ Spicy'],
-                    ['tag-green', '🌱 Vegan']
-                ],
-                desc: 'Crispy garlic chilli tofu. Great protein alternative.',
-                descId: 'Tahu bawang putih crispy pedas. Alternatif protein yang bagus.',
-                url: 'https://eatwithclarity.com/spicy-garlic-crispy-tofu/',
-                variants: []
-            }, {
-                emoji: '🫕',
-                bg: 'pink-bg',
-                name: 'Mapo Tofu',
-                nameId: 'Mapo Tahu',
-                tags: [
-                    ['tag-blue', '🥢 Chinese'],
-                    ['tag-orange', '🌶️ Mild spicy']
-                ],
-                desc: 'Silky tofu in savoury sauce with minced pork. Classic dish.',
-                descId: 'Tahu lembut dalam saus gurih dengan babi cincang. Hidangan klasik.',
-                url: 'https://www.madewithlau.com/recipes/mapo-tofu-pork',
-                variants: []
-            }, {
-                emoji: '🥚',
-                bg: '',
-                name: 'Steamed Egg with Pork',
-                nameId: 'Telur Kukus dengan Babi Cincang',
-                tags: [
-                    ['tag-green', '✅ Healthy'],
-                    ['tag-blue', '🔪 Steamed']
-                ],
-                desc: 'Silky smooth steamed egg with minced pork. Comforting dish.',
-                descId: 'Telur kukus lembut dengan babi cincang. Hidangan yang nyaman.',
-                url: 'https://www.madewithlau.com/recipes/steamed-egg-minced-pork',
-                variants: []
-            }, {
-                emoji: '🍅',
-                bg: 'orange-bg',
-                name: 'Tomato and Eggs',
-                nameId: 'Tomat dan Telur',
-                tags: [
-                    ['tag-green', '✅ Simple'],
-                    ['tag-yellow', '⚡ 10 mins']
-                ],
-                desc: 'Classic Chinese tomato and egg stir-fry. Quick and homely.',
-                descId: 'Tumis tomat dan telur Tiongkok klasik. Cepat dan sederhana.',
-                url: 'https://www.madewithlau.com/recipes/tomato-and-eggs',
-                variants: []
-            }];
-            /* ═══════════════════════════════════════
-               RENDER FUNCTION
-            ═══════════════════════════════════════ */
-            function buildGrid(data, gridId) {
-                const grid = document.getElementById(gridId);
-                if (!grid) return;
-                grid.innerHTML = '';
-                data.forEach(r => {
-                    const tagsHtml = r.tags.map(([cls, lbl]) => `
-															<span class="tag ${cls}">${lbl}</span>`).join('');
-                    let badgeHtml = '';
-                    if (r.badge) {
-                        const bc = r.badge.type === 'weekend' ? 'badge badge-weekend' : 'badge badge-person';
-                        badgeHtml = `
-															<span class="${bc}">${r.badge.text}</span>`;
-                    }
-                    const bgClass = 'img-bg ' + (r.bg || '');
-                    let variantsHtml = '';
-                    if (r.variants && r.variants.length) {
-                        const chips = r.variants.map(v => `
-															<a class="variant-chip ${v.cls||''}" href="${v.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${v.label}</a>`).join('');
-                        variantsHtml = `
-															<div class="variants">${chips}</div>`;
-                    }
-                    const a = document.createElement('a');
-                    a.className = 'recipe-card' + (r.weekend ? ' is-weekend' : '');
-                    a.href = r.url;
-                    a.target = '_blank';
-                    a.rel = 'noopener';
-                    a.innerHTML = `
-      
-															<div class="img-wrap">
-																<div class="${bgClass.trim()}">${r.emoji}</div>
-																<img class="img-photo" alt="${r.name}" />
-															</div>
+
+const BREAKFAST = [
+  { emoji:'🥣', weekend:false, badge:{type:'person',text:'👨 For Sir'}, name:'Oats with Fruits & Honey', nameId:'Oatmeal dengan Buah & Madu', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Easy']], desc:'Warm oats with fresh fruit, honey & chia seeds.', descId:'Oatmeal hangat dengan buah segar, madu & biji chia.', url:'https://www.amazingraze.com.sg/blogs/health-tips-life-hacks/5-creative-toppings-to-elevate-your-breakfast-oats', bg:'' },
+  { emoji:'🍓', weekend:false, badge:{type:'person',text:'👩 For Mdm'}, name:'Greek Yoghurt Bowl', nameId:'Mangkuk Yoghurt Yunani', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ No cook']], desc:'Creamy yoghurt with fresh fruits, honey & chia seeds.', descId:'Yoghurt krim dengan buah, madu & biji chia.', url:'https://www.modernhoney.com/greek-yogurt-breakfast-bowls-toppings/', bg:'' },
+  { emoji:'🥑', weekend:false, badge:null, name:'Avocado Toast & Eggs', nameId:'Roti Panggang Alpukat & Telur', tags:[['tag-green','✅ Healthy'],['tag-orange','🍞 Has bread']], desc:'Toasted bread with mashed avocado and your choice of egg.', descId:'Roti panggang dengan alpukat dan telur sesuai selera.', url:'https://feelgoodfoodie.net/recipe/avocado-toast-with-egg-3-ways/', bg:'' },
+  { emoji:'🥪', weekend:false, badge:null, name:'Tuna & Egg Sandwich', nameId:'Roti Lapis Tuna & Telur', tags:[['tag-orange','🍞 Has bread'],['tag-yellow','⚡ Quick']], desc:'Toasted tuna and egg sandwich. No mayonnaise!', descId:'Roti lapis tuna dan telur panggang. Tanpa mayo!', url:'https://marleysmenu.com/tuna-egg-sandwich/', bg:'' },
+  { emoji:'🥞', weekend:false, badge:null, name:'Healthy Pancakes', nameId:'Pancake Sehat', tags:[['tag-green','✅ Healthy'],['tag-yellow','🍓 With fruit']], desc:'Homemade pancakes topped with fresh fruit and honey.', descId:'Pancake buatan sendiri dengan buah segar dan madu.', url:'https://www.loveandlemons.com/healthy-pancakes/', bg:'' },
+  { emoji:'🥯', weekend:false, badge:null, name:'Breakfast Sandwich', nameId:'Roti Lapis Sarapan', tags:[['tag-orange','🍞 Has bread'],['tag-yellow','⚡ 5 ingredients']], desc:'Quick egg and veggie sandwich. Toasted bread.', descId:'Roti lapis telur dan sayuran. Roti dipanggang.', url:'https://www.allrecipes.com/article/5-ingredient-breakfast-sandwiches/', bg:'' },
+  { emoji:'🍞', weekend:true, badge:{type:'weekend',text:'🌅 Weekend Only'}, name:'French Toast', nameId:'Roti Panggang Prancis', tags:[['tag-purple','🌅 Weekend only'],['tag-orange','🍞 Has bread']], desc:'Golden cinnamon French toast. Weekend special treat!', descId:'Roti panggang keemasan dengan kayu manis. Spesial akhir pekan!', url:'https://tastesbetterfromscratch.com/classic-french-toast/', bg:'yellow-bg' },
+  { emoji:'🍅', weekend:true, badge:{type:'weekend',text:'🌅 Weekend Only'}, name:'Shakshuka', nameId:'Telur dalam Saus Tomat', tags:[['tag-purple','🌅 Weekend only'],['tag-green','✅ Healthy']], desc:'Eggs poached in spiced tomato sauce. Very flavourful!', descId:'Telur dalam saus tomat berbumbu. Sangat lezat!', url:'https://whipandwander.com/shakshuka-eggs-poached-in-tomato-sauce-with-sausage-peppers-and-feta/', bg:'yellow-bg' },
+  { emoji:'🍳', weekend:true, badge:{type:'weekend',text:'🌅 Weekend Only'}, name:'Full English Breakfast', nameId:'Sarapan Inggris Lengkap', tags:[['tag-purple','🌅 Weekend only']], desc:'Eggs, toast, beans, sausage. Big weekend breakfast!', descId:'Telur, roti, buncis, sosis. Sarapan besar akhir pekan!', url:'https://iamafoodblog.com/a-breakdown-of-the-full-english-breakfast/', bg:'yellow-bg' }
+];
+
+const LUNCH_WESTERN = [
+  { emoji:'🐟', bg:'', name:'Salmon + Roasted Veg + Rice', nameId:'Salmon + Sayuran Panggang + Nasi', tags:[['tag-green','✅ Healthy'],['tag-orange','🔥 Oven roasted']], desc:'One-pan oven-roasted salmon with colourful vegetables.', descId:'Salmon dan sayuran panggang satu loyang di oven.', url:'https://www.theroastedroot.net/one-pan-meal-salmon-and-vegetables/', variants:[] },
+  { emoji:'🌯', bg:'blue-bg', name:'Meat & Veg Wrap / Sandwich', nameId:'Wrap / Roti Lapis Daging & Sayur', tags:[['tag-green','✅ Balanced'],['tag-yellow','⚡ Flexible']], desc:'Meat and vegetables in a wrap or sandwich. Light lunch.', descId:'Daging dan sayuran dalam wrap atau roti lapis. Makan siang ringan.', url:'https://www.cookedandloved.com/best-wraps-recipes/', variants:[{label:'🍖 Vietnamese pork wrap',url:'https://www.extrapetite.com/2020/04/vietnamese-grilled-pork-recipe-rice-bowls-lettuce-wraps-banh-mi.html',cls:'blue'}] },
+  { emoji:'🍝', bg:'pink-bg', name:'Tomato Basil Pork Pasta', nameId:'Pasta Babi Tomat Basil', tags:[['tag-blue','⚡ Instant Pot'],['tag-green','🌿 One pot']], desc:'Creamy tomato basil fusilli pasta. Easy Instant Pot recipe.', descId:'Pasta fusilli tomat basil krim. Mudah dengan Instant Pot.', url:'https://www.cookwithmanali.com/instant-pot-creamy-tomato-basil-pasta/', variants:[] },
+  { emoji:'🍤', bg:'orange-bg', name:'Prawn Garlic Noodles', nameId:'Mie Bawang Putih Udang', tags:[['tag-orange','🦐 Prawn'],['tag-green','✅ Healthy']], desc:'Asian garlic noodles with juicy prawns. Easy and tasty.', descId:'Mie bawang putih Asia dengan udang segar. Mudah dan lezat.', url:'https://www.extrapetite.com/2020/03/easy-asian-garlic-noodles-shrimp-recipe.html', variants:[] },
+  { emoji:'🥗', bg:'', name:'Chicken / Salmon Salad', nameId:'Salad Ayam / Salmon', tags:[['tag-green','✅ Very healthy'],['tag-yellow','⚡ Light']], desc:'Fresh and filling salad with protein. Great for a light lunch.', descId:'Salad segar dan mengenyangkan dengan protein. Bagus untuk makan siang ringan.', url:'https://pinchofyum.com/best-salad-recipes', variants:[] }
+];
+
+const LUNCH_CHINESE = [
+  { emoji:'🍚', bg:'', name:'Yangzhou Fried Rice', nameId:'Nasi Goreng Yangzhou', tags:[['tag-blue','🥢 Chinese'],['tag-green','✅ Balanced']], desc:'Classic Chinese fried rice packed with egg, veg and protein.', descId:'Nasi goreng Tiongkok klasik dengan telur, sayur dan protein.', url:'https://www.madewithlau.com/recipes/yangzhou-fried-rice', variants:[] },
+  { emoji:'🍜', bg:'blue-bg', name:'Stir-Fry Bee Hoon', nameId:'Bihun Goreng', tags:[['tag-blue','🥢 Chinese'],['tag-yellow','⚡ Quick']], desc:'Stir-fried rice noodles with meat and vegetables.', descId:'Bihun goreng dengan daging dan sayuran.', url:'https://www.madewithlau.com/recipes/singapore-noodles', variants:[{label:'🦐 Prawn & mince',url:'https://www.youtube.com/watch?v=41voYs2DxPU',cls:'yt'},{label:'🍄 Beancurd & mushroom',url:'https://www.youtube.com/watch?v=s1G7pxhG33w',cls:'yt'},{label:'🐷 Pig trotter',url:'https://www.youtube.com/watch?v=Hc-6Hs2Qnb8',cls:'yt'},{label:'🌶️ Tom Yum',url:'https://www.youtube.com/watch?v=6tyV0wSFvrg',cls:'yt'}] },
+  { emoji:'🍲', bg:'pink-bg', name:'Noodle Soup', nameId:'Sup Mie', tags:[['tag-blue','🥢 Chinese'],['tag-green','✅ Comforting']], desc:'Warm noodle soup with meat. Chicken, prawn or meatball.', descId:'Sup mie hangat dengan daging. Ayam, udang atau bakso.', url:'https://www.youtube.com/watch?v=rXfHP6XFUSY', variants:[{label:'🦐 Prawn Kuey Teow',url:'https://www.youtube.com/watch?v=8x7aricygEs',cls:'yt'},{label:'🥩 Meatball soup',url:'https://www.youtube.com/watch?v=ePw5KSFKGz8',cls:'yt'}] },
+  { emoji:'🥣', bg:'orange-bg', name:'Porridge / Congee', nameId:'Bubur / Congee', tags:[['tag-blue','🥢 Chinese'],['tag-green','✅ Light & easy']], desc:'Smooth rice porridge with chicken, pork or fish.', descId:'Bubur beras lembut dengan ayam, babi atau ikan.', url:'https://www.youtube.com/watch?v=qPQ8Dr5XgS4', variants:[{label:'🐟 Fish congee',url:'https://www.youtube.com/watch?v=TO2pgMMLfsQ',cls:'yt'}] }
+];
+
+const LUNCH_ASIAN = [
+  { emoji:'🌿', bg:'', name:'Thai Basil Chicken + Egg', nameId:'Ayam Kemangi Thailand + Telur', tags:[['tag-orange','🌏 Asian'],['tag-green','✅ Tasty']], desc:'Fragrant Thai basil stir-fried chicken served with egg on rice.', descId:'Ayam tumis kemangi Thailand dengan telur di atas nasi.', url:'https://thewoksoflife.com/thai-basil-chicken-pad-krapow/', variants:[] },
+  { emoji:'🍛', bg:'yellow-bg', name:'Japanese Curry + Katsu Chicken', nameId:'Kari Jepang + Ayam Goreng', tags:[['tag-orange','🌏 Japanese'],['tag-yellow','😋 Crowd favourite']], desc:'Golden crispy chicken cutlet with rich Japanese curry over rice.', descId:'Ayam goreng renyah dengan kari Jepang di atas nasi.', url:'https://japan.recipetineats.com/katsu-curry-japanese-curry-rice-with-chicken-cutlet/', variants:[] }
+];
+
+const DINNER_MEAT = [
+  { emoji:'🍗', bg:'', name:'Stir-Fry Chicken', nameId:'Ayam Tumis', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Quick']], desc:'Tender stir-fried chicken. Choose your sauce below!', descId:'Ayam tumis empuk. Pilih sausnya di bawah!', url:'https://www.madewithlau.com/recipes/rainbow-chicken-stir-fry', variants:[{label:'🦪 Oyster sauce',url:'https://www.madewithlau.com/recipes/rainbow-chicken-stir-fry',cls:''},{label:'🌶️ Kung Pao',url:'https://redhousespice.com/kung-pao-chicken/',cls:''},{label:'🖤 Black pepper',url:'https://redhousespice.com/black-pepper-chicken/',cls:''}] },
+  { emoji:'🥩', bg:'orange-bg', name:'Sweet & Sour Pork', nameId:'Babi Asam Manis', tags:[['tag-orange','🐷 Pork'],['tag-yellow','😋 Favourite']], desc:'Classic Cantonese sweet and sour pork. Crispy and delicious.', descId:'Babi asam manis Kanton klasik. Renyah dan lezat.', url:'https://www.madewithlau.com/recipes/sweet-sour-pork', variants:[] },
+  { emoji:'🐟', bg:'blue-bg', name:'Steamed Cod Fish', nameId:'Ikan Cod Kukus', tags:[['tag-green','✅ Healthy'],['tag-blue','🔪 Steamed']], desc:'Cantonese steamed cod with special soy sauce. Light and healthy.', descId:'Ikan cod kukus Kanton dengan kecap khusus. Ringan dan sehat.', url:'https://www.foodelicacy.com/cantonese-style-steamed-cod-with-special-soy-sauce/', variants:[] },
+  { emoji:'🐠', bg:'', name:'Stir-Fry Fish', nameId:'Ikan Tumis Jahe', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Easy']], desc:'Stir-fried fish with ginger and spring onion. Simple Cantonese dish.', descId:'Ikan tumis dengan jahe dan daun bawang. Masakan Kanton sederhana.', url:'https://www.youtube.com/watch?v=ZAYq-5xpKVk', variants:[] }
+];
+
+const DINNER_VEG = [
+  { emoji:'🥬', bg:'', name:'Bak Choy', nameId:'Bak Choy', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Quick']], desc:'Stir-fried bak choy with garlic. Simple and nutritious.', descId:'Bak choy tumis bawang putih. Sederhana dan bergizi.', url:'https://www.youtube.com/watch?v=6tGVqr0QXh0', variants:[] },
+  { emoji:'🥦', bg:'', name:'Broccoli Stir-Fry', nameId:'Brokoli Tumis', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Quick']], desc:'Crisp stir-fried broccoli. Great with oyster sauce.', descId:'Brokoli tumis renyah. Enak dengan saus tiram.', url:'https://www.madewithlau.com/recipes/broccoli-stir-fry', variants:[] },
+  { emoji:'🫘', bg:'orange-bg', name:'Green Beans', nameId:'Buncis Tumis', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Quick']], desc:'Stir-fried green beans with garlic. Crunchy and tasty.', descId:'Buncis tumis bawang putih. Renyah dan lezat.', url:'https://www.madewithlau.com/recipes/stir-fried-green-beans', variants:[] },
+  { emoji:'🌱', bg:'', name:'Dou Miao (Pea Shoots)', nameId:'Daun Kacang Polong', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Quick']], desc:'Tender stir-fried pea shoots. Light and delicious.', descId:'Pucuk kacang polong tumis empuk. Ringan dan lezat.', url:'https://www.youtube.com/watch?v=rGEM4zGYEBw', variants:[] },
+  { emoji:'🌿', bg:'blue-bg', name:'Bean Sprouts', nameId:'Tauge Tumis', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Very quick']], desc:'Fresh bean sprouts stir-fried with garlic and spring onion.', descId:'Tauge segar tumis bawang putih dan daun bawang.', url:'https://www.youtube.com/watch?v=D2_8JTXIf8w', variants:[] }
+];
+
+const DINNER_SOUP = [
+  { emoji:'🥕', bg:'', name:'ABC Soup', nameId:'Sup ABC', tags:[['tag-blue','⚡ Instant Pot'],['tag-green','✅ Healthy']], desc:'Comforting vegetable ABC soup. Easy in the Instant Pot.', descId:'Sup ABC sayuran yang menyehatkan. Mudah di Instant Pot.', url:'https://www.hwcmagazine.com/recipe/zippy-veggie-abc-soup/', variants:[] },
+  { emoji:'🌿', bg:'', name:'Watercress Pork Soup', nameId:'Sup Babi Kangkung', tags:[['tag-blue','⚡ Instant Pot'],['tag-green','✅ Nourishing']], desc:'Nourishing Chinese watercress soup with pork. Instant Pot.', descId:'Sup kangkung Tiongkok bergizi dengan babi. Instant Pot.', url:'https://rackoflam.com/chinese-watercress-soup-instant-pot-recipe/', variants:[] },
+  { emoji:'🍈', bg:'blue-bg', name:'Wintermelon Soup', nameId:'Sup Bligo', tags:[['tag-blue','⚡ Instant Pot'],['tag-green','✅ Light']], desc:'Light and cooling wintermelon soup. Great in warm weather.', descId:'Sup bligo yang ringan dan menyejukkan. Bagus di cuaca panas.', url:'https://www.mamababymandarin.com/instant-pot-winter-melon-soup-recipe/', variants:[] },
+  { emoji:'🌶️', bg:'orange-bg', name:'Crispy Chilli Tofu', nameId:'Tahu Crispy Pedas', tags:[['tag-orange','🌶️ Spicy'],['tag-green','🌱 Vegan']], desc:'Crispy garlic chilli tofu. Great protein alternative.', descId:'Tahu bawang putih crispy pedas. Alternatif protein yang bagus.', url:'https://eatwithclarity.com/spicy-garlic-crispy-tofu/', variants:[] },
+  { emoji:'🫕', bg:'pink-bg', name:'Mapo Tofu', nameId:'Mapo Tahu', tags:[['tag-blue','🥢 Chinese'],['tag-orange','🌶️ Mild spicy']], desc:'Silky tofu in savoury sauce with minced pork. Classic dish.', descId:'Tahu lembut dalam saus gurih dengan babi cincang. Hidangan klasik.', url:'https://www.madewithlau.com/recipes/mapo-tofu-pork', variants:[] },
+  { emoji:'🥚', bg:'', name:'Steamed Egg with Pork', nameId:'Telur Kukus dengan Babi Cincang', tags:[['tag-green','✅ Healthy'],['tag-blue','🔪 Steamed']], desc:'Silky smooth steamed egg with minced pork. Comforting dish.', descId:'Telur kukus lembut dengan babi cincang. Hidangan yang nyaman.', url:'https://www.madewithlau.com/recipes/steamed-egg-minced-pork', variants:[] },
+  { emoji:'🍅', bg:'orange-bg', name:'Tomato and Eggs', nameId:'Tomat dan Telur', tags:[['tag-green','✅ Simple'],['tag-yellow','⚡ 10 mins']], desc:'Classic Chinese tomato and egg stir-fry. Quick and homely.', descId:'Tumis tomat dan telur Tiongkok klasik. Cepat dan sederhana.', url:'https://www.madewithlau.com/recipes/tomato-and-eggs', variants:[] }
+];
+
+/* ═══════════════════════════════════════
+   RENDER FUNCTION
+═══════════════════════════════════════ */
+
+function buildGrid(data, gridId) {
+  const grid = document.getElementById(gridId);
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  data.forEach(r => {
+    const tagsHtml = r.tags.map(([cls,lbl]) => `<span class="tag ${cls}">${lbl}</span>`).join('');
+    let badgeHtml = '';
+    if (r.badge) {
+      const bc = r.badge.type==='weekend' ? 'badge badge-weekend' : 'badge badge-person';
+      badgeHtml = `<span class="${bc}">${r.badge.text}</span>`;
+    }
+    const bgClass = 'img-bg ' + (r.bg || '');
+
+    let variantsHtml = '';
+    if (r.variants && r.variants.length) {
+      const chips = r.variants.map(v =>
+        `<a class="variant-chip ${v.cls||''}" href="${v.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${v.label}</a>`
+      ).join('');
+      variantsHtml = `<div class="variants">${chips}</div>`;
+    }
+
+    const a = document.createElement('a');
+    a.className = 'recipe-card' + (r.weekend ? ' is-weekend' : '');
+    a.href = r.url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.innerHTML = `
+      <div class="img-wrap">
+        <div class="${bgClass.trim()}">${r.emoji}</div>
+        <img class="img-photo" alt="${r.name}" />
+      </div>
       ${badgeHtml}
-      
-															<div class="recipe-body">
-																<div class="recipe-name">${r.name}</div>
-																<span class="recipe-name-id">${r.nameId}</span>
-																<div class="recipe-tags">${tagsHtml}</div>
-																<div class="recipe-desc">${r.desc}
-																	<br>
-																		<em style="font-size:11px;color:#bbb;">${r.descId}</em>
-																	</div>
-																	<div class="recipe-btn">📖 View Recipe ↗</div>
+      <div class="recipe-body">
+        <div class="recipe-name">${r.name}</div>
+        <span class="recipe-name-id">${r.nameId}</span>
+        <div class="recipe-tags">${tagsHtml}</div>
+        <div class="recipe-desc">${r.desc}<br><em style="font-size:11px;color:#bbb;">${r.descId}</em></div>
+        <div class="recipe-btn">📖 View Recipe ↗</div>
         ${variantsHtml}
-      
-																</div>
+      </div>
     `;
-                    grid.appendChild(a);
-                    // Fetch OG image via Microlink
-                    const img = a.querySelector('.img-photo');
-                    fetch(`https://api.microlink.io/?url=${encodeURIComponent(r.url)}`).then(res => res.json()).then(data => {
-                        const url = data?.data?.image?.url;
-                        if (url) {
-                            img.src = url;
-                            img.onload = () => img.classList.add('loaded');
-                        }
-                    }).catch(() => {});
-                });
-            }
-            /* ═══════════════════════════════════════
-               NAVIGATION
-            ═══════════════════════════════════════ */
-            function showSection(name, btn) {
-                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-                document.querySelectorAll('.main-nav-btn').forEach(b => b.classList.remove('active'));
-                document.getElementById('section-' + name).classList.add('active');
-                if (btn) btn.classList.add('active');
-            }
+    grid.appendChild(a);
 
-            function showMeal(name, btn) {
-                document.querySelectorAll('.meal-panel').forEach(p => p.classList.remove('active'));
-                document.querySelectorAll('.meal-tab').forEach(t => t.classList.remove('active'));
-                document.getElementById('meal-' + name).classList.add('active');
-                if (btn) btn.classList.add('active');
-            }
+    // Fetch OG image via Microlink
+    const img = a.querySelector('.img-photo');
+    fetch(`https://api.microlink.io/?url=${encodeURIComponent(r.url)}`)
+      .then(res => res.json())
+      .then(data => {
+        const url = data?.data?.image?.url;
+        if (url) { img.src = url; img.onload = () => img.classList.add('loaded'); }
+      })
+      .catch(() => {});
+  });
+}
 
-            function showSub(meal, sub, btn) {
-                // hide all sub-panels under this meal
-                const mealEl = document.getElementById('meal-' + meal);
-                mealEl.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
-                mealEl.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
-                document.getElementById(meal + '-' + sub).classList.add('active');
-                if (btn) btn.classList.add('active');
-            }
-            /* ═══════════════════════════════════════
-               INIT
-            ═══════════════════════════════════════ */
-            buildGrid(BREAKFAST, 'breakfast-grid');
-            buildGrid(LUNCH_WESTERN, 'lunch-western-grid');
-            buildGrid(LUNCH_CHINESE, 'lunch-chinese-grid');
-            buildGrid(LUNCH_ASIAN, 'lunch-asian-grid');
-            buildGrid(DINNER_MEAT, 'dinner-meat-grid');
-            buildGrid(DINNER_VEG, 'dinner-veg-grid');
-            buildGrid(DINNER_SOUP, 'dinner-soup-grid');
-            /* ══════════════════════════════════════════════════════════
-               TIMETABLE
-            ══════════════════════════════════════════════════════════ */
-            const DAY_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-            const SCHEDULE = [
-                // 0 — MONDAY
-                {
-                    specialLabel: '🛒 Grocery + 👕 Laundry day',
-                    tasks: [{
-                        time: '8:00 AM',
-                        period: 'morning',
-                        emoji: '🍳',
-                        type: 'daily',
-                        label: 'Prepare breakfast',
-                        labelId: 'Siapkan sarapan'
-                    }, {
-                        time: '9:00 AM',
-                        period: 'morning',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: hot water (45°C) + wipe baby area & toys',
-                        labelId: 'Bayi: air panas (45°C) + lap area bayi & mainan'
-                    }, {
-                        time: '10:00 AM',
-                        period: 'morning',
-                        emoji: '🍱',
-                        type: 'daily',
-                        label: 'Prepare lunch',
-                        labelId: 'Siapkan makan siang'
-                    }, {
-                        time: '1:00 PM',
-                        period: 'afternoon',
-                        emoji: '👕',
-                        type: 'weekly',
-                        label: 'Laundry: wash, dry & iron clothes',
-                        labelId: 'Cucian: cuci, keringkan & setrika',
-                        note: 'Fold clothes on bed · Hang ironed clothes near dining area'
-                    }, {
-                        time: '2:00 PM',
-                        period: 'afternoon',
-                        emoji: '🛒',
-                        type: 'weekly',
-                        label: 'Grocery shopping — run robot vacuum first',
-                        labelId: 'Belanja — jalankan robot vakum dulu',
-                        note: '2× a week (Mon & Thu). Start robot vacuum before leaving.'
-                    }, {
-                        time: '4:00 PM',
-                        period: 'afternoon',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: wash & sterilize bottles + wash baby clothes',
-                        labelId: 'Bayi: cuci & sterilkan botol + cuci pakaian bayi'
-                    }, {
-                        time: '5:00 PM',
-                        period: 'afternoon',
-                        emoji: '🍲',
-                        type: 'daily',
-                        label: 'Prepare dinner',
-                        labelId: 'Siapkan makan malam'
-                    }, {
-                        time: '7:00 PM',
-                        period: 'night',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: pickup and/or bathing',
-                        labelId: 'Bayi: jemput dan/atau mandi'
-                    }, {
-                        time: '8:00 PM',
-                        period: 'night',
-                        emoji: '🧹',
-                        type: 'daily',
-                        label: 'Evening clean-up',
-                        labelId: 'Bersih-bersih malam',
-                        note: '① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'
-                    }, ]
-                },
-                // 1 — TUESDAY
-                {
-                    specialLabel: '🪟 Weekly: Clean windows & blinds',
-                    isOffDay: true,
-                    tasks: [{
-                        time: '8:00 AM',
-                        period: 'morning',
-                        emoji: '🍳',
-                        type: 'daily',
-                        label: 'Prepare breakfast',
-                        labelId: 'Siapkan sarapan'
-                    }, {
-                        time: '9:00 AM',
-                        period: 'morning',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: hot water (45°C) + wipe baby area & toys',
-                        labelId: 'Bayi: air panas (45°C) + lap area bayi & mainan'
-                    }, {
-                        time: '10:00 AM',
-                        period: 'morning',
-                        emoji: '🍱',
-                        type: 'daily',
-                        label: 'Prepare lunch',
-                        labelId: 'Siapkan makan siang'
-                    }, {
-                        time: '2:00 PM',
-                        period: 'afternoon',
-                        emoji: '🪟',
-                        type: 'weekly',
-                        label: 'Weekly: Clean windows + blinds',
-                        labelId: 'Mingguan: Bersihkan jendela + tirai',
-                        note: '⚠️ No chemicals for dining area & master bedroom · Grill always stays · Must have someone supervising'
-                    }, {
-                        time: '4:00 PM',
-                        period: 'afternoon',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: wash & sterilize bottles + wash baby clothes',
-                        labelId: 'Bayi: cuci & sterilkan botol + cuci pakaian bayi'
-                    }, {
-                        time: '5:00 PM',
-                        period: 'afternoon',
-                        emoji: '🍲',
-                        type: 'daily',
-                        label: 'Prepare dinner',
-                        labelId: 'Siapkan makan malam'
-                    }, {
-                        time: '7:00 PM',
-                        period: 'night',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: pickup and/or bathing',
-                        labelId: 'Bayi: jemput dan/atau mandi'
-                    }, {
-                        time: '8:00 PM',
-                        period: 'night',
-                        emoji: '🧹',
-                        type: 'daily',
-                        label: 'Evening clean-up',
-                        labelId: 'Bersih-bersih malam',
-                        note: '① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'
-                    }, ]
-                },
-                // 2 — WEDNESDAY
-                {
-                    specialLabel: '🛏️ Furniture wipe + bedsheets + 🚽 Toilet deep clean',
-                    tasks: [{
-                        time: '8:00 AM',
-                        period: 'morning',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: hot water (45°C) + wipe baby area & toys',
-                        labelId: 'Bayi: air panas (45°C) + lap area bayi & mainan'
-                    }, {
-                        time: '9:00 AM',
-                        period: 'morning',
-                        emoji: '🛏️',
-                        type: 'weekly',
-                        label: 'Weekly: Wipe furniture + fans + change bedsheet (study room)',
-                        labelId: 'Mingguan: Lap furnitur + kipas + ganti sprei (ruang belajar)',
-                        note: 'Also wipe baby stroller.'
-                    }, {
-                        time: '12:00 PM',
-                        period: 'afternoon',
-                        emoji: '🚽',
-                        type: 'weekly',
-                        label: 'Weekly: Deep clean toilets (kitchen + master bedroom)',
-                        labelId: 'Mingguan: Bersihkan toilet dalam (dapur + kamar utama)',
-                        note: '① Wash toilet bowl  ② Clean glass windows  ③ Scrub walls & floor  ④ Replace floor mat  ⑤ Clear dustbin'
-                    }, {
-                        time: '2:00 PM',
-                        period: 'afternoon',
-                        emoji: '🛏️',
-                        type: 'weekly',
-                        label: 'Weekly: Wipe master bedroom furniture + change bedsheets',
-                        labelId: 'Mingguan: Lap furnitur kamar utama + ganti sprei',
-                        note: 'Wash & hang bedsheets from master bedroom + study room.'
-                    }, {
-                        time: '4:00 PM',
-                        period: 'afternoon',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: wash & sterilize bottles + wash baby clothes',
-                        labelId: 'Bayi: cuci & sterilkan botol + cuci pakaian bayi'
-                    }, {
-                        time: '7:00 PM',
-                        period: 'night',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: pickup and/or bathing',
-                        labelId: 'Bayi: jemput dan/atau mandi'
-                    }, {
-                        time: '8:00 PM',
-                        period: 'night',
-                        emoji: '🧹',
-                        type: 'daily',
-                        label: 'Evening clean-up',
-                        labelId: 'Bersih-bersih malam',
-                        note: '① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'
-                    }, ]
-                },
-                // 3 — THURSDAY
-                {
-                    specialLabel: '🛒 Grocery + 👕 Laundry day',
-                    tasks: [{
-                        time: '8:00 AM',
-                        period: 'morning',
-                        emoji: '🍳',
-                        type: 'daily',
-                        label: 'Prepare breakfast',
-                        labelId: 'Siapkan sarapan'
-                    }, {
-                        time: '9:00 AM',
-                        period: 'morning',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: hot water (45°C) + wipe baby area & toys',
-                        labelId: 'Bayi: air panas (45°C) + lap area bayi & mainan'
-                    }, {
-                        time: '10:00 AM',
-                        period: 'morning',
-                        emoji: '🍱',
-                        type: 'daily',
-                        label: 'Prepare lunch',
-                        labelId: 'Siapkan makan siang'
-                    }, {
-                        time: '1:00 PM',
-                        period: 'afternoon',
-                        emoji: '👕',
-                        type: 'weekly',
-                        label: 'Laundry: wash, dry & iron clothes',
-                        labelId: 'Cucian: cuci, keringkan & setrika',
-                        note: 'Fold clothes on bed · Hang ironed clothes near dining area'
-                    }, {
-                        time: '2:00 PM',
-                        period: 'afternoon',
-                        emoji: '🛒',
-                        type: 'weekly',
-                        label: 'Grocery shopping — run robot vacuum first',
-                        labelId: 'Belanja — jalankan robot vakum dulu',
-                        note: '2× a week (Mon & Thu). Start robot vacuum before leaving.'
-                    }, {
-                        time: '4:00 PM',
-                        period: 'afternoon',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: wash & sterilize bottles + wash baby clothes',
-                        labelId: 'Bayi: cuci & sterilkan botol + cuci pakaian bayi'
-                    }, {
-                        time: '5:00 PM',
-                        period: 'afternoon',
-                        emoji: '🍲',
-                        type: 'daily',
-                        label: 'Prepare dinner',
-                        labelId: 'Siapkan makan malam'
-                    }, {
-                        time: '7:00 PM',
-                        period: 'night',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: pickup and/or bathing',
-                        labelId: 'Bayi: jemput dan/atau mandi'
-                    }, {
-                        time: '8:00 PM',
-                        period: 'night',
-                        emoji: '🧹',
-                        type: 'daily',
-                        label: 'Evening clean-up',
-                        labelId: 'Bersih-bersih malam',
-                        note: '① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'
-                    }, ]
-                },
-                // 4 — FRIDAY
-                {
-                    specialLabel: '🏠 Weekly: Deep clean kitchen + front door',
-                    tasks: [{
-                        time: '8:00 AM',
-                        period: 'morning',
-                        emoji: '🍳',
-                        type: 'daily',
-                        label: 'Prepare breakfast',
-                        labelId: 'Siapkan sarapan'
-                    }, {
-                        time: '9:00 AM',
-                        period: 'morning',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: hot water (45°C) + wipe baby area & toys',
-                        labelId: 'Bayi: air panas (45°C) + lap area bayi & mainan'
-                    }, {
-                        time: '10:00 AM',
-                        period: 'morning',
-                        emoji: '🍱',
-                        type: 'daily',
-                        label: 'Prepare lunch',
-                        labelId: 'Siapkan makan siang'
-                    }, {
-                        time: '2:00 PM',
-                        period: 'afternoon',
-                        emoji: '🏠',
-                        type: 'weekly',
-                        label: 'Weekly: Deep clean kitchen + front door area',
-                        labelId: 'Mingguan: Bersihkan dapur + area pintu depan',
-                        note: '① Wipe all cabinets inside & out  ② Clean fridge  ③ Wipe door + grills  ④ Clean shoe cabinet inside  ⑤ Replace doormat + kitchen mat'
-                    }, {
-                        time: '4:00 PM',
-                        period: 'afternoon',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: wash & sterilize bottles + wash baby clothes',
-                        labelId: 'Bayi: cuci & sterilkan botol + cuci pakaian bayi'
-                    }, {
-                        time: '7:00 PM',
-                        period: 'night',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: pickup and/or bathing',
-                        labelId: 'Bayi: jemput dan/atau mandi'
-                    }, {
-                        time: '8:00 PM',
-                        period: 'night',
-                        emoji: '🧹',
-                        type: 'daily',
-                        label: 'Evening clean-up',
-                        labelId: 'Bersih-bersih malam',
-                        note: '① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'
-                    }, ]
-                },
-                // 5 — SATURDAY
-                {
-                    specialLabel: '🚽 Deep clean toilets + 👕 Laundry',
-                    tasks: [{
-                        time: '8:00 AM',
-                        period: 'morning',
-                        emoji: '🍳',
-                        type: 'daily',
-                        label: 'Prepare breakfast',
-                        labelId: 'Siapkan sarapan'
-                    }, {
-                        time: '9:00 AM',
-                        period: 'morning',
-                        emoji: '🚽',
-                        type: 'weekly',
-                        label: 'Weekly: Deep clean toilets (kitchen + master bedroom)',
-                        labelId: 'Mingguan: Bersihkan toilet dalam (dapur + kamar utama)',
-                        note: '① Wash toilet bowl  ② Clean glass windows  ③ Scrub walls & floor  ④ Replace floor mat  ⑤ Clear dustbin'
-                    }, {
-                        time: '1:00 PM',
-                        period: 'afternoon',
-                        emoji: '👕',
-                        type: 'weekly',
-                        label: 'Laundry: wash, dry & iron clothes',
-                        labelId: 'Cucian: cuci, keringkan & setrika',
-                        note: 'Fold clothes on bed · Hang ironed clothes near dining area'
-                    }, {
-                        time: '4:00 PM',
-                        period: 'afternoon',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: wash & sterilize bottles + wash baby clothes',
-                        labelId: 'Bayi: cuci & sterilkan botol + cuci pakaian bayi'
-                    }, {
-                        time: '7:00 PM',
-                        period: 'night',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: pickup and/or bathing',
-                        labelId: 'Bayi: jemput dan/atau mandi'
-                    }, {
-                        time: '8:00 PM',
-                        period: 'night',
-                        emoji: '🧹',
-                        type: 'daily',
-                        label: 'Evening clean-up',
-                        labelId: 'Bersih-bersih malam',
-                        note: '① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'
-                    }, ]
-                },
-                // 6 — SUNDAY
-                {
-                    specialLabel: '🛋️ Weekly: Deep clean living room + dining + corridor',
-                    isOffDay: true,
-                    tasks: [{
-                        time: '8:00 AM',
-                        period: 'morning',
-                        emoji: '🍳',
-                        type: 'daily',
-                        label: 'Prepare breakfast',
-                        labelId: 'Siapkan sarapan'
-                    }, {
-                        time: '9:00 AM',
-                        period: 'morning',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: hot water (45°C) + wipe baby area & toys',
-                        labelId: 'Bayi: air panas (45°C) + lap area bayi & mainan'
-                    }, {
-                        time: '1:00 PM',
-                        period: 'afternoon',
-                        emoji: '🛋️',
-                        type: 'weekly',
-                        label: 'Weekly: Deep clean living room + corridor + dining area',
-                        labelId: 'Mingguan: Bersihkan ruang tamu + koridor + ruang makan',
-                        note: '① Wipe tables & cabinets (inside if needed)  ② Clean 2 fans  ③ Clean dining room light  ④ Clean altar\n📅 Monthly: Wash curtains · Leather-wipe sofa · Clean aircon'
-                    }, {
-                        time: '4:00 PM',
-                        period: 'afternoon',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: wash & sterilize bottles + wash baby clothes',
-                        labelId: 'Bayi: cuci & sterilkan botol + cuci pakaian bayi'
-                    }, {
-                        time: '5:00 PM',
-                        period: 'afternoon',
-                        emoji: '🍲',
-                        type: 'daily',
-                        label: 'Prepare dinner',
-                        labelId: 'Siapkan makan malam'
-                    }, {
-                        time: '7:00 PM',
-                        period: 'night',
-                        emoji: '👶',
-                        type: 'baby',
-                        label: 'Baby: pickup and/or bathing',
-                        labelId: 'Bayi: jemput dan/atau mandi'
-                    }, {
-                        time: '8:00 PM',
-                        period: 'night',
-                        emoji: '🧹',
-                        type: 'daily',
-                        label: 'Evening clean-up',
-                        labelId: 'Bersih-bersih malam',
-                        note: '① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'
-                    }, ]
-                },
-            ];
+/* ═══════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════ */
 
-            function initTimetable() {
-                const today = new Date();
-                const jsDay = today.getDay(); // 0=Sun
-                const curDay = jsDay === 0 ? 6 : jsDay - 1; // Mon=0..Sun=6
-                // Banner
-                const opts = {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                };
-                document.getElementById('tt-date').textContent = '📅 Today — ' + today.toLocaleDateString('en-SG', opts);
-                document.getElementById('tt-special').textContent = SCHEDULE[curDay].specialLabel;
-                // Build panels
-                const panelsEl = document.getElementById('tt-panels');
-                panelsEl.innerHTML = '';
-                SCHEDULE.forEach((day, di) => {
-                    const panel = document.createElement('div');
-                    panel.className = 'day-panel' + (di === curDay ? ' active' : '');
-                    panel.id = 'day-panel-' + di;
-                    panel.innerHTML = buildDayHTML(di, day);
-                    panelsEl.appendChild(panel);
-                });
-                // Activate today tab
-                document.querySelectorAll('.day-tab').forEach((t, i) => {
-                    if (i === curDay) t.classList.add('today-tab', 'active');
-                });
-                loadChecks(curDay);
-            }
+function showSection(name, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.main-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('section-'+name).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
 
-            function buildDayHTML(di, day) {
-                let html = '';
-                if (day.isOffDay) {
-                    html += `
-																<div class="offday-note">🌟 
-																	<strong>Preferred off day once a month</strong> — check with Sir/Mdm if this is your off day this month.
-																	<br>
-																		<em style="font-size:11px;font-weight:400">Hari libur pilihan sebulan sekali — tanya Bapak/Ibu apakah ini hari libur Anda bulan ini.</em>
-																	</div>`;
-                }
-                // CHECKLIST
-                html += `
-																	<div class="checklist-card">
-																		<div class="checklist-header">
-																			<div class="checklist-title">✅ Today's Tasks 
-																				<span id="progress-label-${di}"></span>
-																			</div>
-																			<button class="reset-btn" onclick="resetChecks(${di})">↺ Reset</button>
-																		</div>
-																		<div class="progress-wrap">
-																			<div class="progress-bar">
-																				<div class="progress-fill" id="progress-fill-${di}" style="width:0%"></div>
-																			</div>
-																		</div>`;
-                getChecklistItems(day.tasks).forEach(item => {
-                    const k = item.key;
-                    const t = item.task;
-                    if (item.ghost) {
-                        // Not in today's schedule — show "Check with Sir/Mdm"
-                        html += `
-																		<div class="check-item check-item-ghost">
-																			<div class="check-box check-box-ghost" id="cb-${di}-${k}" onclick="toggleCheck(${di},'${k}')"></div>
-																			<div class="check-text">
-																				<div class="check-time">${t.time}</div>
-																				<div class="check-label" id="cl-${di}-${k}">${t.emoji} ${t.label}</div>
-																				<div class="check-label-id">${t.labelId}</div>
-																				<div class="check-ghost-note">📋 Check with Sir / Mdm · Tanya Bapak / Ibu</div>
-																			</div>
-																		</div>`;
-                    } else {
-                        const typeTag = t.type === 'weekly' ? `
-																		<span class="task-type type-weekly">🔄 Weekly</span>` : '';
-                        html += `
-																		<div class="check-item">
-																			<div class="check-box" id="cb-${di}-${k}" onclick="toggleCheck(${di},'${k}')"></div>
-																			<div class="check-text">
-																				<div class="check-time">${t.time}</div>
-																				<div class="check-label" id="cl-${di}-${k}">${t.emoji} ${t.label}${typeTag}</div>
-																				<div class="check-label-id">${t.labelId}</div>
-																			</div>
-																		</div>`;
-                    }
-                });
-                html += `
-																	</div>`;
-                // TIMELINE
-                html += `
-																	<div style="margin-bottom:10px;font-size:15px;font-weight:900;color:var(--text-dark)">📋 Daily Timeline · Jadwal Harian</div>`;
-                const periods = [{
-                    key: 'morning',
-                    label: '🌅 Morning · Pagi'
-                }, {
-                    key: 'afternoon',
-                    label: '☀️ Afternoon · Siang'
-                }, {
-                    key: 'night',
-                    label: '🌙 Night · Malam'
-                }, ];
-                periods.forEach(p => {
-                    const pTasks = day.tasks.filter(t => t.period === p.key);
-                    if (!pTasks.length) return;
-                    html += `
-																	<div class="timeline-section">
-																		<div class="timeline-period">${p.label}</div>`;
-                    pTasks.forEach((t, idx) => {
-                        const isLast = idx === pTasks.length - 1;
-                        const dotCls = t.type === 'baby' ? 'tl-dot baby-dot' : t.type === 'weekly' ? 'tl-dot weekly-dot' : 'tl-dot';
-                        const cardCls = t.type === 'weekly' ? 'tl-card weekly-card' : t.type === 'baby' ? 'tl-card baby-card' : 'tl-card';
-                        let noteHtml = '';
-                        if (t.note) {
-                            noteHtml = `
-																		<div class="tl-note">${t.note.split('\n').map(l=>`
-																			<div>${l}</div>`).join('')}
-																		</div>`;
-                        }
-                        html += `
-																		<div class="timeline-item">
-																			<div class="tl-time-col">
-																				<div class="tl-time">${t.time}</div>
-																			</div>
-																			<div class="tl-line-col">
-																				<div class="${dotCls}"></div>${!
-                                                                                isLast?'<div class="tl-vline"></
-                                                                                div>':''}
-																			</div>
-																			<div class="${cardCls}">
-																				<div class="tl-emoji">${t.emoji}</div>
-																				<div class="tl-title">${t.label}</div>
-																				<div class="tl-title-id">${t.labelId}</div>
+function showMeal(name, btn) {
+  document.querySelectorAll('.meal-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.meal-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('meal-'+name).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+function showSub(meal, sub, btn) {
+  // hide all sub-panels under this meal
+  const mealEl = document.getElementById('meal-'+meal);
+  mealEl.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+  mealEl.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(meal+'-'+sub).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+/* ═══════════════════════════════════════
+   INIT
+═══════════════════════════════════════ */
+buildGrid(BREAKFAST,      'breakfast-grid');
+buildGrid(LUNCH_WESTERN,  'lunch-western-grid');
+buildGrid(LUNCH_CHINESE,  'lunch-chinese-grid');
+buildGrid(LUNCH_ASIAN,    'lunch-asian-grid');
+buildGrid(DINNER_MEAT,    'dinner-meat-grid');
+buildGrid(DINNER_VEG,     'dinner-veg-grid');
+buildGrid(DINNER_SOUP,    'dinner-soup-grid');
+
+/* ══════════════════════════════════════════════════════════
+   TIMETABLE
+══════════════════════════════════════════════════════════ */
+const DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+
+const SCHEDULE = [
+  // 0 — MONDAY
+  { specialLabel:'🛒 Grocery + 👕 Laundry day', tasks:[
+    {time:'8:00 AM', period:'morning',   emoji:'🍳', type:'daily',  label:'Prepare breakfast',                                         labelId:'Siapkan sarapan'},
+    {time:'9:00 AM', period:'morning',   emoji:'👶', type:'baby',   label:'Baby: hot water (45°C) + wipe baby area & toys',            labelId:'Bayi: air panas (45°C) + lap area bayi & mainan'},
+    {time:'10:00 AM',period:'morning',   emoji:'🍱', type:'daily',  label:'Prepare lunch',                                             labelId:'Siapkan makan siang'},
+    {time:'1:00 PM', period:'afternoon', emoji:'👕', type:'weekly', label:'Laundry: wash, dry & iron clothes',                         labelId:'Cucian: cuci, keringkan & setrika',             note:'Fold clothes on bed · Hang ironed clothes near dining area'},
+    {time:'2:00 PM', period:'afternoon', emoji:'🛒', type:'weekly', label:'Grocery shopping — run robot vacuum first',                  labelId:'Belanja — jalankan robot vakum dulu',            note:'2× a week (Mon & Thu). Start robot vacuum before leaving.'},
+    {time:'4:00 PM', period:'afternoon', emoji:'👶', type:'baby',   label:'Baby: wash & sterilize bottles + wash baby clothes',        labelId:'Bayi: cuci & sterilkan botol + cuci pakaian bayi'},
+    {time:'5:00 PM', period:'afternoon', emoji:'🍲', type:'daily',  label:'Prepare dinner',                                            labelId:'Siapkan makan malam'},
+    {time:'7:00 PM', period:'night',     emoji:'👶', type:'baby',   label:'Baby: pickup and/or bathing',                               labelId:'Bayi: jemput dan/atau mandi'},
+    {time:'8:00 PM', period:'night',     emoji:'🧹', type:'daily',  label:'Evening clean-up',                                          labelId:'Bersih-bersih malam',                           note:'① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'},
+  ]},
+  // 1 — TUESDAY
+  { specialLabel:'🪟 Weekly: Clean windows & blinds', isOffDay:true, tasks:[
+    {time:'8:00 AM', period:'morning',   emoji:'🍳', type:'daily',  label:'Prepare breakfast',                                         labelId:'Siapkan sarapan'},
+    {time:'9:00 AM', period:'morning',   emoji:'👶', type:'baby',   label:'Baby: hot water (45°C) + wipe baby area & toys',            labelId:'Bayi: air panas (45°C) + lap area bayi & mainan'},
+    {time:'10:00 AM',period:'morning',   emoji:'🍱', type:'daily',  label:'Prepare lunch',                                             labelId:'Siapkan makan siang'},
+    {time:'2:00 PM', period:'afternoon', emoji:'🪟', type:'weekly', label:'Weekly: Clean windows + blinds',                            labelId:'Mingguan: Bersihkan jendela + tirai',            note:'⚠️ No chemicals for dining area & master bedroom · Grill always stays · Must have someone supervising'},
+    {time:'4:00 PM', period:'afternoon', emoji:'👶', type:'baby',   label:'Baby: wash & sterilize bottles + wash baby clothes',        labelId:'Bayi: cuci & sterilkan botol + cuci pakaian bayi'},
+    {time:'5:00 PM', period:'afternoon', emoji:'🍲', type:'daily',  label:'Prepare dinner',                                            labelId:'Siapkan makan malam'},
+    {time:'7:00 PM', period:'night',     emoji:'👶', type:'baby',   label:'Baby: pickup and/or bathing',                               labelId:'Bayi: jemput dan/atau mandi'},
+    {time:'8:00 PM', period:'night',     emoji:'🧹', type:'daily',  label:'Evening clean-up',                                          labelId:'Bersih-bersih malam',                           note:'① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'},
+  ]},
+  // 2 — WEDNESDAY
+  { specialLabel:'🛏️ Furniture wipe + bedsheets + 🚽 Toilet deep clean', tasks:[
+    {time:'8:00 AM', period:'morning',   emoji:'👶', type:'baby',   label:'Baby: hot water (45°C) + wipe baby area & toys',            labelId:'Bayi: air panas (45°C) + lap area bayi & mainan'},
+    {time:'9:00 AM', period:'morning',   emoji:'🛏️', type:'weekly', label:'Weekly: Wipe furniture + fans + change bedsheet (study room)',labelId:'Mingguan: Lap furnitur + kipas + ganti sprei (ruang belajar)', note:'Also wipe baby stroller.'},
+    {time:'12:00 PM',period:'afternoon', emoji:'🚽', type:'weekly', label:'Weekly: Deep clean toilets (kitchen + master bedroom)',      labelId:'Mingguan: Bersihkan toilet dalam (dapur + kamar utama)',     note:'① Wash toilet bowl  ② Clean glass windows  ③ Scrub walls & floor  ④ Replace floor mat  ⑤ Clear dustbin'},
+    {time:'2:00 PM', period:'afternoon', emoji:'🛏️', type:'weekly', label:'Weekly: Wipe master bedroom furniture + change bedsheets',  labelId:'Mingguan: Lap furnitur kamar utama + ganti sprei',           note:'Wash & hang bedsheets from master bedroom + study room.'},
+    {time:'4:00 PM', period:'afternoon', emoji:'👶', type:'baby',   label:'Baby: wash & sterilize bottles + wash baby clothes',        labelId:'Bayi: cuci & sterilkan botol + cuci pakaian bayi'},
+    {time:'7:00 PM', period:'night',     emoji:'👶', type:'baby',   label:'Baby: pickup and/or bathing',                               labelId:'Bayi: jemput dan/atau mandi'},
+    {time:'8:00 PM', period:'night',     emoji:'🧹', type:'daily',  label:'Evening clean-up',                                          labelId:'Bersih-bersih malam',                           note:'① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'},
+  ]},
+  // 3 — THURSDAY
+  { specialLabel:'🛒 Grocery + 👕 Laundry day', tasks:[
+    {time:'8:00 AM', period:'morning',   emoji:'🍳', type:'daily',  label:'Prepare breakfast',                                         labelId:'Siapkan sarapan'},
+    {time:'9:00 AM', period:'morning',   emoji:'👶', type:'baby',   label:'Baby: hot water (45°C) + wipe baby area & toys',            labelId:'Bayi: air panas (45°C) + lap area bayi & mainan'},
+    {time:'10:00 AM',period:'morning',   emoji:'🍱', type:'daily',  label:'Prepare lunch',                                             labelId:'Siapkan makan siang'},
+    {time:'1:00 PM', period:'afternoon', emoji:'👕', type:'weekly', label:'Laundry: wash, dry & iron clothes',                         labelId:'Cucian: cuci, keringkan & setrika',             note:'Fold clothes on bed · Hang ironed clothes near dining area'},
+    {time:'2:00 PM', period:'afternoon', emoji:'🛒', type:'weekly', label:'Grocery shopping — run robot vacuum first',                  labelId:'Belanja — jalankan robot vakum dulu',            note:'2× a week (Mon & Thu). Start robot vacuum before leaving.'},
+    {time:'4:00 PM', period:'afternoon', emoji:'👶', type:'baby',   label:'Baby: wash & sterilize bottles + wash baby clothes',        labelId:'Bayi: cuci & sterilkan botol + cuci pakaian bayi'},
+    {time:'5:00 PM', period:'afternoon', emoji:'🍲', type:'daily',  label:'Prepare dinner',                                            labelId:'Siapkan makan malam'},
+    {time:'7:00 PM', period:'night',     emoji:'👶', type:'baby',   label:'Baby: pickup and/or bathing',                               labelId:'Bayi: jemput dan/atau mandi'},
+    {time:'8:00 PM', period:'night',     emoji:'🧹', type:'daily',  label:'Evening clean-up',                                          labelId:'Bersih-bersih malam',                           note:'① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'},
+  ]},
+  // 4 — FRIDAY
+  { specialLabel:'🏠 Weekly: Deep clean kitchen + front door', tasks:[
+    {time:'8:00 AM', period:'morning',   emoji:'🍳', type:'daily',  label:'Prepare breakfast',                                         labelId:'Siapkan sarapan'},
+    {time:'9:00 AM', period:'morning',   emoji:'👶', type:'baby',   label:'Baby: hot water (45°C) + wipe baby area & toys',            labelId:'Bayi: air panas (45°C) + lap area bayi & mainan'},
+    {time:'10:00 AM',period:'morning',   emoji:'🍱', type:'daily',  label:'Prepare lunch',                                             labelId:'Siapkan makan siang'},
+    {time:'2:00 PM', period:'afternoon', emoji:'🏠', type:'weekly', label:'Weekly: Deep clean kitchen + front door area',              labelId:'Mingguan: Bersihkan dapur + area pintu depan',   note:'① Wipe all cabinets inside & out  ② Clean fridge  ③ Wipe door + grills  ④ Clean shoe cabinet inside  ⑤ Replace doormat + kitchen mat'},
+    {time:'4:00 PM', period:'afternoon', emoji:'👶', type:'baby',   label:'Baby: wash & sterilize bottles + wash baby clothes',        labelId:'Bayi: cuci & sterilkan botol + cuci pakaian bayi'},
+    {time:'7:00 PM', period:'night',     emoji:'👶', type:'baby',   label:'Baby: pickup and/or bathing',                               labelId:'Bayi: jemput dan/atau mandi'},
+    {time:'8:00 PM', period:'night',     emoji:'🧹', type:'daily',  label:'Evening clean-up',                                          labelId:'Bersih-bersih malam',                           note:'① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'},
+  ]},
+  // 5 — SATURDAY
+  { specialLabel:'🚽 Deep clean toilets + 👕 Laundry', tasks:[
+    {time:'8:00 AM', period:'morning',   emoji:'🍳', type:'daily',  label:'Prepare breakfast',                                         labelId:'Siapkan sarapan'},
+    {time:'9:00 AM', period:'morning',   emoji:'🚽', type:'weekly', label:'Weekly: Deep clean toilets (kitchen + master bedroom)',      labelId:'Mingguan: Bersihkan toilet dalam (dapur + kamar utama)',     note:'① Wash toilet bowl  ② Clean glass windows  ③ Scrub walls & floor  ④ Replace floor mat  ⑤ Clear dustbin'},
+    {time:'1:00 PM', period:'afternoon', emoji:'👕', type:'weekly', label:'Laundry: wash, dry & iron clothes',                         labelId:'Cucian: cuci, keringkan & setrika',             note:'Fold clothes on bed · Hang ironed clothes near dining area'},
+    {time:'4:00 PM', period:'afternoon', emoji:'👶', type:'baby',   label:'Baby: wash & sterilize bottles + wash baby clothes',        labelId:'Bayi: cuci & sterilkan botol + cuci pakaian bayi'},
+    {time:'7:00 PM', period:'night',     emoji:'👶', type:'baby',   label:'Baby: pickup and/or bathing',                               labelId:'Bayi: jemput dan/atau mandi'},
+    {time:'8:00 PM', period:'night',     emoji:'🧹', type:'daily',  label:'Evening clean-up',                                          labelId:'Bersih-bersih malam',                           note:'① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'},
+  ]},
+  // 6 — SUNDAY
+  { specialLabel:'🛋️ Weekly: Deep clean living room + dining + corridor', isOffDay:true, tasks:[
+    {time:'8:00 AM', period:'morning',   emoji:'🍳', type:'daily',  label:'Prepare breakfast',                                         labelId:'Siapkan sarapan'},
+    {time:'9:00 AM', period:'morning',   emoji:'👶', type:'baby',   label:'Baby: hot water (45°C) + wipe baby area & toys',            labelId:'Bayi: air panas (45°C) + lap area bayi & mainan'},
+    {time:'1:00 PM', period:'afternoon', emoji:'🛋️', type:'weekly', label:'Weekly: Deep clean living room + corridor + dining area',   labelId:'Mingguan: Bersihkan ruang tamu + koridor + ruang makan',     note:'① Wipe tables & cabinets (inside if needed)  ② Clean 2 fans  ③ Clean dining room light  ④ Clean altar\n📅 Monthly: Wash curtains · Leather-wipe sofa · Clean aircon'},
+    {time:'4:00 PM', period:'afternoon', emoji:'👶', type:'baby',   label:'Baby: wash & sterilize bottles + wash baby clothes',        labelId:'Bayi: cuci & sterilkan botol + cuci pakaian bayi'},
+    {time:'5:00 PM', period:'afternoon', emoji:'🍲', type:'daily',  label:'Prepare dinner',                                            labelId:'Siapkan makan malam'},
+    {time:'7:00 PM', period:'night',     emoji:'👶', type:'baby',   label:'Baby: pickup and/or bathing',                               labelId:'Bayi: jemput dan/atau mandi'},
+    {time:'8:00 PM', period:'night',     emoji:'🧹', type:'daily',  label:'Evening clean-up',                                          labelId:'Bersih-bersih malam',                           note:'① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'},
+  ]},
+];
+
+function initTimetable() {
+  const today = new Date();
+  const jsDay = today.getDay(); // 0=Sun
+  const curDay = jsDay === 0 ? 6 : jsDay - 1; // Mon=0..Sun=6
+
+  // Banner
+  const opts = {weekday:'long', year:'numeric', month:'long', day:'numeric'};
+  document.getElementById('tt-date').textContent = '📅 Today — ' + today.toLocaleDateString('en-SG', opts);
+  document.getElementById('tt-special').textContent = SCHEDULE[curDay].specialLabel;
+
+  // Build panels
+  const panelsEl = document.getElementById('tt-panels');
+  panelsEl.innerHTML = '';
+  SCHEDULE.forEach((day, di) => {
+    const panel = document.createElement('div');
+    panel.className = 'day-panel' + (di === curDay ? ' active' : '');
+    panel.id = 'day-panel-' + di;
+    panel.innerHTML = buildDayHTML(di, day);
+    panelsEl.appendChild(panel);
+  });
+
+  // Activate today tab
+  document.querySelectorAll('.day-tab').forEach((t, i) => {
+    if (i === curDay) t.classList.add('today-tab', 'active');
+  });
+
+  loadChecks(curDay);
+}
+
+function buildDayHTML(di, day) {
+  let html = '';
+  if (day.isOffDay) {
+    html += `<div class="offday-note">🌟 <strong>Preferred off day once a month</strong> — check with Sir/Mdm if this is your off day this month.<br><em style="font-size:11px;font-weight:400">Hari libur pilihan sebulan sekali — tanya Bapak/Ibu apakah ini hari libur Anda bulan ini.</em></div>`;
+  }
+
+  // CHECKLIST
+  html += `<div class="checklist-card">
+    <div class="checklist-header">
+      <div class="checklist-title">✅ Today's Tasks <span id="progress-label-${di}"></span></div>
+      <button class="reset-btn" onclick="resetChecks(${di})">↺ Reset</button>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill-${di}" style="width:0%"></div></div>
+    </div>`;
+
+  getChecklistItems(day.tasks).forEach(item => {
+    const k = item.key;
+    const t = item.task;
+    if (item.ghost) {
+      // Not in today's schedule — show "Check with Sir/Mdm"
+      html += `<div class="check-item check-item-ghost">
+        <div class="check-box check-box-ghost" id="cb-${di}-${k}" onclick="toggleCheck(${di},'${k}')"></div>
+        <div class="check-text">
+          <div class="check-time">${t.time}</div>
+          <div class="check-label" id="cl-${di}-${k}">${t.emoji} ${t.label}</div>
+          <div class="check-label-id">${t.labelId}</div>
+          <div class="check-ghost-note">📋 Check with Sir / Mdm · Tanya Bapak / Ibu</div>
+        </div>
+      </div>`;
+    } else {
+      const typeTag = t.type === 'weekly'
+        ? `<span class="task-type type-weekly">🔄 Weekly</span>` : '';
+      html += `<div class="check-item">
+        <div class="check-box" id="cb-${di}-${k}" onclick="toggleCheck(${di},'${k}')"></div>
+        <div class="check-text">
+          <div class="check-time">${t.time}</div>
+          <div class="check-label" id="cl-${di}-${k}">${t.emoji} ${t.label}${typeTag}</div>
+          <div class="check-label-id">${t.labelId}</div>
+        </div>
+      </div>`;
+    }
+  });
+  html += `</div>`;
+
+  // TIMELINE
+  html += `<div style="margin-bottom:10px;font-size:15px;font-weight:900;color:var(--text-dark)">📋 Daily Timeline · Jadwal Harian</div>`;
+  const periods = [
+    {key:'morning',   label:'🌅 Morning · Pagi'},
+    {key:'afternoon', label:'☀️ Afternoon · Siang'},
+    {key:'night',     label:'🌙 Night · Malam'},
+  ];
+  periods.forEach(p => {
+    const pTasks = day.tasks.filter(t => t.period === p.key);
+    if (!pTasks.length) return;
+    html += `<div class="timeline-section"><div class="timeline-period">${p.label}</div>`;
+    pTasks.forEach((t, idx) => {
+      const isLast = idx === pTasks.length - 1;
+      const dotCls = t.type === 'baby' ? 'tl-dot baby-dot' : t.type === 'weekly' ? 'tl-dot weekly-dot' : 'tl-dot';
+      const cardCls = t.type === 'weekly' ? 'tl-card weekly-card' : t.type === 'baby' ? 'tl-card baby-card' : 'tl-card';
+      let noteHtml = '';
+      if (t.note) {
+        noteHtml = `<div class="tl-note">${t.note.split('\n').map(l=>`<div>${l}</div>`).join('')}</div>`;
+      }
+      html += `<div class="timeline-item">
+        <div class="tl-time-col"><div class="tl-time">${t.time}</div></div>
+        <div class="tl-line-col"><div class="${dotCls}"></div>${!isLast?'<div class="tl-vline"></div>':''}</div>
+        <div class="${cardCls}">
+          <div class="tl-emoji">${t.emoji}</div>
+          <div class="tl-title">${t.label}</div>
+          <div class="tl-title-id">${t.labelId}</div>
           ${noteHtml}
-        
-																			</div>
-																		</div>`;
-                    });
-                    html += `
-																	</div>`;
-                });
-                return html;
-            }
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  return html;
+}
 
-            function switchDay(di, btn) {
-                document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
-                btn.classList.add('active');
-                document.getElementById('day-panel-' + di).classList.add('active');
-                const today = new Date();
-                const jsDay = today.getDay();
-                const curDay = jsDay === 0 ? 6 : jsDay - 1;
-                const isToday = di === curDay;
-                document.getElementById('tt-date').textContent = (isToday ? '📅 Today — ' : '📅 ') + DAY_NAMES[di];
-                document.getElementById('tt-special').textContent = SCHEDULE[di].specialLabel;
-                loadChecks(di);
-            }
+function switchDay(di, btn) {
+  document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('day-panel-' + di).classList.add('active');
+  const today = new Date();
+  const jsDay = today.getDay();
+  const curDay = jsDay === 0 ? 6 : jsDay - 1;
+  const isToday = di === curDay;
+  document.getElementById('tt-date').textContent = (isToday ? '📅 Today — ' : '📅 ') + DAY_NAMES[di];
+  document.getElementById('tt-special').textContent = SCHEDULE[di].specialLabel;
+  loadChecks(di);
+}
 
-            function getCheckKey(di) {
-                const d = new Date();
-                return `hh_${d.getFullYear()}_${d.getMonth()}_${d.getDate()}_d${di}`;
-            }
-            const MEAL_GHOSTS = {
-                breakfast: {
-                    emoji: '🍳',
-                    label: 'Prepare breakfast',
-                    labelId: 'Siapkan sarapan',
-                    time: '8:00 AM',
-                    type: 'daily'
-                },
-                lunch: {
-                    emoji: '🍱',
-                    label: 'Prepare lunch',
-                    labelId: 'Siapkan makan siang',
-                    time: '10:00 AM',
-                    type: 'daily'
-                },
-                dinner: {
-                    emoji: '🍲',
-                    label: 'Prepare dinner',
-                    labelId: 'Siapkan makan malam',
-                    time: '5:00 PM',
-                    type: 'daily'
-                },
-            };
+function getCheckKey(di) {
+  const d = new Date();
+  return `hh_${d.getFullYear()}_${d.getMonth()}_${d.getDate()}_d${di}`;
+}
 
-            function getChecklistItems(tasks) {
-                const items = [];
-                // 1. Weekly tasks first
-                tasks.forEach((t, i) => {
-                    if (t.type === 'weekly') items.push({
-                        key: 't_' + i,
-                        ti: i,
-                        ghost: false,
-                        task: t
-                    });
-                });
-                // 2. Meals — real if found, ghost if missing
-                ['breakfast', 'lunch', 'dinner'].forEach(meal => {
-                    const idx = tasks.findIndex(t => t.label.toLowerCase().includes(meal));
-                    if (idx !== -1) {
-                        items.push({
-                            key: 't_' + idx,
-                            ti: idx,
-                            ghost: false,
-                            task: tasks[idx]
-                        });
-                    } else {
-                        items.push({
-                            key: 'g_' + meal,
-                            ti: null,
-                            ghost: true,
-                            task: MEAL_GHOSTS[meal]
-                        });
-                    }
-                });
-                return items;
-            }
+const MEAL_GHOSTS = {
+  breakfast: { emoji:'🍳', label:'Prepare breakfast', labelId:'Siapkan sarapan',     time:'8:00 AM',  type:'daily' },
+  lunch:     { emoji:'🍱', label:'Prepare lunch',     labelId:'Siapkan makan siang', time:'10:00 AM', type:'daily' },
+  dinner:    { emoji:'🍲', label:'Prepare dinner',    labelId:'Siapkan makan malam', time:'5:00 PM',  type:'daily' },
+};
 
-            function loadChecks(di) {
-                let saved = {};
-                try {
-                    saved = JSON.parse(localStorage.getItem(getCheckKey(di)) || '{}');
-                } catch (e) {}
-                getChecklistItems(SCHEDULE[di].tasks).forEach(item => {
-                    const k = item.key;
-                    const checked = !!saved[k];
-                    const cb = document.getElementById('cb-' + di + '-' + k);
-                    const cl = document.getElementById('cl-' + di + '-' + k);
-                    if (cb) cb.classList.toggle('checked', checked);
-                    if (cl) cl.classList.toggle('done', checked);
-                });
-                updateProgress(di);
-            }
+function getChecklistItems(tasks) {
+  const items = [];
+  // 1. Weekly tasks first
+  tasks.forEach((t, i) => {
+    if (t.type === 'weekly') items.push({ key:'t_'+i, ti:i, ghost:false, task:t });
+  });
+  // 2. Meals — real if found, ghost if missing
+  ['breakfast','lunch','dinner'].forEach(meal => {
+    const idx = tasks.findIndex(t => t.label.toLowerCase().includes(meal));
+    if (idx !== -1) {
+      items.push({ key:'t_'+idx, ti:idx, ghost:false, task:tasks[idx] });
+    } else {
+      items.push({ key:'g_'+meal, ti:null, ghost:true, task:MEAL_GHOSTS[meal] });
+    }
+  });
+  return items;
+}
 
-            function toggleCheck(di, k) {
-                let saved = {};
-                try {
-                    saved = JSON.parse(localStorage.getItem(getCheckKey(di)) || '{}');
-                } catch (e) {}
-                saved[k] = !saved[k];
-                localStorage.setItem(getCheckKey(di), JSON.stringify(saved));
-                const cb = document.getElementById('cb-' + di + '-' + k);
-                const cl = document.getElementById('cl-' + di + '-' + k);
-                if (cb) cb.classList.toggle('checked', !!saved[k]);
-                if (cl) cl.classList.toggle('done', !!saved[k]);
-                updateProgress(di);
-            }
+function loadChecks(di) {
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(getCheckKey(di)) || '{}'); } catch(e){}
+  getChecklistItems(SCHEDULE[di].tasks).forEach(item => {
+    const k = item.key;
+    const checked = !!saved[k];
+    const cb = document.getElementById('cb-'+di+'-'+k);
+    const cl = document.getElementById('cl-'+di+'-'+k);
+    if (cb) cb.classList.toggle('checked', checked);
+    if (cl) cl.classList.toggle('done', checked);
+  });
+  updateProgress(di);
+}
 
-            function resetChecks(di) {
-                localStorage.removeItem(getCheckKey(di));
-                getChecklistItems(SCHEDULE[di].tasks).forEach(item => {
-                    const k = item.key;
-                    const cb = document.getElementById('cb-' + di + '-' + k);
-                    const cl = document.getElementById('cl-' + di + '-' + k);
-                    if (cb) cb.classList.remove('checked');
-                    if (cl) cl.classList.remove('done');
-                });
-                updateProgress(di);
-            }
+function toggleCheck(di, k) {
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(getCheckKey(di)) || '{}'); } catch(e){}
+  saved[k] = !saved[k];
+  localStorage.setItem(getCheckKey(di), JSON.stringify(saved));
+  const cb = document.getElementById('cb-'+di+'-'+k);
+  const cl = document.getElementById('cl-'+di+'-'+k);
+  if (cb) cb.classList.toggle('checked', !!saved[k]);
+  if (cl) cl.classList.toggle('done', !!saved[k]);
+  updateProgress(di);
+}
 
-            function updateProgress(di) {
-                let saved = {};
-                try {
-                    saved = JSON.parse(localStorage.getItem(getCheckKey(di)) || '{}');
-                } catch (e) {}
-                const items = getChecklistItems(SCHEDULE[di].tasks);
-                const total = items.length;
-                const done = items.filter(item => !!saved[item.key]).length;
-                const pct = total ? Math.round(done / total * 100) : 0;
-                const f = document.getElementById('progress-fill-' + di);
-                const l = document.getElementById('progress-label-' + di);
-                if (f) f.style.width = pct + '%';
-                if (l) l.textContent = done + '/' + total;
-            }
-            // Unlock Timetable nav button and init on click
-            (function() {
-                const navBtns = document.querySelectorAll('.main-nav-btn');
-                if (navBtns[1]) {
-                    navBtns[1].classList.remove('locked');
-                    navBtns[1].style.pointerEvents = '';
-                    navBtns[1].onclick = function() {
-                        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-                        document.querySelectorAll('.main-nav-btn').forEach(b => b.classList.remove('active'));
-                        document.getElementById('section-timetable').classList.add('active');
-                        this.classList.add('active');
-                        initTimetable();
-                    };
-                }
-                // Unlock House Rules nav button
-                if (navBtns[2]) {
-                    navBtns[2].classList.remove('locked');
-                    navBtns[2].style.pointerEvents = '';
-                    navBtns[2].onclick = function() {
-                        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-                        document.querySelectorAll('.main-nav-btn').forEach(b => b.classList.remove('active'));
-                        document.getElementById('section-rules').classList.add('active');
-                        this.classList.add('active');
-                    };
-                }
-            })();
-            // Accordion toggle
-            function toggleAcc(id) {
-                const body = document.getElementById('body-' + id);
-                const chev = document.getElementById('chev-' + id);
-                const open = body.style.display !== 'none';
-                body.style.display = open ? 'none' : 'block';
-                chev.textContent = open ? '▼' : '▲';
-            }
-        </script>
-    </body>
+function resetChecks(di) {
+  localStorage.removeItem(getCheckKey(di));
+  getChecklistItems(SCHEDULE[di].tasks).forEach(item => {
+    const k = item.key;
+    const cb = document.getElementById('cb-'+di+'-'+k);
+    const cl = document.getElementById('cl-'+di+'-'+k);
+    if (cb) cb.classList.remove('checked');
+    if (cl) cl.classList.remove('done');
+  });
+  updateProgress(di);
+}
+
+function updateProgress(di) {
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(getCheckKey(di)) || '{}'); } catch(e){}
+  const items = getChecklistItems(SCHEDULE[di].tasks);
+  const total = items.length;
+  const done  = items.filter(item => !!saved[item.key]).length;
+  const pct   = total ? Math.round(done / total * 100) : 0;
+  const f = document.getElementById('progress-fill-'+di);
+  const l = document.getElementById('progress-label-'+di);
+  if (f) f.style.width = pct + '%';
+  if (l) l.textContent = done + '/' + total;
+}
+
+// Unlock Timetable nav button and init on click
+(function() {
+  const navBtns = document.querySelectorAll('.main-nav-btn');
+  if (navBtns[1]) {
+    navBtns[1].classList.remove('locked');
+    navBtns[1].style.pointerEvents = '';
+    navBtns[1].onclick = function() {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.main-nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('section-timetable').classList.add('active');
+      this.classList.add('active');
+      initTimetable();
+    };
+  }
+  // Unlock House Rules nav button
+  if (navBtns[2]) {
+    navBtns[2].classList.remove('locked');
+    navBtns[2].style.pointerEvents = '';
+    navBtns[2].onclick = function() {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.main-nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('section-rules').classList.add('active');
+      this.classList.add('active');
+    };
+  }
+})();
+
+// Accordion toggle
+function toggleAcc(id) {
+  const body  = document.getElementById('body-' + id);
+  const chev  = document.getElementById('chev-' + id);
+  const open  = body.style.display !== 'none';
+  body.style.display = open ? 'none' : 'block';
+  chev.textContent   = open ? '▼' : '▲';
+}
+</script>
+</body>
 </html>
