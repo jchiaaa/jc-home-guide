@@ -376,12 +376,6 @@
   .rule-text { font-size:13px; font-weight:600; color:var(--text-dark); line-height:1.45; }
   .rule-text strong { font-weight:900; }
   .rule-text .rule-id { display:block; font-size:11px; color:var(--text-soft); font-style:italic; margin-top:3px; font-weight:600; }
-  .rules-baby-note { background:var(--pink-light); border-radius:var(--radius-sm); padding:10px 12px; margin-bottom:8px; font-size:12px; font-weight:700; color:#9D174D; line-height:1.5; }
-  .rules-baby-note em { font-size:11px; font-weight:600; }
-  .rules-promise { display:flex; gap:12px; align-items:flex-start; background:var(--yellow-light); border:2px solid #FDE68A; border-radius:var(--radius); padding:16px; margin-top:20px; }
-  .rules-promise-emoji { font-size:28px; flex-shrink:0; }
-  .rules-promise-text { font-size:14px; font-weight:700; color:#92400E; line-height:1.5; }
-  .rules-promise-text strong { font-weight:900; }
 </style>
 </head>
 <body>
@@ -759,10 +753,6 @@
       <span class="acc-chevron" id="chev-baby">▼</span>
     </button>
     <div class="acc-body" id="body-baby" style="display:none">
-      <div class="rules-baby-note">
-        📋 We will guide you more when baby arrives.<br>
-        <em>Kami akan memberikan arahan lebih lanjut saat bayi lahir.</em>
-      </div>
       <div class="rule-item do">
         <span class="rule-dot do-dot">✓</span>
         <div class="rule-text">
@@ -770,6 +760,13 @@
           <span class="rule-id">Keamanan bayi adalah yang paling penting.</span>
         </div>
       </div>
+      <div class="rule-item do">
+        <span class="rule-dot do-dot">✓</span>
+        <div class="rule-text">
+          <strong>Follow employer’s instructions</strong> for baby care.
+          <span class="rule-id">Ikuti instruksi majikan untuk merawat bayi.</span>
+        </div>
+      </div>     
       <div class="rule-item dont">
         <span class="rule-dot dont-dot">✕</span>
         <div class="rule-text">
@@ -794,12 +791,34 @@
     </div>
   </div>
 
-  <!-- Closing promise -->
-  <div class="rules-promise">
-    <div class="rules-promise-emoji">💛</div>
-    <div class="rules-promise-text">
-      <strong>If you follow these rules well, we will take good care of you.</strong>
-      <span class="rules-id">Jika Anda mengikuti aturan ini dengan baik, kami juga akan menjaga Anda dengan baik.</span>
+   <div class="accordion" id="acc-food">
+    <button class="acc-header acc-header-food" onclick="toggleAcc('food')">
+      <span class="acc-icon">👶</span>
+      <span class="acc-title">Food Usage<br><span class="acc-title-id">Penggunaan Makanan</span></span>
+      <span class="acc-chevron" id="chev-food">▼</span>
+    </button>
+    <div class="acc-body" id="body-food" style="display:none">
+      <div class="rule-item do">
+        <span class="rule-dot do-dot">✓</span>
+        <div class="rule-text">
+          You may <strong>freely consume</strong> basic household ingredients such as: Rice, Noodles, Eggs, Vegetables, Chicken.
+          <span class="rule-id">Boleh menggunakan bahan makanan dasar yang tersedia di rumah seperti: Nasi, Mie, Telur, Sayur, Ayam</span>
+        </div>
+      </div>    
+      <div class="rule-item dont">
+        <span class="rule-dot dont-dot">✕</span>
+        <div class="rule-text">
+          Please <strong>do not</strong> consume or use the following without permission: Seafood, Snacks, Drinks, Fruits.
+          <span class="rule-id">Jangan mengonsumsi atau menggunakan hal berikut tanpa izin: Makanan laut, Snack, Minuman, Buah</span>
+        </div>
+      </div>
+      <div class="rule-item dont">
+        <span class="rule-dot dont-dot">✕</span>
+        <div class="rule-text">
+          <strong>No</strong> beef and lamb are allowed in the household.
+          <span class="rule-id">Tidak diperbolehkan memasak atau mengonsumsi daging sapi dan domba di rumah.</span>
+        </div>
+      </div>     
     </div>
   </div>
 
