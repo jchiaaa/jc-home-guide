@@ -443,7 +443,7 @@
   <div class="meal-tabs">
     <button class="meal-tab active" onclick="showMeal('breakfast',this)">☀️ Breakfast</button>
     <button class="meal-tab" onclick="showMeal('protein',this)">🥩 Protein</button>
-    <button class="meal-tab" onclick="showMeal('dinner',this)">🥦 Dinner</button>
+    <button class="meal-tab" onclick="showMeal('dinner',this)">🥦 Vege/Tofu/Egg</button>
   </div>
 
   <!-- ═══ BREAKFAST ═══ -->
@@ -485,35 +485,29 @@
   </div>
 
   <!-- ═══ DINNER ═══ -->
-  <div class="meal-panel" id="meal-dinner">
-    <div class="meal-label">Dinner · Makan Malam</div>
+  <div class="meal-panel" id="meal-vege">
+    <div class="meal-label">Vege</div>
 
-    <div class="rule-banner green">
+    <!-- <div class="rule-banner green">
       🍽️ <b>Full dinner = 1 Meat/Fish + 1 Vegetable + 1 Soup (or Tofu/Egg)</b><br>
       🍊 Remember to <b>cut fruits after dinner!</b><br>
       <em style="font-weight:400;font-size:11px;">Makan malam lengkap = 1 daging/ikan + 1 sayuran + 1 sup · Potong buah setelah makan malam!</em>
-    </div>
+    </div> -->
 
-    <!-- Dinner sub-tabs -->
-    <div class="sub-tabs" id="dinner-sub-tabs">
-      <button class="sub-tab active" onclick="showSub('dinner','meat',this)">🥩 Meat / Fish</button>
-      <button class="sub-tab" onclick="showSub('dinner','veg',this)">🥦 Vegetables</button>
-      <button class="sub-tab" onclick="showSub('dinner','soup',this)">🧈 Soup & More</button>
-    </div>
-
-    <!-- Meat -->
-    <div class="sub-panel active" id="dinner-meat">
-      <div class="recipe-grid" id="dinner-meat-grid"></div>
+    <!-- Vege sub-tabs -->
+    <div class="sub-tabs" id="vege-sub-tabs">
+      <button class="sub-tab" onclick="showSub('vege','veg',this)">🥦 Vegetables</button>
+      <button class="sub-tab" onclick="showSub('vege','tofu',this)">🧈 Tofu/egg</button>
     </div>
 
     <!-- Veg -->
-    <div class="sub-panel" id="dinner-veg">
-      <div class="recipe-grid" id="dinner-veg-grid"></div>
+    <div class="sub-panel" id="vege-veg">
+      <div class="recipe-grid" id="vege-veg-grid"></div>
     </div>
 
     <!-- Soup -->
-    <div class="sub-panel" id="dinner-soup">
-      <div class="recipe-grid" id="dinner-soup-grid"></div>
+    <div class="sub-panel" id="vege-tofu">
+      <div class="recipe-grid" id="vege-tofu-grid"></div>
     </div>
   </div>
 
@@ -874,14 +868,7 @@ const PROTEIN_SOUP = [
   { emoji: '🍅', bg: '', name: 'Tomato soup', nameId: 'Sup tomat', tags: [''], desc: '', descId: '', url: '', variants: [] }
 ];
 
-const DINNER_MEAT = [
-  { emoji:'🍗', bg:'', name:'Stir-Fry Chicken', nameId:'Ayam Tumis', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Quick']], desc:'Tender stir-fried chicken. Choose your sauce below!', descId:'Ayam tumis empuk. Pilih sausnya di bawah!', url:'https://www.madewithlau.com/recipes/rainbow-chicken-stir-fry', variants:[{label:'🦪 Oyster sauce',url:'https://www.madewithlau.com/recipes/rainbow-chicken-stir-fry',cls:''},{label:'🌶️ Kung Pao',url:'https://redhousespice.com/kung-pao-chicken/',cls:''},{label:'🖤 Black pepper',url:'https://redhousespice.com/black-pepper-chicken/',cls:''}] },
-  { emoji:'🥩', bg:'orange-bg', name:'Sweet & Sour Pork', nameId:'Babi Asam Manis', tags:[['tag-orange','🐷 Pork'],['tag-yellow','😋 Favourite']], desc:'Classic Cantonese sweet and sour pork. Crispy and delicious.', descId:'Babi asam manis Kanton klasik. Renyah dan lezat.', url:'https://www.madewithlau.com/recipes/sweet-sour-pork', variants:[] },
-  { emoji:'🐟', bg:'blue-bg', name:'Steamed Cod Fish', nameId:'Ikan Cod Kukus', tags:[['tag-green','✅ Healthy'],['tag-blue','🔪 Steamed']], desc:'Cantonese steamed cod with special soy sauce. Light and healthy.', descId:'Ikan cod kukus Kanton dengan kecap khusus. Ringan dan sehat.', url:'https://www.foodelicacy.com/cantonese-style-steamed-cod-with-special-soy-sauce/', variants:[] },
-  { emoji:'🐠', bg:'', name:'Stir-Fry Fish', nameId:'Ikan Tumis Jahe', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Easy']], desc:'Stir-fried fish with ginger and spring onion. Simple Cantonese dish.', descId:'Ikan tumis dengan jahe dan daun bawang. Masakan Kanton sederhana.', url:'https://www.youtube.com/watch?v=ZAYq-5xpKVk', variants:[] }
-];
-
-const DINNER_VEG = [
+const VEGE_VEG = [
   { emoji:'🥬', bg:'', name:'Bak Choy', nameId:'Bak Choy', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Quick']], desc:'Stir-fried bak choy with garlic. Simple and nutritious.', descId:'Bak choy tumis bawang putih. Sederhana dan bergizi.', url:'https://www.youtube.com/watch?v=6tGVqr0QXh0', variants:[] },
   { emoji:'🥦', bg:'', name:'Broccoli Stir-Fry', nameId:'Brokoli Tumis', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Quick']], desc:'Crisp stir-fried broccoli. Great with oyster sauce.', descId:'Brokoli tumis renyah. Enak dengan saus tiram.', url:'https://www.madewithlau.com/recipes/broccoli-stir-fry', variants:[] },
   { emoji:'🫘', bg:'orange-bg', name:'Green Beans', nameId:'Buncis Tumis', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Quick']], desc:'Stir-fried green beans with garlic. Crunchy and tasty.', descId:'Buncis tumis bawang putih. Renyah dan lezat.', url:'https://www.madewithlau.com/recipes/stir-fried-green-beans', variants:[] },
@@ -889,7 +876,7 @@ const DINNER_VEG = [
   { emoji:'🌿', bg:'blue-bg', name:'Bean Sprouts', nameId:'Tauge Tumis', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Very quick']], desc:'Fresh bean sprouts stir-fried with garlic and spring onion.', descId:'Tauge segar tumis bawang putih dan daun bawang.', url:'https://www.youtube.com/watch?v=D2_8JTXIf8w', variants:[] }
 ];
 
-const DINNER_SOUP = [
+const VEGE_TOFU = [
   { emoji:'🥕', bg:'', name:'ABC Soup', nameId:'Sup ABC', tags:[['tag-blue','⚡ Instant Pot'],['tag-green','✅ Healthy']], desc:'Comforting vegetable ABC soup. Easy in the Instant Pot.', descId:'Sup ABC sayuran yang menyehatkan. Mudah di Instant Pot.', url:'https://www.hwcmagazine.com/recipe/zippy-veggie-abc-soup/', variants:[] },
   { emoji:'🌿', bg:'', name:'Watercress Pork Soup', nameId:'Sup Babi Kangkung', tags:[['tag-blue','⚡ Instant Pot'],['tag-green','✅ Nourishing']], desc:'Nourishing Chinese watercress soup with pork. Instant Pot.', descId:'Sup kangkung Tiongkok bergizi dengan babi. Instant Pot.', url:'https://rackoflam.com/chinese-watercress-soup-instant-pot-recipe/', variants:[] },
   { emoji:'🍈', bg:'blue-bg', name:'Wintermelon Soup', nameId:'Sup Bligo', tags:[['tag-blue','⚡ Instant Pot'],['tag-green','✅ Light']], desc:'Light and cooling wintermelon soup. Great in warm weather.', descId:'Sup bligo yang ringan dan menyejukkan. Bagus di cuaca panas.', url:'https://www.mamababymandarin.com/instant-pot-winter-melon-soup-recipe/', variants:[] },
@@ -998,9 +985,8 @@ buildGrid(BREAKFAST,      'breakfast-grid');
 buildGrid(PROTEIN_MEAT,  'protein-meat-grid');
 buildGrid(PROTEIN_SEAFOOD,  'protein-seafood-grid');
 buildGrid(PROTEIN_SOUP,    'protein-soup-grid');
-buildGrid(DINNER_MEAT,    'dinner-meat-grid');
-buildGrid(DINNER_VEG,     'dinner-veg-grid');
-buildGrid(DINNER_SOUP,    'dinner-soup-grid');
+buildGrid(VEGE_VEG,     'vege-veg-grid');
+buildGrid(VEGE_TOFU,    'vege-tofu-grid');
 
 /* ══════════════════════════════════════════════════════════
    TIMETABLE
