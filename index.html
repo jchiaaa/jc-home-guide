@@ -101,7 +101,7 @@
   .rule-banner.blue  { background:var(--blue-light);  border:2px solid #BFDBFE; color:#1E40AF; }
   .rule-banner b { font-weight:900; }
 
-  /* ── MEAL TABS (Breakfast/Lunch/Dinner) ── */
+  /* ── MEAL TABS (Breakfast/Protein/Vege) ── */
   .meal-tabs {
     display:flex; gap:8px; margin-bottom:20px;
     overflow-x:auto; scrollbar-width:none; padding-bottom:4px;
@@ -433,8 +433,8 @@
     <div class="pref-item">
       <span class="icon">🍽️</span>
       <div class="text">
-        <strong>Lunch/Dinner = 1 Meat/Fish/Soup + 1 Vegetable/Tofu/Egg · If have fruits, cut fruits after</strong>
-        <span class="id">Makan siang/malam = 1 daging/ikan/sup + 1 sayuran/tofu/telur · Jike ada buah, potong buah setelahnya</span>
+        <strong>Lunch/Dinner = 1 Meat/Seafood/Soup + 1 Vegetable/Tofu/Egg · If have fruits, cut fruits after</strong>
+        <span class="id">Makan siang/malam = 1 daging/makanan laut/sup + 1 sayuran/tofu/telur · Jike ada buah, potong buah setelahnya</span>
       </div>
     </div>
   </div>
@@ -442,7 +442,7 @@
   <!-- MEAL TABS -->
   <div class="meal-tabs">
     <button class="meal-tab active" onclick="showMeal('breakfast',this)">☀️ Breakfast</button>
-    <button class="meal-tab" onclick="showMeal('lunch',this)">🌤️ Lunch</button>
+    <button class="meal-tab" onclick="showMeal('protein',this)">🌤️ Protein</button>
     <button class="meal-tab" onclick="showMeal('dinner',this)">🌙 Dinner</button>
   </div>
 
@@ -452,35 +452,35 @@
     <div class="recipe-grid" id="breakfast-grid"></div>
   </div>
 
-  <!-- ═══ LUNCH ═══ -->
-  <div class="meal-panel" id="meal-lunch">
-    <div class="meal-label">Lunch · Makan Siang</div>
+  <!-- ═══ PROTEIN ═══ -->
+  <div class="meal-panel" id="meal-protein">
+    <div class="meal-label">Protein</div>
 
-    <div class="rule-banner blue">
+    <!-- <div class="rule-banner blue">
       ⏱️ <b>Cook time: ~45–60 mins</b> · Light meal, not too heavy · Balanced: meat + veg + carbs<br>
       <em style="font-weight:400;font-size:11px;">Waktu masak ~45–60 menit · Makanan ringan · Seimbang: daging + sayur + karbohidrat</em>
-    </div>
+    </div> -->
 
     <!-- Cuisine sub-tabs -->
-    <div class="sub-tabs" id="lunch-sub-tabs">
-      <button class="sub-tab active" onclick="showSub('lunch','western',this)">🌍 Western</button>
-      <button class="sub-tab" onclick="showSub('lunch','chinese',this)">🥢 Chinese</button>
-      <button class="sub-tab" onclick="showSub('lunch','asian',this)">🌏 Asian</button>
+    <div class="sub-tabs" id="protein-sub-tabs">
+      <button class="sub-tab active" onclick="showSub('protein','meat',this)">🌍 Meat</button>
+      <button class="sub-tab" onclick="showSub('protein','seafood',this)">🥢 Seafood</button>
+      <button class="sub-tab" onclick="showSub('protein','soup',this)">🌏 Soup</button>
     </div>
 
-    <!-- Western -->
-    <div class="sub-panel active" id="lunch-western">
-      <div class="recipe-grid" id="lunch-western-grid"></div>
+    <!-- Meat -->
+    <div class="sub-panel active" id="protein-meat">
+      <div class="recipe-grid" id="protein-meat-grid"></div>
     </div>
 
-    <!-- Chinese -->
-    <div class="sub-panel" id="lunch-chinese">
-      <div class="recipe-grid" id="lunch-chinese-grid"></div>
+    <!-- Seafood -->
+    <div class="sub-panel" id="protein-seafood">
+      <div class="recipe-grid" id="protein-seafood-grid"></div>
     </div>
 
-    <!-- Asian -->
-    <div class="sub-panel" id="lunch-asian">
-      <div class="recipe-grid" id="lunch-asian-grid"></div>
+    <!-- Soup -->
+    <div class="sub-panel" id="protein-soup">
+      <div class="recipe-grid" id="protein-soup-grid"></div>
     </div>
   </div>
 
@@ -831,12 +831,13 @@ const BREAKFAST = [
   { emoji:'🍞', weekend:false, badge:null, name:'Kaya toast', nameId:'Roti dengan mentega dan kaya', tags: [''], desc:'kaya, butter, toast', descId:'', url:'', bg:'', photo:'https://i.imgur.com/T48Mybw.jpeg'},
   { emoji:'🍞', weekend:false, badge:null, name:'French Toast', nameId:'Roti Panggang Prancis', tags:[''], desc:'Eggs, milk, sugar, toast', descId:'', url:'https://www.youtube.com/watch?v=1pz37Bl9eFU', bg:'', photo: 'https://i.imgur.com/RN37C8x.jpeg' },
   { emoji:'🍞', weekend:false, badge:null, name:'Coffee toast', nameId:'Roti Kopi', tags:[''], desc:'coffee powder, butter, sugar, egg, flour, toast', descId:'', url:'https://www.youtube.com/watch?v=4lUMTMVOYU0&t=22s', bg:'', photo: 'https://i.imgur.com/mL6hdq8.jpeg' }, 
-  { emoji:'🥑', weekend:false, badge:null, name:'Avocado Toast & Eggs', nameId:'Roti Panggang Alpukat & Telur', tags:[''], desc:'toasted bread with mashed avocado and your choice of egg.', descId:'', url:'https://feelgoodfoodie.net/recipe/avocado-toast-with-egg-3-ways/', bg:'' },
+  { emoji:'🍞', weekend:false, badge:null, name:'Sandwich', nameId:'Sandwich', tags:[''], desc:'toast, avocado, ham/bacon, tomato', descId:'', url:'', bg:'' }, 
+ { emoji:'🥑', weekend:false, badge:null, name:'Avocado Toast & Eggs', nameId:'Roti Panggang Alpukat & Telur', tags:[''], desc:'toasted bread with mashed avocado and your choice of egg.', descId:'', url:'https://feelgoodfoodie.net/recipe/avocado-toast-with-egg-3-ways/', bg:'', photo: 'https://feelgoodfoodie.net/wp-content/uploads/2025/05/Avocado-Toast-08.jpg' },
   { emoji:'🥞', weekend:false, badge:null, name:'Pancakes', nameId:'Pancake', tags:[''], desc:'pancakes topped with fresh fruit and honey', descId:'', url:'https://www.loveandlemons.com/healthy-pancakes/', bg:'', photo: 'https://i.imgur.com/yWUcoz3.jpeg' },
   { emoji:'🍳', weekend:true, badge:{type:'weekend',text:'🌅 Weekend Only'}, name:'Full English Breakfast', nameId:'Sarapan Inggris Lengkap', tags:[''], desc:'Eggs, toast, beans, sausage/bacons, white button mushroom, tomato, potato.', descId:'', url:'https://www.youtube.com/watch?v=g9-8qQkIh5k', bg:'', photo: 'https://i.imgur.com/8y6LDy5.jpeg' }
 ];
 
-const LUNCH_WESTERN = [
+const PROTEIN_MEAT = [
   { emoji:'🐟', bg:'', name:'Salmon + Roasted Veg + Rice', nameId:'Salmon + Sayuran Panggang + Nasi', tags:[['tag-green','✅ Healthy'],['tag-orange','🔥 Oven roasted']], desc:'One-pan oven-roasted salmon with colourful vegetables.', descId:'Salmon dan sayuran panggang satu loyang di oven.', url:'https://www.theroastedroot.net/one-pan-meal-salmon-and-vegetables/', variants:[] },
   { emoji:'🌯', bg:'blue-bg', name:'Meat & Veg Wrap / Sandwich', nameId:'Wrap / Roti Lapis Daging & Sayur', tags:[['tag-green','✅ Balanced'],['tag-yellow','⚡ Flexible']], desc:'Meat and vegetables in a wrap or sandwich. Light lunch.', descId:'Daging dan sayuran dalam wrap atau roti lapis. Makan siang ringan.', url:'https://www.cookedandloved.com/best-wraps-recipes/', variants:[{label:'🍖 Vietnamese pork wrap',url:'https://www.extrapetite.com/2020/04/vietnamese-grilled-pork-recipe-rice-bowls-lettuce-wraps-banh-mi.html',cls:'blue'}] },
   { emoji:'🍝', bg:'pink-bg', name:'Tomato Basil Pork Pasta', nameId:'Pasta Babi Tomat Basil', tags:[['tag-blue','⚡ Instant Pot'],['tag-green','🌿 One pot']], desc:'Creamy tomato basil fusilli pasta. Easy Instant Pot recipe.', descId:'Pasta fusilli tomat basil krim. Mudah dengan Instant Pot.', url:'https://www.cookwithmanali.com/instant-pot-creamy-tomato-basil-pasta/', variants:[] },
@@ -844,14 +845,14 @@ const LUNCH_WESTERN = [
   { emoji:'🥗', bg:'', name:'Chicken / Salmon Salad', nameId:'Salad Ayam / Salmon', tags:[['tag-green','✅ Very healthy'],['tag-yellow','⚡ Light']], desc:'Fresh and filling salad with protein. Great for a light lunch.', descId:'Salad segar dan mengenyangkan dengan protein. Bagus untuk makan siang ringan.', url:'https://pinchofyum.com/best-salad-recipes', variants:[] }
 ];
 
-const LUNCH_CHINESE = [
+const PROTEIN_SEAFOOD = [
   { emoji:'🍚', bg:'', name:'Yangzhou Fried Rice', nameId:'Nasi Goreng Yangzhou', tags:[['tag-blue','🥢 Chinese'],['tag-green','✅ Balanced']], desc:'Classic Chinese fried rice packed with egg, veg and protein.', descId:'Nasi goreng Tiongkok klasik dengan telur, sayur dan protein.', url:'https://www.madewithlau.com/recipes/yangzhou-fried-rice', variants:[] },
   { emoji:'🍜', bg:'blue-bg', name:'Stir-Fry Bee Hoon', nameId:'Bihun Goreng', tags:[['tag-blue','🥢 Chinese'],['tag-yellow','⚡ Quick']], desc:'Stir-fried rice noodles with meat and vegetables.', descId:'Bihun goreng dengan daging dan sayuran.', url:'https://www.madewithlau.com/recipes/singapore-noodles', variants:[{label:'🦐 Prawn & mince',url:'https://www.youtube.com/watch?v=41voYs2DxPU',cls:'yt'},{label:'🍄 Beancurd & mushroom',url:'https://www.youtube.com/watch?v=s1G7pxhG33w',cls:'yt'},{label:'🐷 Pig trotter',url:'https://www.youtube.com/watch?v=Hc-6Hs2Qnb8',cls:'yt'},{label:'🌶️ Tom Yum',url:'https://www.youtube.com/watch?v=6tyV0wSFvrg',cls:'yt'}] },
   { emoji:'🍲', bg:'pink-bg', name:'Noodle Soup', nameId:'Sup Mie', tags:[['tag-blue','🥢 Chinese'],['tag-green','✅ Comforting']], desc:'Warm noodle soup with meat. Chicken, prawn or meatball.', descId:'Sup mie hangat dengan daging. Ayam, udang atau bakso.', url:'https://www.youtube.com/watch?v=rXfHP6XFUSY', variants:[{label:'🦐 Prawn Kuey Teow',url:'https://www.youtube.com/watch?v=8x7aricygEs',cls:'yt'},{label:'🥩 Meatball soup',url:'https://www.youtube.com/watch?v=ePw5KSFKGz8',cls:'yt'}] },
   { emoji:'🥣', bg:'orange-bg', name:'Porridge / Congee', nameId:'Bubur / Congee', tags:[['tag-blue','🥢 Chinese'],['tag-green','✅ Light & easy']], desc:'Smooth rice porridge with chicken, pork or fish.', descId:'Bubur beras lembut dengan ayam, babi atau ikan.', url:'https://www.youtube.com/watch?v=qPQ8Dr5XgS4', variants:[{label:'🐟 Fish congee',url:'https://www.youtube.com/watch?v=TO2pgMMLfsQ',cls:'yt'}] }
 ];
 
-const LUNCH_ASIAN = [
+const PROTEIN_SOUP = [
   { emoji:'🌿', bg:'', name:'Thai Basil Chicken + Egg', nameId:'Ayam Kemangi Thailand + Telur', tags:[['tag-orange','🌏 Asian'],['tag-green','✅ Tasty']], desc:'Fragrant Thai basil stir-fried chicken served with egg on rice.', descId:'Ayam tumis kemangi Thailand dengan telur di atas nasi.', url:'https://thewoksoflife.com/thai-basil-chicken-pad-krapow/', variants:[] },
   { emoji:'🍛', bg:'yellow-bg', name:'Japanese Curry + Katsu Chicken', nameId:'Kari Jepang + Ayam Goreng', tags:[['tag-orange','🌏 Japanese'],['tag-yellow','😋 Crowd favourite']], desc:'Golden crispy chicken cutlet with rich Japanese curry over rice.', descId:'Ayam goreng renyah dengan kari Jepang di atas nasi.', url:'https://japan.recipetineats.com/katsu-curry-japanese-curry-rice-with-chicken-cutlet/', variants:[] }
 ];
@@ -977,9 +978,9 @@ function showSub(meal, sub, btn) {
    INIT
 ═══════════════════════════════════════ */
 buildGrid(BREAKFAST,      'breakfast-grid');
-buildGrid(LUNCH_WESTERN,  'lunch-western-grid');
-buildGrid(LUNCH_CHINESE,  'lunch-chinese-grid');
-buildGrid(LUNCH_ASIAN,    'lunch-asian-grid');
+buildGrid(PROTEIN_MEAT,  'protein-meat-grid');
+buildGrid(PROTEIN_SEAFOOD,  'protein-seafood-grid');
+buildGrid(PROTEIN_SOUP,    'protein-soup-grid');
 buildGrid(DINNER_MEAT,    'dinner-meat-grid');
 buildGrid(DINNER_VEG,     'dinner-veg-grid');
 buildGrid(DINNER_SOUP,    'dinner-soup-grid');
