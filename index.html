@@ -496,12 +496,12 @@
 
     <!-- Vege sub-tabs -->
     <div class="sub-tabs" id="vege-sub-tabs">
-      <button class="sub-tab" onclick="showSub('vege','veg',this)">🥦 Vegetables</button>
+      <button class="sub-tab active" onclick="showSub('vege','veg',this)">🥦 Vegetables</button>
       <button class="sub-tab" onclick="showSub('vege','tofu',this)">🧈 Tofu/egg</button>
     </div>
 
     <!-- Veg -->
-    <div class="sub-panel" id="vege-veg">
+    <div class="sub-panel active" id="vege-veg">
       <div class="recipe-grid" id="vege-veg-grid"></div>
     </div>
 
@@ -877,13 +877,12 @@ const VEGE_VEG = [
 ];
 
 const VEGE_TOFU = [
-  { emoji:'🥕', bg:'', name:'ABC Soup', nameId:'Sup ABC', tags:[['tag-blue','⚡ Instant Pot'],['tag-green','✅ Healthy']], desc:'Comforting vegetable ABC soup. Easy in the Instant Pot.', descId:'Sup ABC sayuran yang menyehatkan. Mudah di Instant Pot.', url:'https://www.hwcmagazine.com/recipe/zippy-veggie-abc-soup/', variants:[] },
-  { emoji:'🌿', bg:'', name:'Watercress Pork Soup', nameId:'Sup Babi Kangkung', tags:[['tag-blue','⚡ Instant Pot'],['tag-green','✅ Nourishing']], desc:'Nourishing Chinese watercress soup with pork. Instant Pot.', descId:'Sup kangkung Tiongkok bergizi dengan babi. Instant Pot.', url:'https://rackoflam.com/chinese-watercress-soup-instant-pot-recipe/', variants:[] },
-  { emoji:'🍈', bg:'blue-bg', name:'Wintermelon Soup', nameId:'Sup Bligo', tags:[['tag-blue','⚡ Instant Pot'],['tag-green','✅ Light']], desc:'Light and cooling wintermelon soup. Great in warm weather.', descId:'Sup bligo yang ringan dan menyejukkan. Bagus di cuaca panas.', url:'https://www.mamababymandarin.com/instant-pot-winter-melon-soup-recipe/', variants:[] },
-  { emoji:'🌶️', bg:'orange-bg', name:'Crispy Chilli Tofu', nameId:'Tahu Crispy Pedas', tags:[['tag-orange','🌶️ Spicy'],['tag-green','🌱 Vegan']], desc:'Crispy garlic chilli tofu. Great protein alternative.', descId:'Tahu bawang putih crispy pedas. Alternatif protein yang bagus.', url:'https://eatwithclarity.com/spicy-garlic-crispy-tofu/', variants:[] },
-  { emoji:'🫕', bg:'pink-bg', name:'Mapo Tofu', nameId:'Mapo Tahu', tags:[['tag-blue','🥢 Chinese'],['tag-orange','🌶️ Mild spicy']], desc:'Silky tofu in savoury sauce with minced pork. Classic dish.', descId:'Tahu lembut dalam saus gurih dengan babi cincang. Hidangan klasik.', url:'https://www.madewithlau.com/recipes/mapo-tofu-pork', variants:[] },
-  { emoji:'🥚', bg:'', name:'Steamed Egg with Pork', nameId:'Telur Kukus dengan Babi Cincang', tags:[['tag-green','✅ Healthy'],['tag-blue','🔪 Steamed']], desc:'Silky smooth steamed egg with minced pork. Comforting dish.', descId:'Telur kukus lembut dengan babi cincang. Hidangan yang nyaman.', url:'https://www.madewithlau.com/recipes/steamed-egg-minced-pork', variants:[] },
-  { emoji:'🍅', bg:'orange-bg', name:'Tomato and Eggs', nameId:'Tomat dan Telur', tags:[['tag-green','✅ Simple'],['tag-yellow','⚡ 10 mins']], desc:'Classic Chinese tomato and egg stir-fry. Quick and homely.', descId:'Tumis tomat dan telur Tiongkok klasik. Cepat dan sederhana.', url:'https://www.madewithlau.com/recipes/tomato-and-eggs', variants:[] }
+  { emoji: '⬜', bg: '', name: 'Fried tofu', nameId: 'Tahu goreng', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🍳', bg: '', name: 'Minced pork egg tofu', nameId: 'Tahu telur daging babi cincang', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🌶️', bg: '', name: 'Mapo tofu', nameId: 'Mapo tahu', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🥔', bg: '', name: 'Omelette with potato', nameId: 'Telur dadar kentang', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🍳', bg: '', name: 'Omelette with minced pork', nameId: 'Telur dadar daging babi cincang', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🪺', bg: '', name: 'Steamed egg', nameId: 'Telur kukus', tags: [''], desc: '', descId: '', url: '', variants: [] }
 ];
 
 /* ═══════════════════════════════════════
