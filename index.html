@@ -909,11 +909,14 @@ function buildGrid(data, gridId) {
       variantsHtml = `<div class="variants">${chips}</div>`;
     }
 
-    const a = document.createElement('a');
+    const a = document.createElement(r.url ? 'a' : 'div');
     a.className = 'recipe-card' + (r.weekend ? ' is-weekend' : '');
-    a.href = r.url;
-    a.target = '_blank';
-    a.rel = 'noopener';
+    if (r.url) {
+      a.href = r.url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+    }
+    const btnHtml = r.url ? `<div class="recipe-btn">📖 View Recipe ↗</div>` : '';
     a.innerHTML = `
       <div class="img-wrap">
         <div class="${bgClass.trim()}">${r.emoji}</div>
@@ -925,7 +928,7 @@ function buildGrid(data, gridId) {
         <span class="recipe-name-id">${r.nameId}</span>
         <div class="recipe-tags">${tagsHtml}</div>
         <div class="recipe-desc">${r.desc}<br><em style="font-size:11px;color:#bbb;">${r.descId}</em></div>
-        <div class="recipe-btn">📖 View Recipe ↗</div>
+        ${btnHtml}
         ${variantsHtml}
       </div>
     `;
