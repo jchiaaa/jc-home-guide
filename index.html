@@ -174,7 +174,7 @@
   .recipe-name { font-size:14px; font-weight:800; color:var(--text-dark); margin-bottom:1px; line-height:1.3; }
   .recipe-name-id { font-size:11px; color:var(--text-soft); font-style:italic; margin-bottom:5px; display:block; font-weight:600; }
   .recipe-desc { font-size:12px; color:var(--text-mid); line-height:1.4; margin-bottom:8px; }
-  .recipe-tags { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:8px; }
+  .recipe-tags { display:none; flex-wrap:wrap; gap:4px; margin-bottom:8px; }
   .tag { font-size:10px; font-weight:700; padding:3px 8px; border-radius:50px; }
   .tag-green  { background:var(--green-light);  color:var(--green-dark); }
   .tag-orange { background:var(--orange-light); color:#C46D25; }
@@ -859,27 +859,32 @@ const PROTEIN_SEAFOOD = [
 ];
 
 const PROTEIN_SOUP = [
-  { emoji: '🍲', bg: '', name: 'Watercress pork soup', nameId: 'Sup babi selada air', tags: [['tag-green','No recipe link']], desc: 'Watercress, pork bones, carrot, corn, dried scallops', descId: '', url: '', variants: [] },
-  { emoji: '🥣', bg: '', name: 'ABC soup (chicken/pork)', nameId: 'Sup ABC (ayam/babi)', tags: [['tag-green','No recipe link']], desc: 'Onion, carrot, potato, corn, tomato, chicken/pork, dried scallops', descId: '', url: '', variants: [] },
-  { emoji: '🪵', bg: '', name: 'Lotus root soup', nameId: 'Sup akar teratai', tags: [['tag-green','No recipe link']], desc: 'Lotus root, peanuts, pork bones, carrot, corn, dried scallops', descId: '', url: '', variants: [] },
-  { emoji: '🥕', bg: '', name: 'Radish soup', nameId: 'Sup lobak', tags: [['tag-green','No recipe link']], desc: 'Radish, pork bones, carrot, corn, dried scallops', descId: '', url: 'White radish, pork bones, carrot, corn, dried scallops', variants: [] },
-  { emoji: '🥒', bg: '', name: 'Old cucumber soup', nameId: 'Sup timun tua', tags: [['tag-green','No recipe link']], desc: 'Old cucumber, pork bones, carrot, corn, dried scallops', descId: '', url: '', variants: [] },
+  { emoji: '🍲', bg: '', name: 'Watercress pork soup', nameId: 'Sup babi selada air', tags: [''], desc: 'Watercress, pork bones, carrot, corn, dried scallops', descId: '', url: '', variants: [] },
+  { emoji: '🥣', bg: '', name: 'ABC soup (chicken/pork)', nameId: 'Sup ABC (ayam/babi)', tags: [''], desc: 'Onion, carrot, potato, corn, tomato, chicken/pork, dried scallops', descId: '', url: '', variants: [] },
+  { emoji: '🪵', bg: '', name: 'Lotus root soup', nameId: 'Sup akar teratai', tags: [''], desc: 'Lotus root, peanuts, pork bones, carrot, corn, dried scallops', descId: '', url: '', variants: [] },
+  { emoji: '🥕', bg: '', name: 'Radish soup', nameId: 'Sup lobak', tags: [''], desc: 'Radish, pork bones, carrot, corn, dried scallops', descId: '', url: 'White radish, pork bones, carrot, corn, dried scallops', variants: [] },
+  { emoji: '🥒', bg: '', name: 'Old cucumber soup', nameId: 'Sup timun tua', tags: [''], desc: 'Old cucumber, pork bones, carrot, corn, dried scallops', descId: '', url: '', variants: [] },
   { emoji: '🌊', bg: '', name: 'Seaweed soup with egg', nameId: 'Sup rumput laut telur', tags: [''], desc: '', descId: '', url: 'https://www.youtube.com/watch?v=bgO6STjR7aM', variants: [] }
 ];
 
 const VEGE_VEG = [
-  { emoji:'🥬', bg:'', name:'Bak Choy', nameId:'Bak Choy', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Quick']], desc:'Stir-fried bak choy with garlic. Simple and nutritious.', descId:'Bak choy tumis bawang putih. Sederhana dan bergizi.', url:'https://www.youtube.com/watch?v=6tGVqr0QXh0', variants:[] },
-  { emoji:'🥦', bg:'', name:'Broccoli Stir-Fry', nameId:'Brokoli Tumis', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Quick']], desc:'Crisp stir-fried broccoli. Great with oyster sauce.', descId:'Brokoli tumis renyah. Enak dengan saus tiram.', url:'https://www.madewithlau.com/recipes/broccoli-stir-fry', variants:[] },
-  { emoji:'🫘', bg:'orange-bg', name:'Green Beans', nameId:'Buncis Tumis', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Quick']], desc:'Stir-fried green beans with garlic. Crunchy and tasty.', descId:'Buncis tumis bawang putih. Renyah dan lezat.', url:'https://www.madewithlau.com/recipes/stir-fried-green-beans', variants:[] },
-  { emoji:'🌱', bg:'', name:'Dou Miao (Pea Shoots)', nameId:'Daun Kacang Polong', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Quick']], desc:'Tender stir-fried pea shoots. Light and delicious.', descId:'Pucuk kacang polong tumis empuk. Ringan dan lezat.', url:'https://www.youtube.com/watch?v=rGEM4zGYEBw', variants:[] },
-  { emoji:'🌿', bg:'blue-bg', name:'Bean Sprouts', nameId:'Tauge Tumis', tags:[['tag-green','✅ Healthy'],['tag-yellow','⚡ Very quick']], desc:'Fresh bean sprouts stir-fried with garlic and spring onion.', descId:'Tauge segar tumis bawang putih dan daun bawang.', url:'https://www.youtube.com/watch?v=D2_8JTXIf8w', variants:[] }
+  { emoji: '🥬', bg: '', name: 'Bak Choy', nameId: 'Sawi sendok', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🥒', bg: '', name: 'Lady finger', nameId: 'Okra', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🥦', bg: '', name: 'Broccoli', nameId: 'Brokoli', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🥬', bg: '', name: 'Choy Sum (菜心)', nameId: 'Sawi hijau', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🫘', bg: '', name: 'French beans (四季豆)', nameId: 'Buncis', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🫘', bg: '', name: 'Long beans (菜豆)', nameId: 'Kacang panjang', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🌿', bg: '', name: 'Mani Chye', nameId: 'Daun katuk', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🥬', bg: '', name: 'Cabbage', nameId: 'Kubis', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🥬', bg: '', name: 'Napa cabbage (大白菜)', nameId: 'Sawi putih', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🍃', bg: '', name: 'Spinach', nameId: 'Bayam', tags: [''], desc: '', descId: '', url: '', variants: [] }
 ];
 
 const VEGE_TOFU = [
-  { emoji: '⬜', bg: '', name: 'Fried tofu', nameId: 'Tahu goreng', tags: [['tag-green','No recipe link']], desc: '', descId: '', url: '', variants: [] },
-  { emoji: '🍳', bg: '', name: 'Egg tofu', nameId: 'Tahu telur', tags: [['tag-green','No recipe link']], desc: '', descId: '', url: '', variants: [] },
-  { emoji: '🥔', bg: '', name: 'Omelette with potato', nameId: 'Telur dadar kentang', tags: [['tag-green','No recipe link']], desc: 'Nanny cooked before - Egg, potato', descId: '', url: '', variants: [] },
-  { emoji: '🥔', bg: '', name: 'Omelette with minced pork', nameId: 'Telur dadar daging babi cincang', tags: [['tag-green','No recipe link']], desc: 'Egg, minced pork', descId: '', url: '', variants: [] }, 
+  { emoji: '⬜', bg: '', name: 'Fried tofu', nameId: 'Tahu goreng', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🍳', bg: '', name: 'Egg tofu', nameId: 'Tahu telur', tags: [''], desc: '', descId: '', url: '', variants: [] },
+  { emoji: '🥔', bg: '', name: 'Omelette with potato', nameId: 'Telur dadar kentang', tags: [''], desc: 'Nanny cooked before - Egg, potato', descId: '', url: '', variants: [] },
+  { emoji: '🥔', bg: '', name: 'Omelette with minced pork', nameId: 'Telur dadar daging babi cincang', tags: [''], desc: 'Egg, minced pork', descId: '', url: '', variants: [] }, 
   { emoji: '🪺', bg: '', name: 'Steamed egg', nameId: 'Telur kukus', tags: [''], desc: '', descId: '', url: 'https://www.youtube.com/watch?v=dBZXMhruA1s', variants: [] }
 ];
 
