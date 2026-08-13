@@ -1020,14 +1020,20 @@ const SCHEDULE = [
   ]},
   // 1 — TUESDAY
   { specialLabel:'🪟 Weekly: Clean windows & blinds', tasks:[
-    {time:'8:00 AM', period:'morning',   emoji:'🍳', type:'daily',  label:'Prepare breakfast',                                         labelId:'Siapkan sarapan'},
-    {time:'9:00 AM', period:'morning',   emoji:'👶', type:'baby',   label:'Baby: hot water (45°C) + wipe baby area & toys',            labelId:'Bayi: air panas (45°C) + lap area bayi & mainan'},
-    {time:'10:00 AM',period:'morning',   emoji:'🍱', type:'daily',  label:'Prepare lunch',                                             labelId:'Siapkan makan siang'},
-    {time:'2:00 PM', period:'afternoon', emoji:'🪟', type:'weekly', label:'Weekly: Clean windows + blinds',                            labelId:'Mingguan: Bersihkan jendela + tirai',            note:'⚠️ No chemicals for dining area & master bedroom · Grill always stays · Must have someone supervising'},
-    {time:'4:00 PM', period:'afternoon', emoji:'👶', type:'baby',   label:'Baby: wash & sterilize bottles + wash baby clothes',        labelId:'Bayi: cuci & sterilkan botol + cuci pakaian bayi'},
+    {time:'7:00 AM', period:'morning',   emoji:'🍳', type:'daily',  label:'Prepare breakfast for Sir/Mam',                             labelId:'Siapkan sarapan'},
+    {time:'7:00 AM', period:'morning',   emoji:'🧹', type:'daily',  label:'Put away dishware in drawers',                              labelId:'Siapkan sarapan'},  
+    {time:'7:00 AM', period:'morning',   emoji:'🧹', type:'daily',  label:'Baby: wash & sterilize bottles, boil water',                labelId:'Bayi: cuci & sterilkan botol'},     
+    {time:'8:00 AM', period:'morning',   emoji:'👶', type:'daily',  label:'Shower for baby',                                           labelId:'Mandi untuk baby'},   
+    {time:'8:00 AM', period:'morning',   emoji:'🧹', type:'daily',  label:'Morning clean-up',                                          labelId:'Siapkan sarapan',                              note:'Vacuum whole house, make beds, pull up windows blinds'},
+    {time:'9:00 AM', period:'morning',   emoji:'🧹', type:'weekly', label:'Weekly: Wipe surface for master room and study room',       labelId:'Baby Cucian: cuci, keringkan dan lipatkan pakaian'},
+    {time:'10:00 AM', period:'morning', emoji:'👕', type:'weekly',  label:'Weekly: Dark coloured laundry: wash and dry',               labelId:'Cucian: cuci, keringkan & setrika',             note:'Fold clothes on bed · Hang ironed clothes near dining area'},
+    {time:'10:00 AM', period:'afternoon', emoji:'🚽', type:'weekly', label:'Weekly: Deep clean toilets',                               labelId:'Mingguan: Bersihkan toilet dalam (dapur + kamar utama)'},
+    {time:'11:00 AM',period:'afternoon', emoji:'🍱', type:'daily',  label:'Prepare lunch',                                             labelId:'Siapkan makan siang'},
+    {time:'12:00 PM', period:'afternoon',emoji:'🧹', type:'daily',  label:'Afternoon kitchen clean-up',                                labelId:'Bayi: cuci & sterilkan botol'},     
     {time:'5:00 PM', period:'afternoon', emoji:'🍲', type:'daily',  label:'Prepare dinner',                                            labelId:'Siapkan makan malam'},
-    {time:'7:00 PM', period:'night',     emoji:'👶', type:'baby',   label:'Baby: pickup and/or bathing',                               labelId:'Bayi: jemput dan/atau mandi'},
-    {time:'8:00 PM', period:'night',     emoji:'🧹', type:'daily',  label:'Evening clean-up',                                          labelId:'Bersih-bersih malam',                           note:'① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'},
+    {time:'6:00 PM', period:'night',     emoji:'👶', type:'baby',   label:'Baby: pickup and/or bathing',                               labelId:'Bayi: jemput dan/atau mandi'},
+    {time:'7:00 PM', period:'night', emoji:'👶', type:'baby',   label:'Baby: wash & sterilize bottles, boil water',                    labelId:'Bayi: cuci & sterilkan botol + cuci pakaian bayi'},
+    {time:'8:00 PM', period:'night',     emoji:'🧹', type:'daily',  label:'Evening clean-up',                                          labelId:'Bersih-bersih malam',                           note:'① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash (kitchen + all rooms)'},
   ]},
   // 2 — WEDNESDAY
   { specialLabel:'🛏️ Furniture wipe + bedsheets + 🚽 Toilet deep clean', tasks:[
@@ -1136,7 +1142,6 @@ function buildDayHTML(di, day) {
       html += `<div class="check-item check-item-ghost">
         <div class="check-box check-box-ghost" id="cb-${di}-${k}" onclick="toggleCheck(${di},'${k}')"></div>
         <div class="check-text">
-          <div class="check-time">${t.time}</div>
           <div class="check-label" id="cl-${di}-${k}">${t.emoji} ${t.label}</div>
           <div class="check-label-id">${t.labelId}</div>
           <div class="check-ghost-note">📋 Check with Sir / Mdm · Tanya Bapak / Ibu</div>
@@ -1148,7 +1153,6 @@ function buildDayHTML(di, day) {
       html += `<div class="check-item">
         <div class="check-box" id="cb-${di}-${k}" onclick="toggleCheck(${di},'${k}')"></div>
         <div class="check-text">
-          <div class="check-time">${t.time}</div>
           <div class="check-label" id="cl-${di}-${k}">${t.emoji} ${t.label}${typeTag}</div>
           <div class="check-label-id">${t.labelId}</div>
         </div>
