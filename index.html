@@ -1002,19 +1002,21 @@ const DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'
 
 const SCHEDULE = [
   // 0 — MONDAY
-  { specialLabel:'🛒 Grocery + 👕 Laundry day', tasks:[
+  { specialLabel:'🪟 Weekly: Clean windows & blinds + 👕 Baby Laundry day', tasks:[
     {time:'7:00 AM', period:'morning',   emoji:'🍳', type:'daily',  label:'Prepare breakfast for Sir/Mam',                             labelId:'Siapkan sarapan'},
-    {time:'7:00 AM', period:'morning',   emoji:'🧹', type:'daily',  label:'Wash bottles/dishes, keep all dishware in drawers',         labelId:'Siapkan sarapan'},   
-    {time:'8:00 AM', period:'morning',   emoji:'👶', type:'daily',  label:'Shower for baby and make milk',                             labelId:'Mandi untuk baby'},   
-    {time:'9:00 AM', period:'morning',   emoji:'👕', type:'weekly', label:'Baby laundry: wash, hang dry and fold clothes',             labelId:'Baby Cucian: cuci, keringkan dan lipatkan pakaian'},
-    {time:'9:00 AM', period:'morning',   emoji:'👶', type:'baby',   label:'Baby: hot water (45°C) + wipe baby area & toys',            labelId:'Bayi: air panas (45°C) + lap area bayi & mainan'},
-    {time:'11:00 AM',period:'morning',   emoji:'🍱', type:'daily',  label:'Prepare lunch',                                             labelId:'Siapkan makan siang'},
-    {time:'1:00 PM', period:'afternoon', emoji:'👕', type:'weekly', label:'Laundry: wash, dry & iron clothes',                         labelId:'Cucian: cuci, keringkan & setrika',             note:'Fold clothes on bed · Hang ironed clothes near dining area'},
-    {time:'2:00 PM', period:'afternoon', emoji:'🛒', type:'weekly', label:'Grocery shopping — run robot vacuum first',                 labelId:'Belanja — jalankan robot vakum dulu',            note:'2× a week (Mon & Thu). Start robot vacuum before leaving.'},
-    {time:'4:00 PM', period:'afternoon', emoji:'👶', type:'baby',   label:'Baby: wash & sterilize bottles + wash baby clothes',        labelId:'Bayi: cuci & sterilkan botol + cuci pakaian bayi'},
+    {time:'7:00 AM', period:'morning',   emoji:'🧹', type:'daily',  label:'Put away dishware in drawers',                              labelId:'Siapkan sarapan'},  
+    {time:'7:00 AM', period:'morning',   emoji:'🧹', type:'daily',  label:'Baby: wash & sterilize bottles, boil water',                labelId:'Bayi: cuci & sterilkan botol'},     
+    {time:'8:00 AM', period:'morning',   emoji:'👶', type:'daily',  label:'Shower for baby',                                           labelId:'Mandi untuk baby'},   
+    {time:'8:00 AM', period:'morning',   emoji:'🧹', type:'daily',  label:'Morning clean-up',                                          labelId:'Siapkan sarapan',                              note:'Vacuum whole house, make beds, pull up windows blinds'},
+    {time:'9:00 AM', period:'morning',   emoji:'👕', type:'weekly', label:'Baby laundry: wash and hang dry',                           labelId:'Baby Cucian: cuci, keringkan dan lipatkan pakaian'},
+    {time:'10:00 AM', period:'morning',   emoji:'🪟', type:'weekly', label:'Weekly: Clean windows and blinds for whole house',         labelId:'Baby Cucian: cuci, keringkan dan lipatkan pakaian'},
+    {time:'11:00 AM',period:'afternoon', emoji:'🍱', type:'daily',  label:'Prepare lunch',                                             labelId:'Siapkan makan siang'},
+    {time:'12:00 PM', period:'afternoon',emoji:'🧹', type:'daily',  label:'Afternoon kitchen clean-up',                                labelId:'Bayi: cuci & sterilkan botol'},     
+    {time:'1:00 PM', period:'afternoon', emoji:'👕', type:'weekly', label:'Baby laundry: fold clothes and keep in wardrobe',           labelId:'Cucian: cuci, keringkan & setrika'}, 
     {time:'5:00 PM', period:'afternoon', emoji:'🍲', type:'daily',  label:'Prepare dinner',                                            labelId:'Siapkan makan malam'},
-    {time:'7:00 PM', period:'night',     emoji:'👶', type:'baby',   label:'Baby: pickup and/or bathing',                               labelId:'Bayi: jemput dan/atau mandi'},
-    {time:'8:00 PM', period:'night',     emoji:'🧹', type:'daily',  label:'Evening clean-up',                                          labelId:'Bersih-bersih malam',                           note:'① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash & air bins (kitchen + diaper bin)'},
+    {time:'6:00 PM', period:'night',     emoji:'👶', type:'baby',   label:'Baby: pickup and/or bathing',                               labelId:'Bayi: jemput dan/atau mandi'},
+    {time:'7:00 PM', period:'night', emoji:'👶', type:'baby',   label:'Baby: wash & sterilize bottles, boil water',                    labelId:'Bayi: cuci & sterilkan botol + cuci pakaian bayi'},
+    {time:'8:00 PM', period:'night',     emoji:'🧹', type:'daily',  label:'Evening clean-up',                                          labelId:'Bersih-bersih malam',                           note:'① After cooking clean-up  ② Wash dishes  ③ Sweep & mop floor  ④ Freshen toilet + clear drainage  ⑤ Clear trash (kitchen + all rooms)'},
   ]},
   // 1 — TUESDAY
   { specialLabel:'🪟 Weekly: Clean windows & blinds', tasks:[
@@ -1031,6 +1033,7 @@ const SCHEDULE = [
   { specialLabel:'🛏️ Furniture wipe + bedsheets + 🚽 Toilet deep clean', tasks:[
     {time:'8:00 AM', period:'morning',   emoji:'👶', type:'baby',   label:'Baby: hot water (45°C) + wipe baby area & toys',            labelId:'Bayi: air panas (45°C) + lap area bayi & mainan'},
     {time:'9:00 AM', period:'morning',   emoji:'🛏️', type:'weekly', label:'Weekly: Wipe furniture + fans + change bedsheet (study room)',labelId:'Mingguan: Lap furnitur + kipas + ganti sprei (ruang belajar)', note:'Also wipe baby stroller.'},
+    {time:'9:00 AM', period:'morning',   emoji:'👕', type:'weekly', label:'Baby laundry: wash, hang dry and fold clothes',             labelId:'Baby Cucian: cuci, keringkan dan lipatkan pakaian'},
     {time:'12:00 PM',period:'afternoon', emoji:'🚽', type:'weekly', label:'Weekly: Deep clean toilets (kitchen + master bedroom)',      labelId:'Mingguan: Bersihkan toilet dalam (dapur + kamar utama)',     note:'① Wash toilet bowl  ② Clean glass windows  ③ Scrub walls & floor  ④ Replace floor mat  ⑤ Clear dustbin'},
     {time:'2:00 PM', period:'afternoon', emoji:'🛏️', type:'weekly', label:'Weekly: Wipe master bedroom furniture + change bedsheets',  labelId:'Mingguan: Lap furnitur kamar utama + ganti sprei',           note:'Wash & hang bedsheets from master bedroom + study room.'},
     {time:'4:00 PM', period:'afternoon', emoji:'👶', type:'baby',   label:'Baby: wash & sterilize bottles + wash baby clothes',        labelId:'Bayi: cuci & sterilkan botol + cuci pakaian bayi'},
