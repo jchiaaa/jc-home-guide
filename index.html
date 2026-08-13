@@ -1003,11 +1003,14 @@ const DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'
 const SCHEDULE = [
   // 0 — MONDAY
   { specialLabel:'🛒 Grocery + 👕 Laundry day', tasks:[
-    {time:'', period:'morning',   emoji:'🍳', type:'daily',  label:'Prepare breakfast for Sir/Mam',                             labelId:'Siapkan sarapan'},
+    {time:'7:00 AM', period:'morning',   emoji:'🍳', type:'daily',  label:'Prepare breakfast for Sir/Mam',                             labelId:'Siapkan sarapan'},
+    {time:'7:00 AM', period:'morning',   emoji:'🧹', type:'daily',  label:'Wash bottles/dishes, keep all dishware in drawers',         labelId:'Siapkan sarapan'},   
+    {time:'8:00 AM', period:'morning',   emoji:'👶', type:'daily',  label:'Shower for baby and make milk',                             labelId:'Mandi untuk baby'},   
+    {time:'9:00 AM', period:'morning',   emoji:'👕', type:'weekly', label:'Baby laundry: wash, hang dry and fold clothes',             labelId:'Baby Cucian: cuci, keringkan dan lipatkan pakaian'},
     {time:'9:00 AM', period:'morning',   emoji:'👶', type:'baby',   label:'Baby: hot water (45°C) + wipe baby area & toys',            labelId:'Bayi: air panas (45°C) + lap area bayi & mainan'},
-    {time:'10:00 AM',period:'morning',   emoji:'🍱', type:'daily',  label:'Prepare lunch',                                             labelId:'Siapkan makan siang'},
+    {time:'11:00 AM',period:'morning',   emoji:'🍱', type:'daily',  label:'Prepare lunch',                                             labelId:'Siapkan makan siang'},
     {time:'1:00 PM', period:'afternoon', emoji:'👕', type:'weekly', label:'Laundry: wash, dry & iron clothes',                         labelId:'Cucian: cuci, keringkan & setrika',             note:'Fold clothes on bed · Hang ironed clothes near dining area'},
-    {time:'2:00 PM', period:'afternoon', emoji:'🛒', type:'weekly', label:'Grocery shopping — run robot vacuum first',                  labelId:'Belanja — jalankan robot vakum dulu',            note:'2× a week (Mon & Thu). Start robot vacuum before leaving.'},
+    {time:'2:00 PM', period:'afternoon', emoji:'🛒', type:'weekly', label:'Grocery shopping — run robot vacuum first',                 labelId:'Belanja — jalankan robot vakum dulu',            note:'2× a week (Mon & Thu). Start robot vacuum before leaving.'},
     {time:'4:00 PM', period:'afternoon', emoji:'👶', type:'baby',   label:'Baby: wash & sterilize bottles + wash baby clothes',        labelId:'Bayi: cuci & sterilkan botol + cuci pakaian bayi'},
     {time:'5:00 PM', period:'afternoon', emoji:'🍲', type:'daily',  label:'Prepare dinner',                                            labelId:'Siapkan makan malam'},
     {time:'7:00 PM', period:'night',     emoji:'👶', type:'baby',   label:'Baby: pickup and/or bathing',                               labelId:'Bayi: jemput dan/atau mandi'},
@@ -1171,8 +1174,6 @@ function buildDayHTML(di, day) {
         noteHtml = `<div class="tl-note">${t.note.split('\n').map(l=>`<div>${l}</div>`).join('')}</div>`;
       }
       html += `<div class="timeline-item">
-        <div class="tl-time-col"><div class="tl-time">${t.time}</div></div>
-        <div class="tl-line-col"><div class="${dotCls}"></div>${!isLast?'<div class="tl-vline"></div>':''}</div>
         <div class="${cardCls}">
           <div class="tl-emoji">${t.emoji}</div>
           <div class="tl-title">${t.label}</div>
