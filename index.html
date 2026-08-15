@@ -351,6 +351,16 @@
   .tl-note { font-size: 11px; color: var(--text-mid); margin-top: 5px; line-height: 1.4; }
   .tl-note li { margin-left: 12px; list-style: disc; }
 
+  /* MONTHLY */
+  .monthly-ref-card {
+  background:#fff; border-radius:var(--radius); box-shadow:var(--shadow);
+  padding:14px 16px; margin-bottom:20px;
+  }
+  .monthly-ref-title { font-size:14px; font-weight:900; color:var(--text-dark); margin-bottom:10px; }
+  .monthly-ref-item { display:flex; gap:10px; align-items:center; padding:6px 0; }
+  .monthly-ref-week { font-size:11px; font-weight:800; color:var(--purple); width:50px; flex-shrink:0; }
+  .monthly-ref-label { font-size:12px; font-weight:700; color:var(--text-dark); }
+ 
   /* ══════════════════════════════
      HOUSE RULES STYLES
   ══════════════════════════════ */
@@ -1043,6 +1053,7 @@ const SCHEDULE = [
     {time:'7:00 AM', period:'morning',   emoji:'👶', type:'daily',  label:'Baby: wash & sterilize bottles, boil water',                labelId:'Bayi: cuci & sterilkan botol'},     
     {time:'8:00 AM', period:'morning',   emoji:'👶', type:'daily',  label:'Shower for baby',                                           labelId:'Mandi untuk baby'},   
     {time:'8:00 AM', period:'morning',   emoji:'🧹', type:'daily',  label:'Morning clean-up',                                          labelId:'Siapkan sarapan',                              note:'Vacuum whole house, make beds, pull up windows blinds'},
+    {time:'9:00 AM', period:'morning', emoji:'📅', type:'monthly', label:'Monthly task (see list below)', labelId:'Tugas bulanan (lihat daftar di bawah)'}, 
     {time:'9:00 AM', period:'morning',   emoji:'🛏️', type:'Weekly', label:'Monthly: Wipe surface for living room and all bedrooms',     labelId:'Baby Cucian: cuci, keringkan dan lipatkan pakaian'},
     {time:'10:00 AM', period:'morning',  emoji:'👕', type:'weekly',  label:'Weekly: Light coloured laundry: wash and hang dry',        labelId:'Cucian: cuci, keringkan & setrika'},
     {time:'11:00 AM',period:'afternoon', emoji:'🍱', type:'daily',  label:'Prepare lunch',                                             labelId:'Siapkan makan siang'},
@@ -1187,10 +1198,26 @@ function buildDayHTML(di, day) {
       </div>`;
     }
   });
-  html += `</div>`;
+  
+ html += `</div>`;
+
+  // MONTHLY TASKS (Wednesday only)
+  if (di === 2) {
+    html += `<div class="monthly-ref-card">
+      <div class="monthly-ref-title">📅 Monthly Tasks · Tugas Bulanan</div>`;
+    MONTHLY_TASKS_LIST.forEach(mt => {
+      html += `<div class="monthly-ref-item">
+        <span class="monthly-ref-week">${mt.week}</span>
+        <span>${mt.emoji}</span>
+        <span class="monthly-ref-label">${mt.label}</span>
+      </div>`;
+    });
+    html += `</div>`;
+  }
 
   // TIMELINE
   html += `<div style="margin-bottom:10px;font-size:15px;font-weight:900;color:var(--text-dark)">📋 Daily Timeline · Jadwal Harian</div>`;
+ 
   const periods = [
     {key:'morning',   label:'🌅 Morning · Pagi'},
     {key:'afternoon', label:'☀️ Afternoon · Siang'},
@@ -1247,6 +1274,13 @@ const MEAL_GHOSTS = {
   dinner:    { emoji:'🍲', label:'Prepare dinner',    labelId:'Siapkan makan malam', time:'5:00 PM',  type:'daily' },
 };
 
+const MONTHLY_TASKS_LIST = [
+  { week:'1st Wed', emoji:'🛏️', label:'Change bedsheets & vacuum mattresses', labelId:'Ganti sprei & vakum kasur' },
+  { week:'2nd Wed', emoji:'❄️', label:'Clean aircon filters & washing machine', labelId:'Bersihkan filter AC & mesin cuci' },
+  { week:'3rd Wed', emoji:'🌀', label:'Clean ceiling fans', labelId:'Bersihkan kipas plafon' },
+  { week:'4th Wed', emoji:'🛋️', label:'Wipe leather sofa', labelId:'Lap sofa kulit' }
+];
+ 
 function getChecklistItems(tasks) {
   const items = [];
   // 1. Weekly tasks first
